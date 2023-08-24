@@ -18,7 +18,8 @@ class ConvertVC: UIViewController {
     @IBOutlet weak var toCurrencyTextField: UITextField!
     
     @IBOutlet weak var favoritesCurrenciesTableView: UITableView!
-    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
     let viewModel = ConvertViewModel()
     let disposeBag = DisposeBag()
     let convertButtonPressed = PublishSubject<Void>()
@@ -37,10 +38,12 @@ class ConvertVC: UIViewController {
         print(usdEmoji)
         
         viewModel.fetchCurrency()
-        bindViewModel()
+        bindTableViewToViewModel()
         viewModel.fromUSDtoEGP()
         bindViewModelToViews()
         bindViewsToViewModel()
+        favoritesCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
+
     }
 
     @IBAction func convertButtonPressed(_ sender: UIButton) {
@@ -49,12 +52,14 @@ class ConvertVC: UIViewController {
     
 }
 
+//MARK: Binding Section
 extension ConvertVC{
     
     func bindViewModelToViews(){
         viewModel.fromCurrencyOutPutRelay.bind(to: fromAmountTextField.rx.text).disposed(by: disposeBag)
         viewModel.toCurrencyOutPutRelay.bind(to: toAmountTextField.rx.text).disposed(by: disposeBag)
         
+        //A3takd l streen l ta7t dol malohmsh lazma
         viewModel.fromCurrencyRelay.bind(to: fromCurrencyTextField.rx.text).disposed(by: disposeBag)
         viewModel.toCurrencyRelay.bind(to: toCurrencyTextField.rx.text).disposed(by: disposeBag)
     }
@@ -68,8 +73,6 @@ extension ConvertVC{
             .compactMap(Double.init)
             .bind(to: viewModel.fromAmountRelay)
             .disposed(by: disposeBag)
-
-
         
         toAmountTextField.rx
             .text
@@ -94,12 +97,15 @@ extension ConvertVC{
     }
     
     
-    func bindViewModel(){
+    func bindTableViewToViewModel(){
         viewModel.currencyRates
-            .bind(to: favoritesCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: ConversionRateTableViewCell.self)){
+            .bind(to: favoritesCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
                 (row,exchangeRate,cell) in
-                cell.keyCurrency.text = String(exchangeRate.key)
-                cell.valueCurrency.text = String(exchangeRate.value)
+                cell.baseLabel.text = "Currency"
+//                cell.currencyLabel.text = "USD"
+//                cell.rateLabel.text = "99.5"
+                cell.currencyLabel.text = String(exchangeRate.key)
+                cell.rateLabel.text = String(exchangeRate.value)
             }
             .disposed(by: disposeBag)
     }
@@ -114,4 +120,12 @@ extension ConvertVC{
         }
         return emoji
     }
+
+//    func setUpUiComponents(){
+//        segmentedControl.layer.cornerRadius = 50    //segmentedControl.bounds.height / 2
+//        segmentedControl.layer.borderColor = UIColor.red.cgColor
+//        segmentedControl.layer.borderWidth = 1
+//        segmentedControl.layer.masksToBounds = true
+//        segmentedControl.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+//    }
 }

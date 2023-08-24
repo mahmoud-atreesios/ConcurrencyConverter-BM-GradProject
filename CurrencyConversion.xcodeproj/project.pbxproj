@@ -21,6 +21,7 @@
 		1C3C82442A9740C100D136DC /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C82432A9740C100D136DC /* ApiManager.swift */; };
 		1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C82482A975FB100D136DC /* CurrencyCell.swift */; };
 		1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C3C82492A975FB100D136DC /* CurrencyCell.xib */; };
+		1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		1C3C82432A9740C100D136DC /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		1C3C82482A975FB100D136DC /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		1C3C82492A975FB100D136DC /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
+		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +97,9 @@
 		1C09D3502A950FDC002657EE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1C898FA32A97AAB5008152D1 /* Custom */,
+				1C3C824C2A9777ED00D136DC /* ConversionView */,
 				1C3C82472A975F8800D136DC /* CurrencyTableViewcell */,
-				1C09D33F2A950FCA002657EE /* ConvertVC.swift */,
-				1C09D3412A950FCA002657EE /* Main.storyboard */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -118,6 +120,23 @@
 				1C3C82492A975FB100D136DC /* CurrencyCell.xib */,
 			);
 			path = CurrencyTableViewcell;
+			sourceTree = "<group>";
+		};
+		1C3C824C2A9777ED00D136DC /* ConversionView */ = {
+			isa = PBXGroup;
+			children = (
+				1C09D33F2A950FCA002657EE /* ConvertVC.swift */,
+				1C09D3412A950FCA002657EE /* Main.storyboard */,
+			);
+			path = ConversionView;
+			sourceTree = "<group>";
+		};
+		1C898FA32A97AAB5008152D1 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +226,7 @@
 				1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */,
 				1C3C82442A9740C100D136DC /* ApiManager.swift in Sources */,
 				1C09D3532A951121002657EE /* CurrencyModel.swift in Sources */,
+				1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

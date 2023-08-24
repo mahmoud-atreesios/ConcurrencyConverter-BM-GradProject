@@ -21,7 +21,7 @@ class ConvertViewModel{
     // Input
     var fromCurrencyRelay = BehaviorRelay<String>(value: "")
     var toCurrencyRelay = BehaviorRelay<String>(value: "")
-    var fromAmountRelay = BehaviorRelay<Double>(value: 5.0)
+    var fromAmountRelay = BehaviorRelay<Double>(value: 1.0)
     var toAmountRelay = BehaviorRelay<Double>(value: 0.0)
     
     // Output

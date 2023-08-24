@@ -9,9 +9,15 @@ import UIKit
 
 class CurrencyCell: UITableViewCell {
 
+    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var baseLabel: UILabel!
+    @IBOutlet weak var rateLabel: UILabel!
+    
+    @IBOutlet weak var currencyFlagImageView: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        currencyFlagImageView.makeRounded()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -21,3 +27,16 @@ class CurrencyCell: UITableViewCell {
     }
     
 }
+
+extension UIImageView {
+    
+    func makeRounded() {
+        
+        layer.borderWidth = 1
+        layer.masksToBounds = false
+        layer.borderColor = UIColor.white.cgColor
+        layer.cornerRadius = self.frame.height / 2
+        clipsToBounds = true
+    }
+}
+

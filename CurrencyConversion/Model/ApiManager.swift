@@ -14,11 +14,15 @@ protocol fetchData{
 
 enum Endpoints {
     case getExchangeRate
+    case getAllCurrencies
     
     var stringUrl: URL {
         switch self {
         case .getExchangeRate:
             return URL(string: "https://v6.exchangerate-api.com/v6/ecf10bab01b34bf0de9636e1/latest/USD")!
+        case .getAllCurrencies:
+            return URL(string: "http://16.171.165.234/api/v1")!
+
         }
     }
 }

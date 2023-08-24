@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SDWebImage
 
 class ConvertVC: UIViewController {
     
@@ -32,11 +33,16 @@ class ConvertVC: UIViewController {
         // Do any additional setup after loading the view.
         fromCurrencyTextField.font = UIFont.systemFont(ofSize: 17)
         toCurrencyTextField.font = UIFont.systemFont(ofSize: 17)
+        
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        //segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //segmentedControl.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        segmentedControl.heightAnchor.constraint(equalToConstant: 50).isActive = true
 
 //        fromCurrencyTextField.text = "\(usdEmoji) USD"
 //        toCurrencyTextField.text = "\(egpEmoji) EGP"
         print(usdEmoji)
-        
+        viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
         bindTableViewToViewModel()
         viewModel.fromUSDtoEGP()
@@ -98,16 +104,28 @@ extension ConvertVC{
     
     
     func bindTableViewToViewModel(){
-        viewModel.currencyRates
-            .bind(to: favoritesCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
-                (row,exchangeRate,cell) in
-                cell.baseLabel.text = "Currency"
-//                cell.currencyLabel.text = "USD"
-//                cell.rateLabel.text = "99.5"
-                cell.currencyLabel.text = String(exchangeRate.key)
-                cell.rateLabel.text = String(exchangeRate.value)
+        
+        viewModel.allOfCurrencies
+            .bind(to: favoritesCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){ (row, currency, cell) in
+                cell.currencyLabel.text = String(currency.desc)
+                cell.rateLabel.text = String(currency.code)
+                if let url = URL(string: currency.flagURL) {
+                    cell.currencyFlagImageView.sd_setImage(with: url, completed: nil)
+                }
+                //cell.currencyFlagImageView.image = UIImage(named: String(currency.flagURL))
             }
             .disposed(by: disposeBag)
+        
+//        viewModel.currencyRates
+//            .bind(to: favoritesCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
+//                (row,exchangeRate,cell) in
+//                cell.baseLabel.text = "Currency"
+//                cell.currencyLabel.text = "USD"
+//                cell.rateLabel.text = "99.5"
+//                cell.currencyLabel.text = String(exchangeRate.key)
+//                cell.rateLabel.text = String(exchangeRate.value)
+//            }
+//            .disposed(by: disposeBag)
     }
 }
 
@@ -121,11 +139,4 @@ extension ConvertVC{
         return emoji
     }
 
-//    func setUpUiComponents(){
-//        segmentedControl.layer.cornerRadius = 50    //segmentedControl.bounds.height / 2
-//        segmentedControl.layer.borderColor = UIColor.red.cgColor
-//        segmentedControl.layer.borderWidth = 1
-//        segmentedControl.layer.masksToBounds = true
-//        segmentedControl.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
-//    }
 }

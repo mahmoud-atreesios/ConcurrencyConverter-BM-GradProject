@@ -10,14 +10,17 @@ import RxSwift
 import RxRelay
 
 class ConvertViewModel{
-    
-    //    private let apiClient: ApiClient
-    
+        
     var exchangeCurrency: CurrencyModel?
+    var allCurrencies: AllCurrenciesModel?
     var currencyRates = BehaviorRelay<[String:Double]>(value: ["USD":0.0])
+    
+    var allOfCurrencies = PublishRelay<[Currency]>.init()
+    //var flagOfCurrencies = BehaviorRelay<[String]>(value: ["lagURL"])
+
     let disposeBag = DisposeBag()
     
-
+    
     // Input
     var fromCurrencyRelay = BehaviorRelay<String>(value: "")
     var toCurrencyRelay = BehaviorRelay<String>(value: "")
@@ -36,6 +39,18 @@ class ConvertViewModel{
             .subscribe { currency in
                 self.exchangeCurrency = currency
                 self.currencyRates.accept(currency.conversionRates)
+            } onError: { error in
+                print(error)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func fetchAllCurrencies(){
+        ApiClient().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrencies)
+            .subscribe { acurrency in
+                self.allCurrencies = acurrency
+                self.allOfCurrencies.accept(acurrency.currencies)
+                //self.currencyRates.accept(currency.conversionRates)
             } onError: { error in
                 print(error)
             }

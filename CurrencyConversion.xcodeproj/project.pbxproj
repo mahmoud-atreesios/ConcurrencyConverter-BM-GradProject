@@ -23,8 +23,16 @@
 		1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C3C82492A975FB100D136DC /* CurrencyCell.xib */; };
 		1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */; };
 		1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */; };
-		1C898FAA2A97C592008152D1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C898FA92A97C592008152D1 /* SDWebImage */; };
-		1C898FAC2A97C592008152D1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C898FAB2A97C592008152D1 /* SDWebImageMapKit */; };
+		1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */; };
+		1C9E0A322A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C9E0A302A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib */; };
+		1C9E0A342A99431100AC543E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A332A99431100AC543E /* Constants.swift */; };
+		1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */; };
+		1C9E0A3B2A996D7000AC543E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A3A2A996D7000AC543E /* SDWebImage */; };
+		1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */; };
+		1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */; };
+		1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */; };
+		1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCE20892A98FCFB00A7CE6C /* iOSDropDown */; };
+		1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE208B2A99047800A7CE6C /* RadioButton.swift */; };
 		32EF19062A97F788004A0CEC /* Convert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19052A97F788004A0CEC /* Convert.xib */; };
 		32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF19072A97F7A9004A0CEC /* Convert.swift */; };
 		32EF190A2A98B571004A0CEC /* Compare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19092A98B571004A0CEC /* Compare.xib */; };
@@ -48,7 +56,13 @@
 		1C3C82492A975FB100D136DC /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
 		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCurrenciesModel.swift; sourceTree = "<group>"; };
-		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Convert.xib; sourceTree = "<group>"; };
+		1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCurrenciesTableViewCell.swift; sourceTree = "<group>"; };
+		1C9E0A302A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteCurrenciesTableViewCell.xib; sourceTree = "<group>"; };
+		1C9E0A332A99431100AC543E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertWithNibFileVC.swift; sourceTree = "<group>"; };
+		1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareWithNibFileVC.swift; sourceTree = "<group>"; };
+		1CCE208B2A99047800A7CE6C /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Convert.xib; path = ../../Convert.xib; sourceTree = "<group>"; };
 		32EF19072A97F7A9004A0CEC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		32EF19092A98B571004A0CEC /* Compare.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Compare.xib; sourceTree = "<group>"; };
 		32EF190B2A98B585004A0CEC /* Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compare.swift; sourceTree = "<group>"; };
@@ -60,10 +74,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C9E0A3B2A996D7000AC543E /* SDWebImage in Frameworks */,
 				1C3C82422A973C1000D136DC /* RxSwift in Frameworks */,
-				1C898FAC2A97C592008152D1 /* SDWebImageMapKit in Frameworks */,
 				1C3C82402A973C1000D136DC /* RxRelay in Frameworks */,
-				1C898FAA2A97C592008152D1 /* SDWebImage in Frameworks */,
+				1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */,
+				1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */,
+				1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */,
 				1C3C823E2A973C1000D136DC /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,18 +106,16 @@
 		1C09D33A2A950FCA002657EE /* CurrencyConversion */ = {
 			isa = PBXGroup;
 			children = (
-				32EF19052A97F788004A0CEC /* Convert.xib */,
-				32EF19092A98B571004A0CEC /* Compare.xib */,
-				32EF190B2A98B585004A0CEC /* Compare.swift */,
-				32EF19072A97F7A9004A0CEC /* Convert.swift */,
 				1C09D33B2A950FCA002657EE /* AppDelegate.swift */,
 				1C09D33D2A950FCA002657EE /* SceneDelegate.swift */,
 				1C09D3512A950FE1002657EE /* Model */,
 				1C09D3502A950FDC002657EE /* View */,
 				1C09D34F2A950FD4002657EE /* ViewModel */,
+				1C898FA32A97AAB5008152D1 /* Custom */,
 				1C09D3442A950FCC002657EE /* Assets.xcassets */,
 				1C09D3462A950FCC002657EE /* LaunchScreen.storyboard */,
 				1C09D3492A950FCC002657EE /* Info.plist */,
+				1C9E0A352A995ADB00AC543E /* Constants */,
 			);
 			path = CurrencyConversion;
 			sourceTree = "<group>";
@@ -117,9 +131,11 @@
 		1C09D3502A950FDC002657EE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1C9E0A2E2A99324700AC543E /* FavoritesTableViewCell */,
+				1C9E0A2D2A99160C00AC543E /* CompareView */,
+				1C780D052A9914F400AFF4FF /* ConvertView */,
 				1C3C824C2A9777ED00D136DC /* ConversionView */,
 				1C3C82472A975F8800D136DC /* CurrencyTableViewcell */,
-				1C898FA32A97AAB5008152D1 /* Custom */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -153,12 +169,50 @@
 			path = ConversionView;
 			sourceTree = "<group>";
 		};
+		1C780D052A9914F400AFF4FF /* ConvertView */ = {
+			isa = PBXGroup;
+			children = (
+				32EF19052A97F788004A0CEC /* Convert.xib */,
+				32EF19072A97F7A9004A0CEC /* Convert.swift */,
+				1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */,
+			);
+			path = ConvertView;
+			sourceTree = "<group>";
+		};
 		1C898FA32A97AAB5008152D1 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
 				1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */,
+				1CCE208B2A99047800A7CE6C /* RadioButton.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		1C9E0A2D2A99160C00AC543E /* CompareView */ = {
+			isa = PBXGroup;
+			children = (
+				32EF19092A98B571004A0CEC /* Compare.xib */,
+				32EF190B2A98B585004A0CEC /* Compare.swift */,
+				1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */,
+			);
+			path = CompareView;
+			sourceTree = "<group>";
+		};
+		1C9E0A2E2A99324700AC543E /* FavoritesTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */,
+				1C9E0A302A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib */,
+			);
+			path = FavoritesTableViewCell;
+			sourceTree = "<group>";
+		};
+		1C9E0A352A995ADB00AC543E /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				1C9E0A332A99431100AC543E /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,8 +235,10 @@
 				1C3C823D2A973C1000D136DC /* RxCocoa */,
 				1C3C823F2A973C1000D136DC /* RxRelay */,
 				1C3C82412A973C1000D136DC /* RxSwift */,
-				1C898FA92A97C592008152D1 /* SDWebImage */,
-				1C898FAB2A97C592008152D1 /* SDWebImageMapKit */,
+				1CCE20892A98FCFB00A7CE6C /* iOSDropDown */,
+				1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */,
+				1C9E0A3A2A996D7000AC543E /* SDWebImage */,
+				1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */,
 			);
 			productName = CurrencyConversion;
 			productReference = 1C09D3382A950FCA002657EE /* CurrencyConversion.app */;
@@ -214,7 +270,9 @@
 			mainGroup = 1C09D32F2A950FCA002657EE;
 			packageReferences = (
 				1C3C823C2A973C1000D136DC /* XCRemoteSwiftPackageReference "RxSwift" */,
-				1C898FA82A97C592008152D1 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				1CCE20882A98FCFB00A7CE6C /* XCRemoteSwiftPackageReference "iOSDropDown" */,
+				1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
+				1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 1C09D3392A950FCA002657EE /* Products */;
 			projectDirPath = "";
@@ -231,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */,
+				1C9E0A322A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib in Resources */,
 				1C09D3482A950FCC002657EE /* LaunchScreen.storyboard in Resources */,
 				1C09D3452A950FCC002657EE /* Assets.xcassets in Resources */,
 				32EF190A2A98B571004A0CEC /* Compare.xib in Resources */,
@@ -247,15 +306,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C09D3552A95112C002657EE /* ConvertViewModel.swift in Sources */,
+				1C9E0A342A99431100AC543E /* Constants.swift in Sources */,
 				32EF190E2A98C35A004A0CEC /* AddToFavoritesVC.swift in Sources */,
 				32EF190C2A98B585004A0CEC /* Compare.swift in Sources */,
 				32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */,
 				1C09D3402A950FCA002657EE /* ConvertVC.swift in Sources */,
 				1C09D33C2A950FCA002657EE /* AppDelegate.swift in Sources */,
+				1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */,
 				1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */,
 				1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */,
+				1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */,
+				1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */,
 				1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */,
 				1C3C82442A9740C100D136DC /* ApiManager.swift in Sources */,
+				1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */,
 				1C09D3532A951121002657EE /* CurrencyModel.swift in Sources */,
 				1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */,
 			);
@@ -485,12 +549,28 @@
 				kind = branch;
 			};
 		};
-		1C898FA82A97C592008152D1 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
 				branch = master;
 				kind = branch;
+			};
+		};
+		1CCE20882A98FCFB00A7CE6C /* XCRemoteSwiftPackageReference "iOSDropDown" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jriosdev/iOSDropDown.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -511,15 +591,25 @@
 			package = 1C3C823C2A973C1000D136DC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		1C898FA92A97C592008152D1 /* SDWebImage */ = {
+		1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C898FA82A97C592008152D1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			package = 1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
+		};
+		1C9E0A3A2A996D7000AC543E /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
-		1C898FAB2A97C592008152D1 /* SDWebImageMapKit */ = {
+		1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C898FA82A97C592008152D1 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			package = 1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImageMapKit;
+		};
+		1CCE20892A98FCFB00A7CE6C /* iOSDropDown */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1CCE20882A98FCFB00A7CE6C /* XCRemoteSwiftPackageReference "iOSDropDown" */;
+			productName = iOSDropDown;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

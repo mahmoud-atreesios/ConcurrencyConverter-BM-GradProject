@@ -10,16 +10,14 @@ import RxSwift
 import RxRelay
 
 class ConvertViewModel{
-        
+    private let disposeBag = DisposeBag()
+    
     var exchangeCurrency: CurrencyModel?
     var allCurrencies: AllCurrenciesModel?
     var currencyRates = BehaviorRelay<[String:Double]>(value: ["USD":0.0])
-    
     var allOfCurrencies = PublishRelay<[Currency]>.init()
-    //var flagOfCurrencies = BehaviorRelay<[String]>(value: ["lagURL"])
 
-    let disposeBag = DisposeBag()
-    
+    var errorSubject = PublishSubject<String>.init()
     
     // Input
     var fromCurrencyRelay = BehaviorRelay<String>(value: "")
@@ -34,8 +32,10 @@ class ConvertViewModel{
 
    // var placeholderOutputRelay = PublishRelay<String>.init()
     
+    
+    
     func fetchCurrency(){
-        ApiClient().getData(modelDTO: CurrencyModel.self, .getExchangeRate)
+        ApiClient.shared().getData(modelDTO: CurrencyModel.self, .getExchangeRate)
             .subscribe { currency in
                 self.exchangeCurrency = currency
                 self.currencyRates.accept(currency.conversionRates)
@@ -46,13 +46,14 @@ class ConvertViewModel{
     }
     
     func fetchAllCurrencies(){
-        ApiClient().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrencies)
-            .subscribe { acurrency in
-                self.allCurrencies = acurrency
-                self.allOfCurrencies.accept(acurrency.currencies)
+        ApiClient.shared().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrencies)
+            .subscribe { listOfAllCurrencies in
+                self.allCurrencies = listOfAllCurrencies
+                self.allOfCurrencies.accept(listOfAllCurrencies.currencies)
                 //self.currencyRates.accept(currency.conversionRates)
             } onError: { error in
                 print(error)
+                self.errorSubject.onNext(error.localizedDescription)
             }
             .disposed(by: disposeBag)
     }

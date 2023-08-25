@@ -14,6 +14,7 @@ class CurrencyCell: UITableViewCell {
     @IBOutlet weak var rateLabel: UILabel!
     
     @IBOutlet weak var currencyFlagImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

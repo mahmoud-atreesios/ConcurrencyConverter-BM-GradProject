@@ -6,25 +6,47 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import SDWebImage
+import SDWebImageSVGCoder
 
 class AddToFavoritesVC: UIViewController {
+    
     @IBOutlet weak var favoritesContainerUIView: UIView!
+    @IBOutlet weak var selectedFavouritesCurrenciesTableView: UITableView!
+    
+    let viewModel = ConvertViewModel()
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         favoritesContainerUIView.layer.cornerRadius = 25
-        // Do any additional setup after loading the view.
+        setupSVG()
+        viewModel.fetchAllCurrencies()
+        bindTableViewToViewModel()
+        selectedFavouritesCurrenciesTableView.register(UINib(nibName: "FavoriteCurrenciesTableViewCell", bundle: nil), forCellReuseIdentifier: "favoriteCell")
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+extension AddToFavoritesVC{
+    
+    func bindTableViewToViewModel() {
+        print("ana gwa l function")
+        viewModel.allOfCurrencies
+            .bind(to: selectedFavouritesCurrenciesTableView.rx.items(cellIdentifier: "favoriteCell", cellType: FavoriteCurrenciesTableViewCell.self)){
+                (row, currency, cell) in
+                cell.currencyLabel.text = String(currency.desc)
+                cell.currencyCode.text = String(currency.code)
+                if let url = URL(string: currency.flagURL) {
+                    cell.currencyFlagImageView.sd_setImage(with: url)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    func setupSVG() {
+        let SVGCoder = SDImageSVGCoder.shared
+        SDImageCodersManager.shared.addCoder(SVGCoder)
+    }
+}
+

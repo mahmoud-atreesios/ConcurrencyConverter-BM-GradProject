@@ -10,11 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConvertWithNibFileVC" customModule="CurrencyConversion" customModuleProvider="target">
             <connections>
-                <outlet property="fromAmountCurrencyTextField" destination="NLv-Pn-t0g" id="Ltj-Cn-KWF"/>
-                <outlet property="fromCurrencyTypeDropList" destination="l4D-X2-M8w" id="78o-Dn-Yrx"/>
                 <outlet property="selectedFavouriteCurrenciesTableView" destination="auA-6v-p0c" id="O7H-Fl-Vhg"/>
-                <outlet property="toAmountCurrencyTextField" destination="AvM-qa-wOx" id="XIq-x3-sTp"/>
-                <outlet property="toCurrencyTypeDropList" destination="WDQ-h0-qjW" id="gzb-vA-dCv"/>
                 <outlet property="view" destination="iN0-l3-epB" id="uMe-Xm-Tgt"/>
             </connections>
         </placeholder>
@@ -24,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkl-q4-VeG">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="800"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="800"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="JLl-yt-mfV">
                             <rect key="frame" x="0.0" y="43" width="393" height="152"/>
@@ -146,7 +142,7 @@
                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="convertButtonPressed:" destination="-1" eventType="touchUpInside" id="2Q4-hk-ak7"/>
+                                <action selector="convertButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="eEM-QD-0BB"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WsZ-2X-aJ8">
@@ -176,7 +172,7 @@
                                         <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </buttonConfiguration>
                                     <connections>
-                                        <action selector="addToFavouritesButtonPressed:" destination="-1" eventType="touchUpInside" id="nkz-XK-lmz"/>
+                                        <action selector="addToFavoriteButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="AdN-xO-rtU"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -188,7 +184,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="auA-6v-p0c">
-                            <rect key="frame" x="-6" y="464.33333333333331" width="407" height="246.66666666666669"/>
+                            <rect key="frame" x="-6" y="464.33333333333343" width="407" height="246.66666666666669"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </tableView>
                     </subviews>
@@ -222,6 +218,12 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rkl-q4-VeG" secondAttribute="trailing" id="h2F-ZB-FAJ"/>
                 <constraint firstItem="rkl-q4-VeG" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="nKD-gd-ZlX"/>
             </constraints>
+            <connections>
+                <outlet property="fromAmountTextField" destination="NLv-Pn-t0g" id="Bmj-39-cEB"/>
+                <outlet property="fromCurrencyTextField" destination="l4D-X2-M8w" id="uop-Uf-bWC"/>
+                <outlet property="toAmountTextField" destination="AvM-qa-wOx" id="Pxw-QY-rZ8"/>
+                <outlet property="toCurrencyTextField" destination="WDQ-h0-qjW" id="dHe-wQ-gBg"/>
+            </connections>
             <point key="canvasLocation" x="47" y="20"/>
         </view>
     </objects>

@@ -25,6 +25,11 @@
 		1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */; };
 		1C898FAA2A97C592008152D1 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C898FA92A97C592008152D1 /* SDWebImage */; };
 		1C898FAC2A97C592008152D1 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C898FAB2A97C592008152D1 /* SDWebImageMapKit */; };
+		32EF19062A97F788004A0CEC /* Convert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19052A97F788004A0CEC /* Convert.xib */; };
+		32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF19072A97F7A9004A0CEC /* Convert.swift */; };
+		32EF190A2A98B571004A0CEC /* Compare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19092A98B571004A0CEC /* Compare.xib */; };
+		32EF190C2A98B585004A0CEC /* Compare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF190B2A98B585004A0CEC /* Compare.swift */; };
+		32EF190E2A98C35A004A0CEC /* AddToFavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF190D2A98C35A004A0CEC /* AddToFavoritesVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +48,11 @@
 		1C3C82492A975FB100D136DC /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
 		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCurrenciesModel.swift; sourceTree = "<group>"; };
+		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Convert.xib; sourceTree = "<group>"; };
+		32EF19072A97F7A9004A0CEC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
+		32EF19092A98B571004A0CEC /* Compare.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Compare.xib; sourceTree = "<group>"; };
+		32EF190B2A98B585004A0CEC /* Compare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compare.swift; sourceTree = "<group>"; };
+		32EF190D2A98C35A004A0CEC /* AddToFavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToFavoritesVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +90,10 @@
 		1C09D33A2A950FCA002657EE /* CurrencyConversion */ = {
 			isa = PBXGroup;
 			children = (
+				32EF19052A97F788004A0CEC /* Convert.xib */,
+				32EF19092A98B571004A0CEC /* Compare.xib */,
+				32EF190B2A98B585004A0CEC /* Compare.swift */,
+				32EF19072A97F7A9004A0CEC /* Convert.swift */,
 				1C09D33B2A950FCA002657EE /* AppDelegate.swift */,
 				1C09D33D2A950FCA002657EE /* SceneDelegate.swift */,
 				1C09D3512A950FE1002657EE /* Model */,
@@ -133,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				1C09D33F2A950FCA002657EE /* ConvertVC.swift */,
+				32EF190D2A98C35A004A0CEC /* AddToFavoritesVC.swift */,
 				1C09D3412A950FCA002657EE /* Main.storyboard */,
 			);
 			path = ConversionView;
@@ -218,7 +233,9 @@
 				1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */,
 				1C09D3482A950FCC002657EE /* LaunchScreen.storyboard in Resources */,
 				1C09D3452A950FCC002657EE /* Assets.xcassets in Resources */,
+				32EF190A2A98B571004A0CEC /* Compare.xib in Resources */,
 				1C09D3432A950FCA002657EE /* Main.storyboard in Resources */,
+				32EF19062A97F788004A0CEC /* Convert.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +247,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C09D3552A95112C002657EE /* ConvertViewModel.swift in Sources */,
+				32EF190E2A98C35A004A0CEC /* AddToFavoritesVC.swift in Sources */,
+				32EF190C2A98B585004A0CEC /* Compare.swift in Sources */,
+				32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */,
 				1C09D3402A950FCA002657EE /* ConvertVC.swift in Sources */,
 				1C09D33C2A950FCA002657EE /* AppDelegate.swift in Sources */,
 				1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */,

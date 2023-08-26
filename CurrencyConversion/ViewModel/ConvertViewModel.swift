@@ -16,7 +16,7 @@ class ConvertViewModel{
     var allCurrencies: AllCurrenciesModel?
     var currencyRates = BehaviorRelay<[String:Double]>(value: ["USD":0.0])
     var allOfCurrencies = PublishRelay<[Currency]>.init()
-
+    
     var errorSubject = PublishSubject<String>.init()
     
     // Input
@@ -29,8 +29,8 @@ class ConvertViewModel{
     var toCurrencyOutPutRelay = PublishRelay<String>.init()
     var fromCurrencyOutPutRelay = PublishRelay<String>.init()
     var convertButtonPressedRelay = PublishRelay<Void>()
-
-   // var placeholderOutputRelay = PublishRelay<String>.init()
+    
+    // var placeholderOutputRelay = PublishRelay<String>.init()
     
     
     
@@ -69,10 +69,31 @@ class ConvertViewModel{
             let convertedCurrencies = model.convertAllCurrencies(amount: amount, from: from)
             self.currencyRates.accept(convertedCurrencies)
         }).disposed(by: disposeBag)
-
+        
     }
-
+    
 }
 
+//MARK: Helping Function
+extension ConvertViewModel{
+    func fillDropDown(currencyArray: [Currency]) -> [String]{
+        var arr = [String]()
+        if let allCurrencies = allCurrencies{
+            for flag in allCurrencies.currencies{
+                arr.append(" " + getFlagEmoji(flag: flag.code) + flag.code)
+            }
+        }
+        return arr
+    }
+    func getFlagEmoji(flag: String) -> String{
+        let code = flag.dropLast()
+        let base: UInt32 = 127397
+        var emoji = ""
+        for scalar in code.unicodeScalars {
+            emoji.append(String(UnicodeScalar(base + scalar.value)!))
+        }
+        return emoji
+    }
+}
 
 

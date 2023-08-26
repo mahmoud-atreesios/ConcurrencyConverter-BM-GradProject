@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--ConvertVC-->
+        <!--ParentVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="ConvertVC" id="BYZ-38-t0r" customClass="ConvertVC" customModule="CurrencyConversion" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ParentVC" id="BYZ-38-t0r" customClass="ParentVC" customModule="CurrencyConversion" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UoZ-kA-rAB">
                         <rect key="frame" x="0.0" y="0.0" width="395" height="1500"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,8 +58,11 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0PJ-Fn-QUO" customClass="CustomSegmentedControlSalah" customModule="CurrencyConversion" customModuleProvider="target">
-                                                <rect key="frame" x="50" y="214" width="295" height="32"/>
+                                                <rect key="frame" x="50" y="214" width="295" height="47"/>
                                                 <color key="backgroundColor" red="0.97254902119999997" green="0.97254902119999997" blue="0.97254902119999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="46" id="AhO-3h-OCh"/>
+                                                </constraints>
                                                 <segments>
                                                     <segment title="Convert"/>
                                                     <segment title="Compare"/>

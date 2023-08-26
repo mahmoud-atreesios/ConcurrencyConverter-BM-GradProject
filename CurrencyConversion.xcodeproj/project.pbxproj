@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C09D33C2A950FCA002657EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C09D33B2A950FCA002657EE /* AppDelegate.swift */; };
 		1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C09D33D2A950FCA002657EE /* SceneDelegate.swift */; };
-		1C09D3402A950FCA002657EE /* ConvertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C09D33F2A950FCA002657EE /* ConvertVC.swift */; };
+		1C09D3402A950FCA002657EE /* ParentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C09D33F2A950FCA002657EE /* ParentVC.swift */; };
 		1C09D3432A950FCA002657EE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C09D3412A950FCA002657EE /* Main.storyboard */; };
 		1C09D3452A950FCC002657EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C09D3442A950FCC002657EE /* Assets.xcassets */; };
 		1C09D3482A950FCC002657EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C09D3462A950FCC002657EE /* LaunchScreen.storyboard */; };
@@ -29,6 +29,7 @@
 		1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */; };
 		1C9E0A3B2A996D7000AC543E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A3A2A996D7000AC543E /* SDWebImage */; };
 		1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */; };
+		1C9E0A3F2A99FE9F00AC543E /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A3E2A99FE9F00AC543E /* test.swift */; };
 		1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */; };
 		1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */; };
 		1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCE20892A98FCFB00A7CE6C /* iOSDropDown */; };
@@ -44,7 +45,7 @@
 		1C09D3382A950FCA002657EE /* CurrencyConversion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConversion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C09D33B2A950FCA002657EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C09D33D2A950FCA002657EE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1C09D33F2A950FCA002657EE /* ConvertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertVC.swift; sourceTree = "<group>"; };
+		1C09D33F2A950FCA002657EE /* ParentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentVC.swift; sourceTree = "<group>"; };
 		1C09D3422A950FCA002657EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C09D3442A950FCC002657EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C09D3472A950FCC002657EE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,6 +60,7 @@
 		1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCurrenciesTableViewCell.swift; sourceTree = "<group>"; };
 		1C9E0A302A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteCurrenciesTableViewCell.xib; sourceTree = "<group>"; };
 		1C9E0A332A99431100AC543E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		1C9E0A3E2A99FE9F00AC543E /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertWithNibFileVC.swift; sourceTree = "<group>"; };
 		1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareWithNibFileVC.swift; sourceTree = "<group>"; };
 		1CCE208B2A99047800A7CE6C /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				1C09D3462A950FCC002657EE /* LaunchScreen.storyboard */,
 				1C09D3492A950FCC002657EE /* Info.plist */,
 				1C9E0A352A995ADB00AC543E /* Constants */,
+				1C9E0A3E2A99FE9F00AC543E /* test.swift */,
 			);
 			path = CurrencyConversion;
 			sourceTree = "<group>";
@@ -134,7 +137,7 @@
 				1C9E0A2E2A99324700AC543E /* FavoritesTableViewCell */,
 				1C9E0A2D2A99160C00AC543E /* CompareView */,
 				1C780D052A9914F400AFF4FF /* ConvertView */,
-				1C3C824C2A9777ED00D136DC /* ConversionView */,
+				1C3C824C2A9777ED00D136DC /* ParentView */,
 				1C3C82472A975F8800D136DC /* CurrencyTableViewcell */,
 			);
 			path = View;
@@ -159,14 +162,14 @@
 			path = CurrencyTableViewcell;
 			sourceTree = "<group>";
 		};
-		1C3C824C2A9777ED00D136DC /* ConversionView */ = {
+		1C3C824C2A9777ED00D136DC /* ParentView */ = {
 			isa = PBXGroup;
 			children = (
-				1C09D33F2A950FCA002657EE /* ConvertVC.swift */,
+				1C09D33F2A950FCA002657EE /* ParentVC.swift */,
 				32EF190D2A98C35A004A0CEC /* AddToFavoritesVC.swift */,
 				1C09D3412A950FCA002657EE /* Main.storyboard */,
 			);
-			path = ConversionView;
+			path = ParentView;
 			sourceTree = "<group>";
 		};
 		1C780D052A9914F400AFF4FF /* ConvertView */ = {
@@ -310,7 +313,7 @@
 				32EF190E2A98C35A004A0CEC /* AddToFavoritesVC.swift in Sources */,
 				32EF190C2A98B585004A0CEC /* Compare.swift in Sources */,
 				32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */,
-				1C09D3402A950FCA002657EE /* ConvertVC.swift in Sources */,
+				1C09D3402A950FCA002657EE /* ParentVC.swift in Sources */,
 				1C09D33C2A950FCA002657EE /* AppDelegate.swift in Sources */,
 				1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */,
 				1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */,
@@ -318,6 +321,7 @@
 				1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */,
 				1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */,
 				1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */,
+				1C9E0A3F2A99FE9F00AC543E /* test.swift in Sources */,
 				1C3C82442A9740C100D136DC /* ApiManager.swift in Sources */,
 				1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */,
 				1C09D3532A951121002657EE /* CurrencyModel.swift in Sources */,

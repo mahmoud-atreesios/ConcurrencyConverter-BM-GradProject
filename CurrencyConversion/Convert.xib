@@ -24,7 +24,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rkl-q4-VeG">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="800"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="800"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="JLl-yt-mfV">
                             <rect key="frame" x="0.0" y="43" width="393" height="152"/>
@@ -61,7 +61,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l4D-X2-M8w" customClass="JRDropDown">
                                                     <rect key="frame" x="0.0" y="35" width="245.33333333333334" height="34"/>
                                                     <color key="backgroundColor" red="0.97627657649999999" green="0.97627657649999999" blue="0.97627657649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSearchEnable" value="NO"/>
@@ -95,7 +95,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WDQ-h0-qjW" customClass="JRDropDown">
                                                     <rect key="frame" x="0.0" y="35" width="245.33333333333334" height="34"/>
                                                     <color key="backgroundColor" red="0.97627657649999999" green="0.97627657649999999" blue="0.97627657649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isSearchEnable" value="NO"/>
@@ -188,7 +188,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="auA-6v-p0c">
-                            <rect key="frame" x="-6" y="464.33333333333331" width="407" height="246.66666666666669"/>
+                            <rect key="frame" x="-6" y="464.33333333333343" width="407" height="246.66666666666669"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </tableView>
                     </subviews>

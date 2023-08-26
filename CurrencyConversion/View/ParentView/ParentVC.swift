@@ -12,9 +12,9 @@ import SDWebImage
 
 class ParentVC: UIViewController {
     
-    let firstVC = ConvertWithNibFileVC(nibName: "Convert", bundle: nil)
-    let secondVC = CompareWithNibFileVC(nibName: "Compare", bundle: nil)
-        
+    var firstVC = ConvertWithNibFileVC(nibName: "Convert", bundle: nil)
+    var secondVC = CompareWithNibFileVC(nibName: "Compare", bundle: nil)
+    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerViewForConvertAndCompare: UIView!
     
@@ -74,11 +74,12 @@ class ParentVC: UIViewController {
         viewControllerToShow.view.isHidden = false
     }
     
-//    func handleAddToFavoritesButtonPressed() {
-//        let sb = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your actual storyboard name
-//        let addToFavoritesVC = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
-//
-//        self.present(addToFavoritesVC, animated: true, completion: nil)
-//    }
+
+    //    func handleAddToFavoritesButtonPressed() {
+    //        let sb = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your actual storyboard name
+    //        let addToFavoritesVC = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
+    //
+    //        self.present(addToFavoritesVC, animated: true, completion: nil)
+    //    }
 }
 

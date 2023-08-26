@@ -16,28 +16,28 @@ enum Endpoints {
     case getExchangeRate
     case getAllCurrencies
     case getAllCurrenciesData
-    case convertCurrency
-    case compareCurrencies
-    
-    
+    case convertCurrency(from: String, to: String, amount: String)
+    case compareCurrencies(from: String, amount: String, toFirst: String, toSecond: String)
+
     var stringUrl: URL {
+        
         switch self {
         case .getExchangeRate:
             return URL(string: "https://v6.exchangerate-api.com/v6/ecf10bab01b34bf0de9636e1/latest/USD")!
         case .getAllCurrencies:
             return URL(string: "http://16.171.161.38/api/v1")!
         case .getAllCurrenciesData:
-            return URL(string: Constants.Links.baseURL + "v1")!
-        case .convertCurrency:
-            return URL(string: Constants.Links.baseURL + "v2/conversion?")!
-        case .compareCurrencies:
-            return URL(string: Constants.Links.baseURL + "v2/conversion?")!
+            return URL(string: "http://51.20.8.87/api/v1")!
+        case .convertCurrency(let from, let to, let amount):
+            return URL(string: "http://51.20.8.87/api/" + "v2/conversion?from=\(from)&to=\(to)&amount=\(amount)")!
+        case .compareCurrencies(let from, let amount, let toFirst, let toSecond):
+            return URL(string: "http://www.amrcurrencyconversion.site/api/v2/comparison?from=\(from)&amount=\(amount)&list=\(toFirst),\(toSecond)")!
             
         }
     }
 }
 
-class ApiClient: fetchData {
+class ApiClient {
     
     private static let sharedInstance = ApiClient()
 
@@ -46,14 +46,7 @@ class ApiClient: fetchData {
         }
         private init() {}
     
-    func getData<T>(modelDTO: T.Type ,_ endpoint: Endpoints, attributes: [String: String]? = nil) -> Observable<T> where T : Decodable {
-        
-        var request = URLRequest(url: endpoint.stringUrl)
-        if let attributes = attributes {
-            for (key, value) in attributes {
-                request.addValue(value, forHTTPHeaderField: key)
-            }
-        }
+    func getData<T>(modelDTO: T.Type ,_ endpoint: Endpoints) -> Observable<T> where T : Decodable {
         
         return Observable.create { observer in
             let task = URLSession.shared.dataTask(with: endpoint.stringUrl) { data, response, error in
@@ -76,3 +69,5 @@ class ApiClient: fetchData {
         }
     }
 }
+
+

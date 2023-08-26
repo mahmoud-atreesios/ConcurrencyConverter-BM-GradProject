@@ -26,23 +26,36 @@ class ConvertWithNibFileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
+//        fromCurrencyTypeDropList.text = "USD"
+//        toCurrencyTypeDropList.text = "EGP"
         
-        fromCurrencyTypeDropList.text = "USD"
-        toCurrencyTypeDropList.text = "EGP"
-
+        bindViewToViewModellll()
+        setUp()
         fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
         bindTableViewToViewModel()
-        bindViewsToViewModel()
-        bindViewModelToViews()
-        viewModel.fromUSDtoEGP()
+        //bindViewsToViewModel()
+        //bindViewModelToViews()
+        //viewModel.fromUSDtoEGP()
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
-        print("Convert button pressed")
-        viewModel.convertButtonPressedRelay.accept(())
+        //viewModel.convertButtonPressedRelay.accept(())
+        guard let fromCurrencyText = fromCurrencyTypeDropList.text, !fromCurrencyText.isEmpty,
+                      let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty else {
+                    return
+                }
+
+                var fromAmount = fromAmountCurrencyTextField.text ?? "0.0"
+                if fromAmount.isEmpty {
+                    fromAmount = "0.0"
+                }
+
+                viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
+        
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
@@ -65,6 +78,7 @@ extension ConvertWithNibFileVC{
             }
             .disposed(by: disposeBag)
     }
+    
     func bindViewModelToViews(){
         viewModel.fromCurrencyOutPutRelay.bind(to: fromAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
         viewModel.toCurrencyOutPutRelay.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
@@ -105,7 +119,6 @@ extension ConvertWithNibFileVC{
             .disposed(by: disposeBag)
         
     }
-    
 }
 
 extension ConvertWithNibFileVC{
@@ -121,3 +134,13 @@ extension ConvertWithNibFileVC{
     }
 }
 
+extension ConvertWithNibFileVC{
+    func setUp(){
+        fromAmountCurrencyTextField.addLeftPadding(padding: 5)
+        toAmountCurrencyTextField.addLeftPadding(padding: 5)
+    }
+    
+    func bindViewToViewModellll(){
+        viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
+    }
+}

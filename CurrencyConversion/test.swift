@@ -178,3 +178,17 @@
 //    }
 //
 //}
+
+//    func fromUSDtoEGP(){
+//        convertButtonPressedRelay.subscribe(onNext: { [weak self] _ in
+//            guard let self = self, let model = self.exchangeCurrency else { return }
+//            let amount = self.fromAmountRelay.value
+//            let from = self.fromCurrencyRelay.value
+//            let to = self.toCurrencyRelay.value
+//            let convertedAmount = model.convert(amount: amount, from: from, to: to)
+//            self.toCurrencyOutPutRelay.accept(String.init(convertedAmount))
+//            let convertedCurrencies = model.convertAllCurrencies(amount: amount, from: from)
+//            self.currencyRates.accept(convertedCurrencies)
+//        }).disposed(by: disposeBag)
+//
+//    }

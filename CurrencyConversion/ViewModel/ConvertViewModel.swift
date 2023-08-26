@@ -14,6 +14,9 @@ class ConvertViewModel{
     
     var exchangeCurrency: CurrencyModel?
     var allCurrencies: AllCurrenciesModel?
+    var conversionModel: ConversionModel?
+    var compareModel: ComparisonModel?
+    
     var currencyRates = BehaviorRelay<[String:Double]>(value: ["USD":0.0])
     var allOfCurrencies = PublishRelay<[Currency]>.init()
     
@@ -30,8 +33,11 @@ class ConvertViewModel{
     var fromCurrencyOutPutRelay = PublishRelay<String>.init()
     var convertButtonPressedRelay = PublishRelay<Void>()
     
+    var conversion = PublishRelay<String>()
+    var firstComparedCurrency = PublishRelay<String>()
+    var secoundComparedCurrency = PublishRelay<String>()
+
     // var placeholderOutputRelay = PublishRelay<String>.init()
-    
     
     
     func fetchCurrency(){
@@ -46,7 +52,7 @@ class ConvertViewModel{
     }
     
     func fetchAllCurrencies(){
-        ApiClient.shared().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrencies)
+        ApiClient.shared().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrenciesData)
             .subscribe { listOfAllCurrencies in
                 self.allCurrencies = listOfAllCurrencies
                 self.allOfCurrencies.accept(listOfAllCurrencies.currencies)
@@ -58,18 +64,30 @@ class ConvertViewModel{
             .disposed(by: disposeBag)
     }
     
-    func fromUSDtoEGP(){
-        convertButtonPressedRelay.subscribe(onNext: { [weak self] _ in
-            guard let self = self, let model = self.exchangeCurrency else { return }
-            let amount = self.fromAmountRelay.value
-            let from = self.fromCurrencyRelay.value
-            let to = self.toCurrencyRelay.value
-            let convertedAmount = model.convert(amount: amount, from: from, to: to)
-            self.toCurrencyOutPutRelay.accept(String.init(convertedAmount))
-            let convertedCurrencies = model.convertAllCurrencies(amount: amount, from: from)
-            self.currencyRates.accept(convertedCurrencies)
-        }).disposed(by: disposeBag)
-        
+    func convertCurrency(amount: String, from: String, to: String){
+        ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
+            .subscribe(onNext: { conversion in
+                self.conversion.accept(String(conversion.result ?? 1))
+                
+            }, onError: { error in
+                print(error)
+                self.errorSubject.onNext(error.localizedDescription)
+                
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func compareCurrency(amount: String, from: String, toFirstCurrency: String, toSecondCurrency: String){
+        ApiClient.shared().getData(modelDTO: ComparisonModel.self, .compareCurrencies(from: from, amount: amount, toFirst: toFirstCurrency, toSecond: toSecondCurrency))
+            .subscribe(onNext: { comparison in
+                //self.comparison.accept(comparison.conversionRates)
+                self.firstComparedCurrency.accept(String(format: "%.2f", comparison.conversionRates[0].amount))
+                self.secoundComparedCurrency.accept(String(format: "%.2f", comparison.conversionRates[1].amount))
+            }, onError: { error in
+                print(error)
+                self.errorSubject.onNext(error.localizedDescription)
+            })
+            .disposed(by: disposeBag)
     }
     
 }

@@ -30,8 +30,27 @@ class ConvertWithNibFileVC: UIViewController {
 //        fromCurrencyTypeDropList.text = "USD"
 //        toCurrencyTypeDropList.text = "EGP"
         
+
         bindViewToViewModellll()
         setUp()
+
+        
+        let cornerRadius: CGFloat = 20
+            let textFieldHeight: CGFloat = 48
+            let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
+            let borderWidth: CGFloat = 0.5
+            let padding: CGFloat = 15
+            
+            configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+            configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+            
+            configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+            configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        fromCurrencyTypeDropList.text = "USD"
+        toCurrencyTypeDropList.text = "EGP"
+        
+
         fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
@@ -63,6 +82,31 @@ class ConvertWithNibFileVC: UIViewController {
         let profileScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
         self.present(profileScreen, animated: true)
     }
+    
+    func configureTextField(_ textField: UITextField, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
+        textField.layer.masksToBounds = true
+        textField.layer.cornerRadius = cornerRadius
+        textField.heightAnchor.constraint(equalToConstant: height).isActive = true
+        textField.layer.borderWidth = borderWidth
+        textField.layer.borderColor = borderColor
+        
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+    }
+
+    func configureDropDown(_ dropDown: DropDown, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
+        dropDown.layer.masksToBounds = true
+        dropDown.layer.cornerRadius = cornerRadius
+        dropDown.heightAnchor.constraint(equalToConstant: height).isActive = true
+        dropDown.layer.borderWidth = borderWidth
+        dropDown.layer.borderColor = borderColor
+        
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: height))
+        dropDown.leftView = paddingView
+        dropDown.leftViewMode = .always
+    }
+    
 }
 
 extension ConvertWithNibFileVC{
@@ -128,7 +172,7 @@ extension ConvertWithNibFileVC{
                 print(self.viewModel.fillDropDown(currencyArray: currencyArray))
                 self.fromCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
                 self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-
+                
             }
             .disposed(by: disposeBag)
     }

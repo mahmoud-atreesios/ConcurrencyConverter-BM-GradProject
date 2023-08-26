@@ -36,8 +36,8 @@ extension AddToFavoritesVC{
         viewModel.allOfCurrencies
             .bind(to: selectedFavouritesCurrenciesTableView.rx.items(cellIdentifier: "favoriteCell", cellType: FavoriteCurrenciesTableViewCell.self)){
                 (row, currency, cell) in
-                cell.currencyLabel.text = String(currency.desc)
-                cell.currencyCode.text = String(currency.code)
+                cell.currencyLabel.text = currency.desc
+                cell.currencyCode.text = currency.code
                 if let url = URL(string: currency.flagURL) {
                     cell.currencyFlagImageView.sd_setImage(with: url)
                 }

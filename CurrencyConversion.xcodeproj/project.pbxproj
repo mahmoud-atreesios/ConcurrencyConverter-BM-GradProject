@@ -34,6 +34,9 @@
 		1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */; };
 		1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCE20892A98FCFB00A7CE6C /* iOSDropDown */; };
 		1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE208B2A99047800A7CE6C /* RadioButton.swift */; };
+		322129742A9A477400D6D0C8 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 322129732A9A477400D6D0C8 /* Realm */; };
+		322129762A9A477400D6D0C8 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 322129752A9A477400D6D0C8 /* RealmSwift */; };
+		322129782A9A489200D6D0C8 /* RealmCurrencyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 322129772A9A489200D6D0C8 /* RealmCurrencyModel.swift */; };
 		32EF19062A97F788004A0CEC /* Convert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19052A97F788004A0CEC /* Convert.xib */; };
 		32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF19072A97F7A9004A0CEC /* Convert.swift */; };
 		32EF190A2A98B571004A0CEC /* Compare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19092A98B571004A0CEC /* Compare.xib */; };
@@ -64,6 +67,7 @@
 		1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertWithNibFileVC.swift; sourceTree = "<group>"; };
 		1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareWithNibFileVC.swift; sourceTree = "<group>"; };
 		1CCE208B2A99047800A7CE6C /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		322129772A9A489200D6D0C8 /* RealmCurrencyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCurrencyModel.swift; sourceTree = "<group>"; };
 		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Convert.xib; path = ../../Convert.xib; sourceTree = "<group>"; };
 		32EF19072A97F7A9004A0CEC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		32EF19092A98B571004A0CEC /* Compare.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Compare.xib; sourceTree = "<group>"; };
@@ -79,9 +83,11 @@
 				1C9E0A3B2A996D7000AC543E /* SDWebImage in Frameworks */,
 				1C3C82422A973C1000D136DC /* RxSwift in Frameworks */,
 				1C3C82402A973C1000D136DC /* RxRelay in Frameworks */,
+				322129762A9A477400D6D0C8 /* RealmSwift in Frameworks */,
 				1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */,
 				1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */,
 				1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */,
+				322129742A9A477400D6D0C8 /* Realm in Frameworks */,
 				1C3C823E2A973C1000D136DC /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +155,7 @@
 				1C09D3522A951121002657EE /* CurrencyModel.swift */,
 				1C3C82432A9740C100D136DC /* ApiManager.swift */,
 				1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */,
+				322129772A9A489200D6D0C8 /* RealmCurrencyModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,6 +249,8 @@
 				1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */,
 				1C9E0A3A2A996D7000AC543E /* SDWebImage */,
 				1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */,
+				322129732A9A477400D6D0C8 /* Realm */,
+				322129752A9A477400D6D0C8 /* RealmSwift */,
 			);
 			productName = CurrencyConversion;
 			productReference = 1C09D3382A950FCA002657EE /* CurrencyConversion.app */;
@@ -276,6 +285,7 @@
 				1CCE20882A98FCFB00A7CE6C /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 				1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				322129722A9A477400D6D0C8 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 1C09D3392A950FCA002657EE /* Products */;
 			projectDirPath = "";
@@ -321,6 +331,7 @@
 				1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */,
 				1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */,
 				1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */,
+				322129782A9A489200D6D0C8 /* RealmCurrencyModel.swift in Sources */,
 				1C9E0A3F2A99FE9F00AC543E /* test.swift in Sources */,
 				1C3C82442A9740C100D136DC /* ApiManager.swift in Sources */,
 				1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */,
@@ -577,6 +588,14 @@
 				minimumVersion = 0.4.0;
 			};
 		};
+		322129722A9A477400D6D0C8 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -614,6 +633,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1CCE20882A98FCFB00A7CE6C /* XCRemoteSwiftPackageReference "iOSDropDown" */;
 			productName = iOSDropDown;
+		};
+		322129732A9A477400D6D0C8 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 322129722A9A477400D6D0C8 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		322129752A9A477400D6D0C8 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 322129722A9A477400D6D0C8 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

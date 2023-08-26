@@ -17,32 +17,32 @@ class RadioButton: UIButton {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.initButton()
+        initButton()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.initButton()
+        initButton()
     }
     
     func initButton() {
-        self.backgroundColor = .clear
-        self.tintColor = .clear
-        self.setTitle("", for: .normal)
+        backgroundColor = .clear
+        tintColor = .clear
+        setTitle("", for: .normal)
         updateButtonAppearance()
-        self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     @objc func buttonTapped() {
-        isChecked = !isChecked
+        isChecked.toggle()
         feedbackGenerator.impactOccurred()
     }
     
     func updateButtonAppearance() {
         if isChecked {
-            self.setImage(UIImage(named: "radio_button_checked")?.withRenderingMode(.alwaysOriginal), for: .normal)
+            setImage(UIImage(named: "radio_button_checked")?.withRenderingMode(.alwaysOriginal), for: .normal)
         } else {
-            self.setImage(UIImage(named: "radio_button_unchecked")?.withRenderingMode(.alwaysOriginal), for: .normal)
+            setImage(UIImage(named: "radio_button_unchecked")?.withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
 }

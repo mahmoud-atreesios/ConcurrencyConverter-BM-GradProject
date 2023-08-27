@@ -22,7 +22,11 @@
 		1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C3C82482A975FB100D136DC /* CurrencyCell.swift */; };
 		1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C3C82492A975FB100D136DC /* CurrencyCell.xib */; };
 		1C46D6C72A9A8BD000476804 /* ComparisonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C46D6C62A9A8BD000476804 /* ComparisonModel.swift */; };
-		1C46D6CA2A9A8D6100476804 /* OptionallyDecodable in Frameworks */ = {isa = PBXBuildFile; productRef = 1C46D6C92A9A8D6100476804 /* OptionallyDecodable */; };
+		1C66C8502A9B599100C82113 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C66C84F2A9B599100C82113 /* Realm */; };
+		1C66C8522A9B599100C82113 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C66C8512A9B599100C82113 /* RealmSwift */; };
+		1C66C8542A9B59F900C82113 /* FavouriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8532A9B59F900C82113 /* FavouriteModel.swift */; };
+		1C66C8572A9B5D7800C82113 /* FavouriteCurrenciesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */; };
+		1C66C8592A9B925800C82113 /* testViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8582A9B925800C82113 /* testViewModel.swift */; };
 		1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */; };
 		1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */; };
 		1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */; };
@@ -60,6 +64,9 @@
 		1C3C82482A975FB100D136DC /* CurrencyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCell.swift; sourceTree = "<group>"; };
 		1C3C82492A975FB100D136DC /* CurrencyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CurrencyCell.xib; sourceTree = "<group>"; };
 		1C46D6C62A9A8BD000476804 /* ComparisonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonModel.swift; sourceTree = "<group>"; };
+		1C66C8532A9B59F900C82113 /* FavouriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModel.swift; sourceTree = "<group>"; };
+		1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCurrenciesManager.swift; sourceTree = "<group>"; };
+		1C66C8582A9B925800C82113 /* testViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewModel.swift; sourceTree = "<group>"; };
 		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCurrenciesModel.swift; sourceTree = "<group>"; };
 		1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCurrenciesTableViewCell.swift; sourceTree = "<group>"; };
@@ -84,12 +91,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C9E0A3B2A996D7000AC543E /* SDWebImage in Frameworks */,
-				1C46D6CA2A9A8D6100476804 /* OptionallyDecodable in Frameworks */,
 				1C3C82422A973C1000D136DC /* RxSwift in Frameworks */,
 				1C3C82402A973C1000D136DC /* RxRelay in Frameworks */,
+				1C66C8522A9B599100C82113 /* RealmSwift in Frameworks */,
 				1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */,
 				1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */,
 				1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */,
+				1C66C8502A9B599100C82113 /* Realm in Frameworks */,
 				1C3C823E2A973C1000D136DC /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -128,6 +136,7 @@
 				1C9E0A352A995ADB00AC543E /* Constants */,
 				1C9E0A3E2A99FE9F00AC543E /* test.swift */,
 				1C9E0A402A9A54BC00AC543E /* Extension+UITextField.swift */,
+				1C66C8552A9B5D3D00C82113 /* DataBaseManager */,
 			);
 			path = CurrencyConversion;
 			sourceTree = "<group>";
@@ -136,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				1C09D3542A95112C002657EE /* ConvertViewModel.swift */,
+				1C66C8582A9B925800C82113 /* testViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -160,6 +170,7 @@
 				1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */,
 				1C9E0A422A9A5F8100AC543E /* ConversionModel.swift */,
 				1C46D6C62A9A8BD000476804 /* ComparisonModel.swift */,
+				1C66C8532A9B59F900C82113 /* FavouriteModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,6 +192,14 @@
 				1C09D3412A950FCA002657EE /* Main.storyboard */,
 			);
 			path = ParentView;
+			sourceTree = "<group>";
+		};
+		1C66C8552A9B5D3D00C82113 /* DataBaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */,
+			);
+			path = DataBaseManager;
 			sourceTree = "<group>";
 		};
 		1C780D052A9914F400AFF4FF /* ConvertView */ = {
@@ -253,7 +272,8 @@
 				1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */,
 				1C9E0A3A2A996D7000AC543E /* SDWebImage */,
 				1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */,
-				1C46D6C92A9A8D6100476804 /* OptionallyDecodable */,
+				1C66C84F2A9B599100C82113 /* Realm */,
+				1C66C8512A9B599100C82113 /* RealmSwift */,
 			);
 			productName = CurrencyConversion;
 			productReference = 1C09D3382A950FCA002657EE /* CurrencyConversion.app */;
@@ -288,7 +308,7 @@
 				1CCE20882A98FCFB00A7CE6C /* XCRemoteSwiftPackageReference "iOSDropDown" */,
 				1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */,
-				1C46D6C82A9A8D6100476804 /* XCRemoteSwiftPackageReference "OptionallyDecodable" */,
+				1C66C84E2A9B599100C82113 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 1C09D3392A950FCA002657EE /* Products */;
 			projectDirPath = "";
@@ -324,13 +344,16 @@
 				1C09D3552A95112C002657EE /* ConvertViewModel.swift in Sources */,
 				1C9E0A342A99431100AC543E /* Constants.swift in Sources */,
 				32EF190E2A98C35A004A0CEC /* AddToFavoritesVC.swift in Sources */,
+				1C66C8542A9B59F900C82113 /* FavouriteModel.swift in Sources */,
 				32EF190C2A98B585004A0CEC /* Compare.swift in Sources */,
 				32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */,
 				1C9E0A412A9A54BC00AC543E /* Extension+UITextField.swift in Sources */,
 				1C09D3402A950FCA002657EE /* ParentVC.swift in Sources */,
 				1C09D33C2A950FCA002657EE /* AppDelegate.swift in Sources */,
 				1C46D6C72A9A8BD000476804 /* ComparisonModel.swift in Sources */,
+				1C66C8592A9B925800C82113 /* testViewModel.swift in Sources */,
 				1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */,
+				1C66C8572A9B5D7800C82113 /* FavouriteCurrenciesManager.swift in Sources */,
 				1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */,
 				1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */,
 				1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */,
@@ -569,12 +592,12 @@
 				kind = branch;
 			};
 		};
-		1C46D6C82A9A8D6100476804 /* XCRemoteSwiftPackageReference "OptionallyDecodable" */ = {
+		1C66C84E2A9B599100C82113 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/idrougge/OptionallyDecodable.git";
+			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 		1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
@@ -619,10 +642,15 @@
 			package = 1C3C823C2A973C1000D136DC /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
-		1C46D6C92A9A8D6100476804 /* OptionallyDecodable */ = {
+		1C66C84F2A9B599100C82113 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 1C46D6C82A9A8D6100476804 /* XCRemoteSwiftPackageReference "OptionallyDecodable" */;
-			productName = OptionallyDecodable;
+			package = 1C66C84E2A9B599100C82113 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		1C66C8512A9B599100C82113 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C66C84E2A9B599100C82113 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;

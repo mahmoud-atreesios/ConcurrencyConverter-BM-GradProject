@@ -12,7 +12,9 @@ class FavoriteCurrenciesTableViewCell: UITableViewCell {
     @IBOutlet weak var currencyFlagImageView: UIImageView!
     @IBOutlet weak var currencyCode: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var checkButton: RadioButton!
     
+    var checkbuttonPressed: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +29,6 @@ class FavoriteCurrenciesTableViewCell: UITableViewCell {
     }
     
     @IBAction func checkFavoriteCurrencyButtonPressed(_ sender: UIButton) {
+        checkbuttonPressed?()
     }
 }

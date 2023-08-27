@@ -163,6 +163,9 @@
                                 <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system" title=" ">
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="closeButtonPressed:" destination="8Dj-ev-9bu" eventType="touchUpInside" id="HKW-53-1xg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RbG-Dh-t1a"/>

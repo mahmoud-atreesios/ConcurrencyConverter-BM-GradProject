@@ -9,6 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 import iOSDropDown
+import SDWebImage
+import SDWebImageSVGCoder
 
 class ConvertWithNibFileVC: UIViewController {
     
@@ -23,34 +25,36 @@ class ConvertWithNibFileVC: UIViewController {
     
     let viewModel = ConvertViewModel()
     let disposeBag = DisposeBag()
+    let favouriteItems = FavouriteCurrenciesManager.shared().getAllFavouritesItems()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-//        fromCurrencyTypeDropList.text = "USD"
-//        toCurrencyTypeDropList.text = "EGP"
         
-
+        //        fromCurrencyTypeDropList.text = "USD"
+        //        toCurrencyTypeDropList.text = "EGP"
+        
+        
         bindViewToViewModellll()
         setUp()
-
+        
         
         let cornerRadius: CGFloat = 20
-            let textFieldHeight: CGFloat = 48
-            let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
-            let borderWidth: CGFloat = 0.5
-            let padding: CGFloat = 15
-            
-            configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-            configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-            
-            configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-            configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        let textFieldHeight: CGFloat = 48
+        let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
+        let borderWidth: CGFloat = 0.5
+        let padding: CGFloat = 15
         
-        fromCurrencyTypeDropList.text = "USD"
-        toCurrencyTypeDropList.text = "EGP"
+        configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         
-
+        configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        fromCurrencyTypeDropList.text = "🇺🇸USD"
+        toCurrencyTypeDropList.text = "🇪🇬EGP"
+        
+        
         fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
@@ -61,19 +65,25 @@ class ConvertWithNibFileVC: UIViewController {
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
     }
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        testViewModel.shared().favouriteItems
+//            .value.isEmpty
+//            .map
+//    }
+    
     @IBAction func convertButtonPressed(_ sender: UIButton) {
         //viewModel.convertButtonPressedRelay.accept(())
         guard let fromCurrencyText = fromCurrencyTypeDropList.text, !fromCurrencyText.isEmpty,
-                      let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty else {
-                    return
-                }
-
-                var fromAmount = fromAmountCurrencyTextField.text ?? "0.0"
-                if fromAmount.isEmpty {
-                    fromAmount = "0.0"
-                }
-
-                viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
+              let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty else {
+            return
+        }
+        
+        var fromAmount = fromAmountCurrencyTextField.text ?? "0.0"
+        if fromAmount.isEmpty {
+            fromAmount = "0.0"
+        }
+        
+        viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         
     }
     
@@ -81,6 +91,11 @@ class ConvertWithNibFileVC: UIViewController {
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let profileScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
         self.present(profileScreen, animated: true)
+        //        let favouritesController = AddToFavoritesVC(viewModel: viewModel)
+        //        //favouritesController.modalPresentationStyle = .overCurrentContext
+        //        present(favouritesController, animated: true, completion: nil)
+        //profileScreen.viewModel = viewModel
+
     }
     
     func configureTextField(_ textField: UITextField, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
@@ -94,7 +109,7 @@ class ConvertWithNibFileVC: UIViewController {
         textField.leftView = paddingView
         textField.leftViewMode = .always
     }
-
+    
     func configureDropDown(_ dropDown: DropDown, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
         dropDown.layer.masksToBounds = true
         dropDown.layer.cornerRadius = cornerRadius
@@ -113,13 +128,33 @@ extension ConvertWithNibFileVC{
     func bindTableViewToViewModel() {
         print("ana gwa l function")
         
-        viewModel.currencyRates
+        testViewModel.shared().favouriteItems
             .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
-                (row,exchangeRate,cell) in
+                (row,curr,cell) in
                 cell.baseLabel.text = "Currency"
-                cell.currencyLabel.text = String(exchangeRate.key)
-                cell.rateLabel.text = String(exchangeRate.value)
+                cell.currencyLabel.text = curr.currencyCode
+                cell.rateLabel.text = "99.5"
+                if let url = URL(string: curr.flagURL) {
+                    cell.currencyFlagImageView.sd_setImage(with: url)
+                }
             }
+            .disposed(by: disposeBag)
+        
+        testViewModel.shared().favouriteItems
+            .map { $0.isEmpty }
+            .subscribe(onNext: { [weak self] isEmpty in
+                if isEmpty {
+                    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self?.selectedFavouriteCurrenciesTableView.bounds.size.width ?? 0, height: self?.selectedFavouriteCurrenciesTableView.bounds.size.height ?? 0))
+                    noDataLabel.text = "No currencies added"
+                    noDataLabel.textColor = UIColor.black
+                    noDataLabel.textAlignment = .center
+                    self?.selectedFavouriteCurrenciesTableView.backgroundView = noDataLabel
+                    self?.selectedFavouriteCurrenciesTableView.separatorStyle = .none
+                } else {
+                    self?.selectedFavouriteCurrenciesTableView.backgroundView = nil
+                    self?.selectedFavouriteCurrenciesTableView.separatorStyle = .singleLine
+                }
+            })
             .disposed(by: disposeBag)
     }
     
@@ -169,7 +204,7 @@ extension ConvertWithNibFileVC{
     func fillDropList(){
         viewModel.allOfCurrencies
             .subscribe { currencyArray in
-                print(self.viewModel.fillDropDown(currencyArray: currencyArray))
+                //print(self.viewModel.fillDropDown(currencyArray: currencyArray))
                 self.fromCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
                 self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
                 

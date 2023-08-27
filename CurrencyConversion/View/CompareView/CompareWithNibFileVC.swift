@@ -28,36 +28,14 @@ class CompareWithNibFileVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let cornerRadius: CGFloat = 20
-        let textFieldHeight: CGFloat = 48
-        let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
-        let borderWidth: CGFloat = 0.5
-        let padding: CGFloat = 15
-        
-        configureTextField(fromAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        configureTextField(firstToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        
-        configureDropDown(fromCurrencyDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        configureDropDown(toFirstCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        
-        configureDropDown(toSecondCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-
-        
-        
+        setUp()
+        setUpIntialValueForDropList()
         fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
         
         //viewModel.allOfCurrencies
         bindViewToViewModellll()
-        
-        
-        //        let cornerRadius: CGFloat = 20
-        //            let textFieldHeight: CGFloat = 48
-        //            let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
-        //            let borderWidth: CGFloat = 0.5
-        //            let padding: CGFloat = 15
         
     }
     
@@ -66,6 +44,7 @@ class CompareWithNibFileVC: UIViewController {
               let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty else {
             return
         }
+        
         guard let toSecondCurrencyText = toSecondCurrencyTypeDropList.text, !toSecondCurrencyText.isEmpty else {
             return
         }
@@ -75,7 +54,7 @@ class CompareWithNibFileVC: UIViewController {
             fromAmount = "0.0"
         }
         //String(fromCurrencyText.dropFirst(2))
-        viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
+        viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(1)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(1)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(1)))
     }
     
 }
@@ -90,29 +69,32 @@ extension CompareWithNibFileVC{
                 self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
             }
             .disposed(by: disposeBag)
-            
         
-//        viewModel.allOfCurrencies
-//            .subscribe { kharaaaa in
-//               // print(self.viewModel.fillDropDown(currencyArray: currencyArray))
-//                //self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-//                //self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-//                self.fromCurrencyDropList.optionArray =
-//            }
-//            .disposed(by: disposeBag)
     }
 }
 
 extension CompareWithNibFileVC{
-//    func setUp(){
-//        fromAmountTextField.addLeftPadding(padding: 5)
-//        toAmountCurrencyTextField.addLeftPadding(padding: 5)
-//    }
+    func setUp(){
+        let cornerRadius: CGFloat = 20
+        let textFieldHeight: CGFloat = 48
+        let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
+        let borderWidth: CGFloat = 0.5
+        let padding: CGFloat = 15
+        
+        configureTextField(fromAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureTextField(firstToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        configureDropDown(fromCurrencyDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureDropDown(toFirstCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        configureDropDown(toSecondCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+    }
     
     func bindViewToViewModellll(){
         viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
         viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
-
+        
     }
     
     
@@ -127,7 +109,7 @@ extension CompareWithNibFileVC{
         textField.leftView = paddingView
         textField.leftViewMode = .always
     }
-
+    
     func configureDropDown(_ dropDown: DropDown, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
         dropDown.layer.masksToBounds = true
         dropDown.layer.cornerRadius = cornerRadius
@@ -141,4 +123,12 @@ extension CompareWithNibFileVC{
     }
     
     
+}
+
+extension CompareWithNibFileVC{
+    func setUpIntialValueForDropList(){
+        fromCurrencyDropList.text = viewModel.getFlagEmoji(flag: "EGP") + "EGP"
+        toFirstCurrencyTypeDropList.text = viewModel.getFlagEmoji(flag: "USD") + "USD"
+        toSecondCurrencyTypeDropList.text = viewModel.getFlagEmoji(flag: "USD") + "USD"
+    }
 }

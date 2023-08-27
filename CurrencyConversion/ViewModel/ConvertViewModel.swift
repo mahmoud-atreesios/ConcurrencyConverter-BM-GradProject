@@ -12,9 +12,6 @@ import RealmSwift
 
 class ConvertViewModel{
     
-//    static let shared = ConvertViewModel()
-//    private init() {}
-    
     private let disposeBag = DisposeBag()
     
     var exchangeCurrency: CurrencyModel?
@@ -70,10 +67,25 @@ class ConvertViewModel{
             .disposed(by: disposeBag)
     }
     
+//    func convertCurrency(amount: String, from: String, to: String) -> Observable<String> {
+//        return Observable.create { observer in
+//            ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
+//                .subscribe(onNext: { conversion in
+//                    let result = String(format: "%.2f", conversion.result ?? 1)
+//                    observer.onNext(result)
+//                }, onError: { error in
+//                    print(error)
+//                    self.errorSubject.onNext(error.localizedDescription)
+//                })
+//                .disposed(by: self.disposeBag)
+//        }
+//    }
+
+    
     func convertCurrency(amount: String, from: String, to: String){
         ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
             .subscribe(onNext: { conversion in
-                self.conversion.accept(String(conversion.result ?? 1))
+                self.conversion.accept(String(format: "%.2f", conversion.result ?? 1))
                 
             }, onError: { error in
                 print(error)

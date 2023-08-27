@@ -31,10 +31,6 @@ class ConvertWithNibFileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        fromCurrencyTypeDropList.text = "USD"
-        //        toCurrencyTypeDropList.text = "EGP"
-        
-        
         bindViewToViewModellll()
         setUp()
         
@@ -65,12 +61,6 @@ class ConvertWithNibFileVC: UIViewController {
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        testViewModel.shared().favouriteItems
-//            .value.isEmpty
-//            .map
-//    }
-    
     @IBAction func convertButtonPressed(_ sender: UIButton) {
         //viewModel.convertButtonPressedRelay.accept(())
         guard let fromCurrencyText = fromCurrencyTypeDropList.text, !fromCurrencyText.isEmpty,
@@ -91,11 +81,7 @@ class ConvertWithNibFileVC: UIViewController {
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let profileScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
         self.present(profileScreen, animated: true)
-        //        let favouritesController = AddToFavoritesVC(viewModel: viewModel)
-        //        //favouritesController.modalPresentationStyle = .overCurrentContext
-        //        present(favouritesController, animated: true, completion: nil)
-        //profileScreen.viewModel = viewModel
-
+        
     }
     
     func configureTextField(_ textField: UITextField, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
@@ -146,7 +132,7 @@ extension ConvertWithNibFileVC{
                 if isEmpty {
                     let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self?.selectedFavouriteCurrenciesTableView.bounds.size.width ?? 0, height: self?.selectedFavouriteCurrenciesTableView.bounds.size.height ?? 0))
                     noDataLabel.text = "No currencies added"
-                    noDataLabel.textColor = UIColor.black
+                    noDataLabel.textColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1)
                     noDataLabel.textAlignment = .center
                     self?.selectedFavouriteCurrenciesTableView.backgroundView = noDataLabel
                     self?.selectedFavouriteCurrenciesTableView.separatorStyle = .none
@@ -221,5 +207,10 @@ extension ConvertWithNibFileVC{
     
     func bindViewToViewModellll(){
         viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
+//        viewModel.conversion.bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
+//            (row,curr,cell) in
+//            cell.rateLabel.text
+//        }
+//        .disposed(by: disposeBag)
     }
 }

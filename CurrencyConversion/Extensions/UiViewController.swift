@@ -27,7 +27,9 @@ extension UIViewController{
         
         alert.addAction(UIAlertAction(title:"close" , style: .cancel,  handler: action))
         
-        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func configureTextField(_ textField: UITextField, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {

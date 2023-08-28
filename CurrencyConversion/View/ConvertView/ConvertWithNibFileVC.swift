@@ -50,6 +50,11 @@ class ConvertWithNibFileVC: UIViewController{
             })
             .disposed(by: disposeBag)
         
+        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (error) in
+            guard let self = self else { return }
+            self.show(messageAlert: "Service Error", message: error.localizedDescription)
+        }).disposed(by: disposeBag)
+        
         bindViewToViewModellll()
         setUpIntialValueForDropList()
         setUpLoader()
@@ -100,12 +105,12 @@ class ConvertWithNibFileVC: UIViewController{
         if reachability.connection == .unavailable {
             DispatchQueue.main.async {
                 //self.show(messageAlert: "Error!", message: "error error error")
-                self.loader.startAnimating()
+                //self.loader.startAnimating()
                 //self.handleErrors()
             }
             
         } else {
-            loader.stopAnimating()
+            //loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         }
     }

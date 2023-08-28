@@ -30,6 +30,14 @@ class ParentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        func handleErrors(){
+            viewModel.errorSubject
+                .subscribe { error in
+                    self.show(messageAlert: "Error", message: error.localizedDescription)
+                }
+                .disposed(by: disposeBag)
+        }
+        
         addChild(firstVC)
         addChild(secondVC)
         

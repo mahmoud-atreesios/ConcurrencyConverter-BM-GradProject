@@ -12,7 +12,7 @@ class FavouriteModel: Object{
     @Persisted(primaryKey: true) var currencyCode: String
     @Persisted var flagURL: String
     //@Persisted var amount: String
-    
+
     convenience init(currencyCode: String, flagURL: String) {
         self.init()
         self.currencyCode = currencyCode

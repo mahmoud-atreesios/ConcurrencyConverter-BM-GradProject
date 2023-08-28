@@ -46,8 +46,10 @@ class ConvertViewModel{
     
     func fetchCurrency(){
         isLoading.accept(true)
-        ApiClient.shared().getData(modelDTO: CurrencyModel.self, .getExchangeRate)
+        let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") ?? "USD"
+        ApiClient.shared().getData(modelDTO: CurrencyModel.self, .getExchangeRate(base: favoriteFromCurrency))
             .subscribe { currency in
+                AppConfigs.dict[favoriteFromCurrency] = currency.conversionRates
                 self.exchangeCurrency = currency
                 self.currencyRates.accept(currency.conversionRates)
                 self.isLoading.accept(false)

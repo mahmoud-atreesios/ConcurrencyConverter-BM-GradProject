@@ -65,9 +65,13 @@ class ConvertWithNibFileVC: UIViewController {
         
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
     }
-    
+
     @IBAction func convertButtonPressed(_ sender: UIButton) {
         //viewModel.convertButtonPressedRelay.accept(())
+        let fromValue = String(fromCurrencyTypeDropList.text?.dropFirst(2) ?? "")
+        let toValue = String(toCurrencyTypeDropList.text?.dropFirst(2) ?? "")
+        UserDefaults.standard.setValue(fromValue, forKey: "favoriteFromCurrency")
+        UserDefaults.standard.setValue(toValue, forKey: "favoriteToCurrency")
         guard let fromCurrencyText = fromCurrencyTypeDropList.text, !fromCurrencyText.isEmpty,
               let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty else {
             return
@@ -133,9 +137,12 @@ extension ConvertWithNibFileVC{
         testViewModel.shared().favouriteItems
             .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
                 (row,curr,cell) in
+                if let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") {
+                    guard let arr = AppConfigs.dict[favoriteFromCurrency] else { return }
+                    cell.rateLabel.text = "\(arr[curr.currencyCode] ?? 0)"
+                }
                 cell.baseLabel.text = "Currency"
                 cell.currencyLabel.text = curr.currencyCode
-                cell.rateLabel.text = "99.5"
                 if let url = URL(string: curr.flagURL) {
                     cell.currencyFlagImageView.sd_setImage(with: url)
                 }
@@ -225,8 +232,10 @@ extension ConvertWithNibFileVC{
 
 extension ConvertWithNibFileVC{
     func setUpIntialValueForDropList(){
-        fromCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
-        toCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
+        let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") ?? "USD"
+        let favoriteToCurrency = UserDefaults.standard.string(forKey: "favoriteToCurrency") ?? "EGP"
+        fromCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: favoriteFromCurrency) + favoriteFromCurrency
+        toCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: favoriteToCurrency) + favoriteToCurrency
     }
     
     func resetToAmountTextField(){

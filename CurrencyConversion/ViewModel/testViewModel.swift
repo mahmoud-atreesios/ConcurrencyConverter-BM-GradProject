@@ -17,8 +17,14 @@ class testViewModel{
         static func shared() -> testViewModel {
             return testViewModel.sharedInstance
         }
-        private init() {}
+        private init() {
+            
+        }
     
-    var favouriteItems = BehaviorRelay<[FavouriteModel]>(value: FavouriteCurrenciesManager.shared().getAllFavouritesItems())
+    var favouriteItems = BehaviorRelay<[FavouriteModel]>(value: [])
+    
+    func fetchAllCurrencies(){
+        favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
+    }
     
 }

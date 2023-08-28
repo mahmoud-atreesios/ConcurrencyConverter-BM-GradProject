@@ -25,14 +25,8 @@ class ConvertViewModel{
     
     var errorSubject = PublishSubject<String>.init()
     
-    // Input
     var fromCurrencyRelay = BehaviorRelay<String>(value: "")
     var fromAmountRelay = BehaviorRelay<Double>(value: 1.0)
-    
-    // Output
-    var toCurrencyOutPutRelay = PublishRelay<String>.init()
-    var fromCurrencyOutPutRelay = PublishRelay<String>.init()
-    var convertButtonPressedRelay = PublishRelay<Void>()
     
     var conversion = PublishRelay<String>()
     
@@ -40,8 +34,6 @@ class ConvertViewModel{
     var secoundComparedCurrency = PublishRelay<String>()
     
     let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
-
-    // var placeholderOutputRelay = PublishRelay<String>.init()
     
     
     func fetchCurrency(){
@@ -52,6 +44,9 @@ class ConvertViewModel{
                 AppConfigs.dict[favoriteFromCurrency] = currency.conversionRates
                 self.exchangeCurrency = currency
                 self.currencyRates.accept(currency.conversionRates)
+                DispatchQueue.main.async {
+                    testViewModel.shared().fetchAllCurrencies()
+                }
                 self.isLoading.accept(false)
             } onError: { error in
                 print(error)
@@ -80,7 +75,7 @@ class ConvertViewModel{
         isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
             .subscribe(onNext: { conversion in
-                self.conversion.accept(String(format: "%.2f", conversion.result ?? 1))
+                self.conversion.accept(String(format: "%.4f", conversion.result ?? 1))
                 self.isLoading.accept(false)
             }, onError: { error in
                 print(error)
@@ -95,8 +90,8 @@ class ConvertViewModel{
         ApiClient.shared().getData(modelDTO: ComparisonModel.self, .compareCurrencies(from: from, amount: amount, toFirst: toFirstCurrency, toSecond: toSecondCurrency))
             .subscribe(onNext: { comparison in
                 //self.comparison.accept(comparison.conversionRates)
-                self.firstComparedCurrency.accept(String(format: "%.2f", comparison.conversionRates[0].amount))
-                self.secoundComparedCurrency.accept(String(format: "%.2f", comparison.conversionRates[1].amount))
+                self.firstComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[0].amount))
+                self.secoundComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[1].amount))
                 self.isLoading.accept(false)
             }, onError: { error in
                 print(error)

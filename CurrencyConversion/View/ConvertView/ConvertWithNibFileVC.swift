@@ -34,7 +34,14 @@ class ConvertWithNibFileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
+            .distinctUntilChanged()
 
+        favoriteFromCurrency
+            .subscribe(onNext: { [weak self] newBaseCurrency in
+                self?.viewModel.fetchCurrency()
+            })
+            .disposed(by: disposeBag)
         
         bindViewToViewModellll()
         setUpIntialValueForDropList()
@@ -43,7 +50,6 @@ class ConvertWithNibFileVC: UIViewController {
         fromAmountCurrencyTextField.text = ""
         bindViewsToViewModel()
         bindTableViewToViewModel()
-        //showFavouriteData()
         
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
@@ -57,21 +63,19 @@ class ConvertWithNibFileVC: UIViewController {
         configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         
-        
         fillDropList()
         viewModel.fetchAllCurrencies()
-        viewModel.fetchCurrency()
-        //bindTableViewToViewModel()
         
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
     }
 
     @IBAction func convertButtonPressed(_ sender: UIButton) {
-        //viewModel.convertButtonPressedRelay.accept(())
         let fromValue = String(fromCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         let toValue = String(toCurrencyTypeDropList.text?.dropFirst(2) ?? "")
+        
         UserDefaults.standard.setValue(fromValue, forKey: "favoriteFromCurrency")
         UserDefaults.standard.setValue(toValue, forKey: "favoriteToCurrency")
+        
         guard let fromCurrencyText = fromCurrencyTypeDropList.text, !fromCurrencyText.isEmpty,
               let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty else {
             return
@@ -83,18 +87,14 @@ class ConvertWithNibFileVC: UIViewController {
         }
         
         if reachability.connection == .unavailable {
-            // If the network is unavailable, start the loader
             DispatchQueue.main.async {
                 self.loader.startAnimating()
             }
 
         } else {
-            // If the network is available, stop the loader and call convertCurrency
             loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         }
-//        viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
-        
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
@@ -139,7 +139,7 @@ extension ConvertWithNibFileVC{
                 (row,curr,cell) in
                 if let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") {
                     guard let arr = AppConfigs.dict[favoriteFromCurrency] else { return }
-                    cell.rateLabel.text = "\(arr[curr.currencyCode] ?? 0)"
+                    cell.rateLabel.text =  String(format: "%.4f", arr[curr.currencyCode] ?? 0)
                 }
                 cell.baseLabel.text = "Currency"
                 cell.currencyLabel.text = curr.currencyCode
@@ -247,49 +247,3 @@ extension ConvertWithNibFileVC{
     }
 }
 
-extension ConvertWithNibFileVC{
-//    func showFavouriteData(){
-//        viewModel.favouriteItems
-//            .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
-//                (row,curr,cell) in
-//                if let url = URL(string: curr.flagURL){
-//                    cell.currencyFlagImageView.sd_setImage(with: url)
-//                }
-//                cell.currencyLabel.text = curr.currencyCode
-//                Observable.combineLatest(self.viewModel.fromAmountRelay, self.viewModel.fromCurrencyRelay)
-//                    .subscribe(onNext: {
-//                        (amount , fromCurrency) in
-//                        self.viewModel.getConvertionRate(amount: amount, from: fromCurrency, to: curr.currencyCode) { conversionRate in
-//                            cell.rateLabel.text = conversionRate
-//                        }
-//                    })
-//                    .disposed(by: self.disposeBag)
-//            }
-//            .disposed(by: disposeBag)
-//
-//        testViewModel.shared().favouriteItems
-//            .map { $0.isEmpty }
-//            .subscribe(onNext: { [weak self] isEmpty in
-//                if isEmpty {
-//                    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self?.selectedFavouriteCurrenciesTableView.bounds.size.width ?? 0, height: self?.selectedFavouriteCurrenciesTableView.bounds.size.height ?? 0))
-//                    noDataLabel.text = "No currencies added"
-//                    noDataLabel.textColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1)
-//                    noDataLabel.textAlignment = .center
-//                    self?.selectedFavouriteCurrenciesTableView.backgroundView = noDataLabel
-//                    self?.selectedFavouriteCurrenciesTableView.separatorStyle = .none
-//                } else {
-//                    self?.selectedFavouriteCurrenciesTableView.backgroundView = nil
-//                    self?.selectedFavouriteCurrenciesTableView.separatorStyle = .singleLine
-//                }
-//            })
-//            .disposed(by: disposeBag)
-//    }
-}
-
-//Observable.combineLatest(self.currencyVM.fromAmount, self.currencyVM.fromCurrency)
-//                        .subscribe(onNext: { (amount, fromCurrency) in
-//                            self.currencyVM.getConvertionRate(amount: amount, from: fromCurrency, to: curr.currencyCode) { converstionRate in
-//                                cell.currencyAmountLabel.text = converstionRate
-//                            }
-//                        })
-//                        .disposed(by: disposeBag)

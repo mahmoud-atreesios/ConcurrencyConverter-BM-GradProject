@@ -27,6 +27,9 @@
 		1C66C8542A9B59F900C82113 /* FavouriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8532A9B59F900C82113 /* FavouriteModel.swift */; };
 		1C66C8572A9B5D7800C82113 /* FavouriteCurrenciesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */; };
 		1C66C8592A9B925800C82113 /* testViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8582A9B925800C82113 /* testViewModel.swift */; };
+		1C66C8632A9BFF8D00C82113 /* FavouriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8612A9BFF8D00C82113 /* FavouriteVC.swift */; };
+		1C66C8642A9BFF8D00C82113 /* FavouriteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1C66C8622A9BFF8D00C82113 /* FavouriteVC.xib */; };
+		1C66C8672A9C293600C82113 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1C66C8662A9C293600C82113 /* Reachability */; };
 		1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */; };
 		1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */; };
 		1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */; };
@@ -67,6 +70,9 @@
 		1C66C8532A9B59F900C82113 /* FavouriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModel.swift; sourceTree = "<group>"; };
 		1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteCurrenciesManager.swift; sourceTree = "<group>"; };
 		1C66C8582A9B925800C82113 /* testViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewModel.swift; sourceTree = "<group>"; };
+		1C66C85A2A9BDA2900C82113 /* TulpenOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TulpenOne-Regular.ttf"; sourceTree = "<group>"; };
+		1C66C8612A9BFF8D00C82113 /* FavouriteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteVC.swift; sourceTree = "<group>"; };
+		1C66C8622A9BFF8D00C82113 /* FavouriteVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteVC.xib; sourceTree = "<group>"; };
 		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCurrenciesModel.swift; sourceTree = "<group>"; };
 		1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCurrenciesTableViewCell.swift; sourceTree = "<group>"; };
@@ -97,6 +103,7 @@
 				1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */,
 				1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */,
 				1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */,
+				1C66C8672A9C293600C82113 /* Reachability in Frameworks */,
 				1C66C8502A9B599100C82113 /* Realm in Frameworks */,
 				1C3C823E2A973C1000D136DC /* RxCocoa in Frameworks */,
 			);
@@ -124,6 +131,7 @@
 		1C09D33A2A950FCA002657EE /* CurrencyConversion */ = {
 			isa = PBXGroup;
 			children = (
+				1C66C85A2A9BDA2900C82113 /* TulpenOne-Regular.ttf */,
 				1C09D33B2A950FCA002657EE /* AppDelegate.swift */,
 				1C09D33D2A950FCA002657EE /* SceneDelegate.swift */,
 				1C09D3512A950FE1002657EE /* Model */,
@@ -153,6 +161,7 @@
 		1C09D3502A950FDC002657EE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1C66C8602A9BFF7500C82113 /* FavoriteView */,
 				1C9E0A2E2A99324700AC543E /* FavoritesTableViewCell */,
 				1C9E0A2D2A99160C00AC543E /* CompareView */,
 				1C780D052A9914F400AFF4FF /* ConvertView */,
@@ -200,6 +209,15 @@
 				1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */,
 			);
 			path = DataBaseManager;
+			sourceTree = "<group>";
+		};
+		1C66C8602A9BFF7500C82113 /* FavoriteView */ = {
+			isa = PBXGroup;
+			children = (
+				1C66C8612A9BFF8D00C82113 /* FavouriteVC.swift */,
+				1C66C8622A9BFF8D00C82113 /* FavouriteVC.xib */,
+			);
+			path = FavoriteView;
 			sourceTree = "<group>";
 		};
 		1C780D052A9914F400AFF4FF /* ConvertView */ = {
@@ -274,6 +292,7 @@
 				1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */,
 				1C66C84F2A9B599100C82113 /* Realm */,
 				1C66C8512A9B599100C82113 /* RealmSwift */,
+				1C66C8662A9C293600C82113 /* Reachability */,
 			);
 			productName = CurrencyConversion;
 			productReference = 1C09D3382A950FCA002657EE /* CurrencyConversion.app */;
@@ -309,6 +328,7 @@
 				1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 				1C9E0A392A996D7000AC543E /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				1C66C84E2A9B599100C82113 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				1C66C8652A9C293600C82113 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 			);
 			productRefGroup = 1C09D3392A950FCA002657EE /* Products */;
 			projectDirPath = "";
@@ -330,6 +350,7 @@
 				1C09D3452A950FCC002657EE /* Assets.xcassets in Resources */,
 				32EF190A2A98B571004A0CEC /* Compare.xib in Resources */,
 				1C09D3432A950FCA002657EE /* Main.storyboard in Resources */,
+				1C66C8642A9BFF8D00C82113 /* FavouriteVC.xib in Resources */,
 				32EF19062A97F788004A0CEC /* Convert.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +378,7 @@
 				1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */,
 				1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */,
 				1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */,
+				1C66C8632A9BFF8D00C82113 /* FavouriteVC.swift in Sources */,
 				1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */,
 				1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */,
 				1C9E0A3F2A99FE9F00AC543E /* test.swift in Sources */,
@@ -600,6 +622,14 @@
 				kind = branch;
 			};
 		};
+		1C66C8652A9C293600C82113 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		1C9E0A362A996C0700AC543E /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder.git";
@@ -651,6 +681,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1C66C84E2A9B599100C82113 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		1C66C8662A9C293600C82113 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C66C8652A9C293600C82113 /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
 		};
 		1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */ = {
 			isa = XCSwiftPackageProductDependency;

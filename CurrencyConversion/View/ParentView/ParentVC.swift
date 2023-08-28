@@ -12,11 +12,11 @@ import SDWebImage
 
 class ParentVC: UIViewController {
     
-    var firstVC = ConvertWithNibFileVC(nibName: "Convert", bundle: nil)
-    var secondVC = CompareWithNibFileVC(nibName: "Compare", bundle: nil)
-    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerViewForConvertAndCompare: UIView!
+    
+    var firstVC = ConvertWithNibFileVC(nibName: "Convert", bundle: nil)
+    var secondVC = CompareWithNibFileVC(nibName: "Compare", bundle: nil)
     
     var viewModel = ConvertViewModel()
     let disposeBag = DisposeBag()
@@ -25,7 +25,6 @@ class ParentVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = ConvertViewModel()
         
         addChild(firstVC)
         addChild(secondVC)
@@ -41,16 +40,6 @@ class ParentVC: UIViewController {
         
         showViewController(firstVC)
         
-        //fromCurrencyTextField.text = "\(usdEmoji) USD"
-        //toCurrencyTextField.text = "\(egpEmoji) EGP"
-        //viewModel.fetchAllCurrencies()
-        //viewModel.fetchCurrency()
-        // bindTableViewToViewModel()
-        //viewModel.fromUSDtoEGP()
-        //bindViewModelToViews()
-        //bindViewsToViewModel()
-        //favoritesCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
-        
     }
     
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
@@ -65,21 +54,11 @@ class ParentVC: UIViewController {
     }
     
     private func showViewController(_ viewControllerToShow: UIViewController) {
-        // Hide all view controllers
         for vc in children {
             vc.view.isHidden = true
         }
-        
-        // Show the selected view controller
-        viewControllerToShow.view.isHidden = false
+            viewControllerToShow.view.isHidden = false
     }
     
-
-    //    func handleAddToFavoritesButtonPressed() {
-    //        let sb = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your actual storyboard name
-    //        let addToFavoritesVC = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
-    //
-    //        self.present(addToFavoritesVC, animated: true, completion: nil)
-    //    }
 }
 

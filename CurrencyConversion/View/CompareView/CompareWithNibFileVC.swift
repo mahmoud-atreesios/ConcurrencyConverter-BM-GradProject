@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import iOSDropDown
+import Reachability
 
 class CompareWithNibFileVC: UIViewController {
     
@@ -24,15 +25,20 @@ class CompareWithNibFileVC: UIViewController {
     let viewModel = ConvertViewModel()
     let disposeBag = DisposeBag()
     
+    var loader: UIActivityIndicatorView!
+    let reachability = try! Reachability()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+
         setUp()
+        setUpLoader()
         setUpIntialValueForDropList()
         fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
+        resetToAmountTextField()
         
         //viewModel.allOfCurrencies
         bindViewToViewModellll()
@@ -53,8 +59,18 @@ class CompareWithNibFileVC: UIViewController {
         if fromAmount.isEmpty {
             fromAmount = "0.0"
         }
-        //String(fromCurrencyText.dropFirst(2))
-        viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(1)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(1)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(1)))
+        if reachability.connection == .unavailable {
+            // If the network is unavailable, start the loader
+            DispatchQueue.main.async {
+                self.loader.startAnimating()
+            }
+            
+        } else {
+            // If the network is available, stop the loader and call convertCurrency
+            loader.stopAnimating()
+            viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
+            
+        }
     }
     
 }
@@ -74,6 +90,25 @@ extension CompareWithNibFileVC{
 }
 
 extension CompareWithNibFileVC{
+    func setUpLoader(){
+        loader = UIActivityIndicatorView(style: .large)
+        loader.center = CGPoint(x: 180, y: 200)
+        view.addSubview(loader)
+        
+        viewModel.isLoading
+            .asObservable()
+            .subscribe(onNext: { [weak self] isLoading in
+                DispatchQueue.main.async {
+                    if isLoading {
+                        self?.loader.startAnimating()
+                    } else {
+                        self?.loader.stopAnimating()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     func setUp(){
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
@@ -127,8 +162,16 @@ extension CompareWithNibFileVC{
 
 extension CompareWithNibFileVC{
     func setUpIntialValueForDropList(){
-        fromCurrencyDropList.text = viewModel.getFlagEmoji(flag: "EGP") + "EGP"
-        toFirstCurrencyTypeDropList.text = viewModel.getFlagEmoji(flag: "USD") + "USD"
-        toSecondCurrencyTypeDropList.text = viewModel.getFlagEmoji(flag: "USD") + "USD"
+        fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
+        toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
+        toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
+    }
+    func resetToAmountTextField(){
+        fromAmountTextField.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] _ in
+                self?.firstToAmountTextField.text = ""
+                self?.secondToAmountTextField.text = ""
+            })
+            .disposed(by: disposeBag)
     }
 }

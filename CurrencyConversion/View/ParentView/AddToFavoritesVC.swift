@@ -38,9 +38,9 @@ class AddToFavoritesVC: UIViewController {
         favoritesContainerUIView.layer.cornerRadius = 25
         setupSVG()
         viewModel.fetchAllCurrencies()
-        //viewModel. .fetchAllCurrencies()
         bindTableViewToViewModel()
         selectedFavouritesCurrenciesTableView.register(UINib(nibName: "FavoriteCurrenciesTableViewCell", bundle: nil), forCellReuseIdentifier: "favoriteCell")
+        
     }
     @IBAction func closeButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true)
@@ -50,6 +50,31 @@ class AddToFavoritesVC: UIViewController {
 }
 
 extension AddToFavoritesVC{
+    
+//    func testCompareApi(){
+//        viewModel.comparison
+//            .bind(to: selectedFavouritesCurrenciesTableView.rx.items(cellIdentifier: "favoriteCell", cellType: FavoriteCurrenciesTableViewCell.self)){
+//                (row, currency, cell) in
+//                let favoriteModel = FavouriteModel(currencyCode: currency.currencyCode, amount: String(currency.amount))
+//                //cell.currencyLabel.text = "currency"
+//                cell.currencyCode.text = currency.currencyCode
+//                cell.currencyLabel.text = String(currency.amount)
+//                    cell.checkButton.isChecked = FavouriteCurrenciesManager.shared().isItemFavorited(favoriteModel)
+//                    cell.checkbuttonPressed = {
+//                        if cell.checkButton.isChecked{
+//                            FavouriteCurrenciesManager.shared().addRealmCurrency(favoriteModel)
+//                            //print("Added \(currency.code) to favorites")
+//                        }else{
+//                            FavouriteCurrenciesManager.shared().deleteRealmCurrency(favoriteModel)
+//                            print("deleted \(currency.currencyCode) from favorites")
+//                        }
+//                        //self.viewModel.favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
+//                        testViewModel.shared().favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
+//                    }
+//
+//            }
+//            .disposed(by: disposeBag)
+//    }
     
     func bindTableViewToViewModel() {
         print("ana gwa l function")
@@ -74,7 +99,7 @@ extension AddToFavoritesVC{
                         //self.viewModel.favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
                         testViewModel.shared().favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
                     }
-                
+
             }
             .disposed(by: disposeBag)
     }

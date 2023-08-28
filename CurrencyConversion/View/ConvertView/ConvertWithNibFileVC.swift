@@ -11,9 +11,10 @@ import RxCocoa
 import iOSDropDown
 import SDWebImage
 import SDWebImageSVGCoder
+import Reachability
 
 class ConvertWithNibFileVC: UIViewController {
-    
+        
     @IBOutlet weak var fromAmountCurrencyTextField: UITextField!
     @IBOutlet weak var fromCurrencyTypeDropList: DropDown!
     
@@ -27,13 +28,22 @@ class ConvertWithNibFileVC: UIViewController {
     let disposeBag = DisposeBag()
     let favouriteItems = FavouriteCurrenciesManager.shared().getAllFavouritesItems()
     
-    
+    var loader: UIActivityIndicatorView!
+    let reachability = try! Reachability()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bindViewToViewModellll()
-        setUp()
+
         
+        bindViewToViewModellll()
+        setUpIntialValueForDropList()
+        setUpLoader()
+        resetToAmountTextField()
+        fromAmountCurrencyTextField.text = ""
+        bindViewsToViewModel()
+        bindTableViewToViewModel()
+        //showFavouriteData()
         
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
@@ -47,17 +57,12 @@ class ConvertWithNibFileVC: UIViewController {
         configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         
-        fromCurrencyTypeDropList.text = "🇺🇸USD"
-        toCurrencyTypeDropList.text = "🇪🇬EGP"
-        
         
         fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
-        bindTableViewToViewModel()
-        //bindViewsToViewModel()
-        //bindViewModelToViews()
-        //viewModel.fromUSDtoEGP()
+        //bindTableViewToViewModel()
+        
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
     }
     
@@ -73,7 +78,18 @@ class ConvertWithNibFileVC: UIViewController {
             fromAmount = "0.0"
         }
         
-        viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
+        if reachability.connection == .unavailable {
+            // If the network is unavailable, start the loader
+            DispatchQueue.main.async {
+                self.loader.startAnimating()
+            }
+
+        } else {
+            // If the network is available, stop the loader and call convertCurrency
+            loader.stopAnimating()
+            viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
+        }
+//        viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         
     }
     
@@ -144,43 +160,26 @@ extension ConvertWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func bindViewModelToViews(){
-        viewModel.fromCurrencyOutPutRelay.bind(to: fromAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
-        viewModel.toCurrencyOutPutRelay.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
-        
-        //A3takd l streen l ta7t dol malohmsh lazma
-        viewModel.fromCurrencyRelay.bind(to: fromCurrencyTypeDropList.rx.text).disposed(by: disposeBag)
-        viewModel.toCurrencyRelay.bind(to: toCurrencyTypeDropList.rx.text).disposed(by: disposeBag)
-    }
-    
     func bindViewsToViewModel(){
         
-        fromAmountCurrencyTextField.rx
-            .text
-            .orEmpty
-            .map { $0.isEmpty ? "0.0" : $0 }
+        fromAmountCurrencyTextField.rx.controlEvent(.editingChanged)
+            .withLatestFrom(fromAmountCurrencyTextField.rx.text.orEmpty)
+            .map { currency in
+                let cleanedCurrency = String(currency.dropFirst(2))
+                return cleanedCurrency.isEmpty ? "0.0" : cleanedCurrency
+            }
+            .distinctUntilChanged()
             .compactMap(Double.init)
             .bind(to: viewModel.fromAmountRelay)
             .disposed(by: disposeBag)
         
-        toAmountCurrencyTextField.rx
-            .text
-            .orEmpty
-            .map { $0.isEmpty ? "0.0" : $0 }
-            .compactMap(Double.init)
-            .bind(to: viewModel.toAmountRelay)
-            .disposed(by: disposeBag)
-        
-        fromCurrencyTypeDropList.rx
-            .text
-            .orEmpty
+        fromCurrencyTypeDropList.rx.text.orEmpty
+            .map { currency in
+                let cleanedCurrency = String(currency.dropFirst(2))
+                return cleanedCurrency.isEmpty ? "0.0" : cleanedCurrency
+            }
+            .distinctUntilChanged()
             .bind(to: viewModel.fromCurrencyRelay)
-            .disposed(by: disposeBag)
-        
-        toCurrencyTypeDropList.rx
-            .text
-            .orEmpty
-            .bind(to: viewModel.toCurrencyRelay)
             .disposed(by: disposeBag)
         
     }
@@ -200,17 +199,88 @@ extension ConvertWithNibFileVC{
 }
 
 extension ConvertWithNibFileVC{
-    func setUp(){
-        fromAmountCurrencyTextField.addLeftPadding(padding: 5)
-        toAmountCurrencyTextField.addLeftPadding(padding: 5)
+    func setUpLoader(){
+        loader = UIActivityIndicatorView(style: .large)
+        loader.center = CGPoint(x: 180, y: 200)
+        view.addSubview(loader)
+        
+        viewModel.isLoading
+            .asObservable()
+            .subscribe(onNext: { [weak self] isLoading in
+                DispatchQueue.main.async {
+                    if isLoading {
+                        self?.loader.startAnimating()
+                    } else {
+                        self?.loader.stopAnimating()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func bindViewToViewModellll(){
         viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
-//        viewModel.conversion.bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
-//            (row,curr,cell) in
-//            cell.rateLabel.text
-//        }
-//        .disposed(by: disposeBag)
     }
 }
+
+extension ConvertWithNibFileVC{
+    func setUpIntialValueForDropList(){
+        fromCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
+        toCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
+    }
+    
+    func resetToAmountTextField(){
+        fromAmountCurrencyTextField.rx.text.orEmpty
+            .subscribe(onNext: { [weak self] _ in
+                self?.toAmountCurrencyTextField.text = ""
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension ConvertWithNibFileVC{
+//    func showFavouriteData(){
+//        viewModel.favouriteItems
+//            .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
+//                (row,curr,cell) in
+//                if let url = URL(string: curr.flagURL){
+//                    cell.currencyFlagImageView.sd_setImage(with: url)
+//                }
+//                cell.currencyLabel.text = curr.currencyCode
+//                Observable.combineLatest(self.viewModel.fromAmountRelay, self.viewModel.fromCurrencyRelay)
+//                    .subscribe(onNext: {
+//                        (amount , fromCurrency) in
+//                        self.viewModel.getConvertionRate(amount: amount, from: fromCurrency, to: curr.currencyCode) { conversionRate in
+//                            cell.rateLabel.text = conversionRate
+//                        }
+//                    })
+//                    .disposed(by: self.disposeBag)
+//            }
+//            .disposed(by: disposeBag)
+//
+//        testViewModel.shared().favouriteItems
+//            .map { $0.isEmpty }
+//            .subscribe(onNext: { [weak self] isEmpty in
+//                if isEmpty {
+//                    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self?.selectedFavouriteCurrenciesTableView.bounds.size.width ?? 0, height: self?.selectedFavouriteCurrenciesTableView.bounds.size.height ?? 0))
+//                    noDataLabel.text = "No currencies added"
+//                    noDataLabel.textColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1)
+//                    noDataLabel.textAlignment = .center
+//                    self?.selectedFavouriteCurrenciesTableView.backgroundView = noDataLabel
+//                    self?.selectedFavouriteCurrenciesTableView.separatorStyle = .none
+//                } else {
+//                    self?.selectedFavouriteCurrenciesTableView.backgroundView = nil
+//                    self?.selectedFavouriteCurrenciesTableView.separatorStyle = .singleLine
+//                }
+//            })
+//            .disposed(by: disposeBag)
+//    }
+}
+
+//Observable.combineLatest(self.currencyVM.fromAmount, self.currencyVM.fromCurrency)
+//                        .subscribe(onNext: { (amount, fromCurrency) in
+//                            self.currencyVM.getConvertionRate(amount: amount, from: fromCurrency, to: curr.currencyCode) { converstionRate in
+//                                cell.currencyAmountLabel.text = converstionRate
+//                            }
+//                        })
+//                        .disposed(by: disposeBag)

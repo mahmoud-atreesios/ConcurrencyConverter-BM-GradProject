@@ -27,9 +27,7 @@ class ConvertViewModel{
     
     // Input
     var fromCurrencyRelay = BehaviorRelay<String>(value: "")
-    var toCurrencyRelay = BehaviorRelay<String>(value: "")
     var fromAmountRelay = BehaviorRelay<Double>(value: 1.0)
-    var toAmountRelay = BehaviorRelay<Double>(value: 0.0)
     
     // Output
     var toCurrencyOutPutRelay = PublishRelay<String>.init()
@@ -37,89 +35,88 @@ class ConvertViewModel{
     var convertButtonPressedRelay = PublishRelay<Void>()
     
     var conversion = PublishRelay<String>()
+    
     var firstComparedCurrency = PublishRelay<String>()
     var secoundComparedCurrency = PublishRelay<String>()
     
+    let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+
     // var placeholderOutputRelay = PublishRelay<String>.init()
     
     
     func fetchCurrency(){
+        isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: CurrencyModel.self, .getExchangeRate)
             .subscribe { currency in
                 self.exchangeCurrency = currency
                 self.currencyRates.accept(currency.conversionRates)
+                self.isLoading.accept(false)
             } onError: { error in
                 print(error)
+                self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)
     }
     
     func fetchAllCurrencies(){
+        isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrenciesData)
             .subscribe { listOfAllCurrencies in
                 self.allCurrencies = listOfAllCurrencies
                 self.allOfCurrencies.accept(listOfAllCurrencies.currencies)
                 //self.currencyRates.accept(currency.conversionRates)
+                self.isLoading.accept(false)
             } onError: { error in
                 print(error)
                 self.errorSubject.onNext(error.localizedDescription)
+                self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)
     }
     
-//    func convertCurrency(amount: String, from: String, to: String) -> Observable<String> {
-//        return Observable.create { observer in
-//            ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
-//                .subscribe(onNext: { conversion in
-//                    let result = String(format: "%.2f", conversion.result ?? 1)
-//                    observer.onNext(result)
-//                }, onError: { error in
-//                    print(error)
-//                    self.errorSubject.onNext(error.localizedDescription)
-//                })
-//                .disposed(by: self.disposeBag)
-//        }
-//    }
-
-    
     func convertCurrency(amount: String, from: String, to: String){
+        isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
             .subscribe(onNext: { conversion in
                 self.conversion.accept(String(format: "%.2f", conversion.result ?? 1))
-                
+                self.isLoading.accept(false)
             }, onError: { error in
                 print(error)
                 self.errorSubject.onNext(error.localizedDescription)
-                
+                self.isLoading.accept(false)
             })
             .disposed(by: disposeBag)
     }
     
     func compareCurrency(amount: String, from: String, toFirstCurrency: String, toSecondCurrency: String){
+        isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ComparisonModel.self, .compareCurrencies(from: from, amount: amount, toFirst: toFirstCurrency, toSecond: toSecondCurrency))
             .subscribe(onNext: { comparison in
                 //self.comparison.accept(comparison.conversionRates)
                 self.firstComparedCurrency.accept(String(format: "%.2f", comparison.conversionRates[0].amount))
                 self.secoundComparedCurrency.accept(String(format: "%.2f", comparison.conversionRates[1].amount))
+                self.isLoading.accept(false)
             }, onError: { error in
                 print(error)
                 self.errorSubject.onNext(error.localizedDescription)
+                self.isLoading.accept(false)
             })
             .disposed(by: disposeBag)
-        
-        func fromUSDtoEGP(){
-            convertButtonPressedRelay.subscribe(onNext: { [weak self] _ in
-                guard let self = self, let model = self.exchangeCurrency else { return }
-                let amount = self.fromAmountRelay.value
-                let from = self.fromCurrencyRelay.value
-                let to = self.toCurrencyRelay.value
-                let convertedAmount = model.convert(amount: amount, from: from, to: to)
-                self.toCurrencyOutPutRelay.accept(String.init(convertedAmount))
-                let convertedCurrencies = model.convertAllCurrencies(amount: amount, from: from)
-                self.currencyRates.accept(convertedCurrencies)
-            }).disposed(by: disposeBag)
-        }
-        
+    }
+    
+    func getConvertionRate(amount: Double, from: String, to: [String], completion: @escaping (String?) -> Void) {
+        isLoading.accept(true)
+        ApiClient.shared().getData(modelDTO: ConversionModel.self, .comparison(from: from, amount: String(amount), arrayOfString: to))
+            .observe(on: MainScheduler.instance)
+            .subscribe { converstionRate in
+                completion(String(format: "%.2f", amount/(converstionRate.result ?? 1.5)))
+                self.isLoading.accept(false)
+            } onError: { error in
+                print(error)
+                self.errorSubject.onNext(error.localizedDescription)
+                self.isLoading.accept(false)
+            }
+            .disposed(by: disposeBag)
     }
 }
 

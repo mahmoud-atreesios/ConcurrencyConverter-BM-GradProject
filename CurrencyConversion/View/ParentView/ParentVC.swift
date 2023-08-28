@@ -12,6 +12,14 @@ import SDWebImage
 
 class ParentVC: UIViewController {
     
+
+    var firstVC = ConvertWithNibFileVC(nibName: "Convert", bundle: nil)
+    var secondVC = CompareWithNibFileVC(nibName: "Compare", bundle: nil)
+    @IBOutlet weak var concurrencyTitleLabel: UILabel!
+    @IBOutlet weak var currencyConverterLabel: UILabel!
+    @IBOutlet weak var checkLiveForeignCurrencyLabel: UILabel!
+    
+
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerViewForConvertAndCompare: UIView!
     
@@ -39,6 +47,28 @@ class ParentVC: UIViewController {
         secondVC.didMove(toParent: self)
         
         showViewController(firstVC)
+        
+
+        concurrencyTitleLabel.font = UIFont(name: "Memphis-Bold", size: 21)
+        currencyConverterLabel.font = UIFont(name: "MontserratRoman-SemiBold", size: 22)
+        checkLiveForeignCurrencyLabel.font = UIFont(name: "MontserratRoman-Regular", size: 12.78)
+        
+                    
+                    let attributes = [NSAttributedString.Key.font: UIFont(name: "Poppins-Regular", size: 13.8)]
+
+                    
+                    segmentedControl.setTitleTextAttributes(attributes, for: .normal)
+                
+        
+        //fromCurrencyTextField.text = "\(usdEmoji) USD"
+        //toCurrencyTextField.text = "\(egpEmoji) EGP"
+        //viewModel.fetchAllCurrencies()
+        //viewModel.fetchCurrency()
+        // bindTableViewToViewModel()
+        //viewModel.fromUSDtoEGP()
+        //bindViewModelToViews()
+        //bindViewsToViewModel()
+        //favoritesCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
         
     }
     

@@ -15,6 +15,14 @@ import Reachability
 
 class ConvertWithNibFileVC: UIViewController{
     
+    @IBOutlet weak var myPortofolioLabel: UILabel!
+    @IBOutlet weak var convertButton: UIButton!
+    @IBOutlet weak var addToFavoritesButton: UIButton!
+    @IBOutlet weak var liveExchangeRateLabel: UILabel!
+    @IBOutlet weak var amountToLabel: UILabel!
+    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var amountFromLabel: UILabel!
     @IBOutlet weak var fromAmountCurrencyTextField: UITextField!
     @IBOutlet weak var fromCurrencyTypeDropList: DropDown!
     
@@ -51,6 +59,19 @@ class ConvertWithNibFileVC: UIViewController{
         bindTableViewToViewModel()
         
         setUp()
+        amountToLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        amountFromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        toLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+
+        fromAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        toAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        toCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        fromCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        liveExchangeRateLabel.font = UIFont(name: "Poppins-SemiBold", size: 16.84)
+        myPortofolioLabel.font = UIFont(name: "Poppins-Regular", size: 18)
+        convertButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
+        addToFavoritesButton.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 10.87)
         
         fillDropList()
         viewModel.fetchAllCurrencies()

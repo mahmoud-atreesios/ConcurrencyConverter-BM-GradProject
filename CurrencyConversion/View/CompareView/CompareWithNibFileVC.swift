@@ -12,7 +12,12 @@ import iOSDropDown
 import Reachability
 
 class CompareWithNibFileVC: UIViewController {
+    @IBOutlet weak var targetedCurrencyTwo: UILabel!
+    @IBOutlet weak var targetedCurrencyOne: UILabel!
+    @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
     
+    @IBOutlet weak var compareButton: UIButton!
     @IBOutlet weak var fromAmountTextField: UITextField!
     @IBOutlet weak var fromCurrencyDropList: DropDown!
     
@@ -31,6 +36,20 @@ class CompareWithNibFileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+
+        amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        targetedCurrencyTwo.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        
+        firstToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        secondToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        fromAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        
+        fromCurrencyDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        toFirstCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        toSecondCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
 
         setUp()
         setUpLoader()

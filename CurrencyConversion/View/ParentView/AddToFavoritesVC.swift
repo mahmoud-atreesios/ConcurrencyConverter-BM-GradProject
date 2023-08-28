@@ -14,6 +14,8 @@ import RealmSwift
 
 class AddToFavoritesVC: UIViewController {
     
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var myFavoritesLabel: UILabel!
     @IBOutlet weak var favoritesContainerUIView: UIView!
     @IBOutlet weak var selectedFavouritesCurrenciesTableView: UITableView!
     
@@ -23,6 +25,10 @@ class AddToFavoritesVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myFavoritesLabel.font = UIFont(name: "Poppins-Medium", size: 17.34)
+        closeButton.titleLabel?.frame = CGRect(x: 0, y: 0, width: 20.37, height: 20.37)
+        
         print(FavouriteCurrenciesManager.shared().returnDataBaseURL()) 
         favoritesContainerUIView.layer.cornerRadius = 25
         setupSVG()

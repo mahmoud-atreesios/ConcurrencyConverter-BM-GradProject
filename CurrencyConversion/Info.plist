@@ -4,7 +4,12 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>TulpenOne-Regular.ttf</string>
+		<string>Poppins-Medium.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
+		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>Memphis-Bold.ttf</string>
+		<string>Montserrat.ttf</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

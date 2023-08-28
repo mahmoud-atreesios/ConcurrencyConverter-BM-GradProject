@@ -10,11 +10,19 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConvertWithNibFileVC" customModule="CurrencyConversion" customModuleProvider="target">
             <connections>
+                <outlet property="addToFavoritesButton" destination="fIi-of-HnU" id="OfH-Oa-uII"/>
+                <outlet property="amountFromLabel" destination="lI5-7q-kc9" id="hnv-Oc-ovW"/>
+                <outlet property="amountToLabel" destination="KTP-hz-Gc1" id="Rq3-3p-0Hb"/>
+                <outlet property="convertButton" destination="p8Q-Bd-Mi9" id="waG-iX-1KT"/>
                 <outlet property="fromAmountCurrencyTextField" destination="NLv-Pn-t0g" id="Ltj-Cn-KWF"/>
                 <outlet property="fromCurrencyTypeDropList" destination="l4D-X2-M8w" id="78o-Dn-Yrx"/>
+                <outlet property="fromLabel" destination="cV5-q7-5ql" id="oCw-Sd-dmf"/>
+                <outlet property="liveExchangeRateLabel" destination="iWE-dC-plJ" id="YY6-E5-99b"/>
+                <outlet property="myPortofolioLabel" destination="AJe-HC-8pJ" id="lsd-x7-5zZ"/>
                 <outlet property="selectedFavouriteCurrenciesTableView" destination="auA-6v-p0c" id="O7H-Fl-Vhg"/>
                 <outlet property="toAmountCurrencyTextField" destination="AvM-qa-wOx" id="XIq-x3-sTp"/>
                 <outlet property="toCurrencyTypeDropList" destination="WDQ-h0-qjW" id="gzb-vA-dCv"/>
+                <outlet property="toLabel" destination="HFx-LM-y8A" id="jGw-CQ-zWy"/>
                 <outlet property="view" destination="iN0-l3-epB" id="uMe-Xm-Tgt"/>
             </connections>
         </placeholder>
@@ -216,7 +224,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.97647058959999999" green="0.97647058959999999" blue="0.97647058959999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="rkl-q4-VeG" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="JJX-kE-sDV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="rkl-q4-VeG" secondAttribute="trailing" id="h2F-ZB-FAJ"/>

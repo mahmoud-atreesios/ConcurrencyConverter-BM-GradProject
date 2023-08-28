@@ -17,6 +17,10 @@ class CurrencyCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        currencyLabel.font = UIFont(name: "Poppins-Regular", size: 14)
+        baseLabel.font = UIFont(name: "Poppins-Regular", size: 12)
+        rateLabel.font = UIFont(name: "Poppins-Medium", size: 18)
         // Initialization code
         currencyFlagImageView.makeRounded()
     }

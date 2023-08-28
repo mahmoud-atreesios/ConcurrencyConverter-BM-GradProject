@@ -13,7 +13,7 @@ import SDWebImage
 import SDWebImageSVGCoder
 import Reachability
 
-class ConvertWithNibFileVC: UIViewController{
+class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var myPortofolioLabel: UILabel!
     @IBOutlet weak var convertButton: UIButton!
@@ -41,6 +41,7 @@ class ConvertWithNibFileVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fromAmountCurrencyTextField.delegate = self
         let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
             .distinctUntilChanged()
         
@@ -125,6 +126,10 @@ class ConvertWithNibFileVC: UIViewController{
     func bindViewToViewModellll(){
         viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+                return NumericInputFilter.filterInput(string)
+            }
+
     
 }
 

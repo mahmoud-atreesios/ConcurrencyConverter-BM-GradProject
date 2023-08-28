@@ -11,7 +11,7 @@ import RxCocoa
 import iOSDropDown
 import Reachability
 
-class CompareWithNibFileVC: UIViewController {
+class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var targetedCurrencyTwo: UILabel!
     @IBOutlet weak var targetedCurrencyOne: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
@@ -38,7 +38,7 @@ class CompareWithNibFileVC: UIViewController {
         // Do any additional setup after loading the view.
 
         handleErrors()
-        
+        fromAmountTextField.delegate = self
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -93,6 +93,10 @@ class CompareWithNibFileVC: UIViewController {
             
         }
     }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+                return NumericInputFilter.filterInput(string)
+            }
+
     
 }
 

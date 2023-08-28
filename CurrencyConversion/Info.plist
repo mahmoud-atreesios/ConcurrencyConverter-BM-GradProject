@@ -8,8 +8,8 @@
 		<string>Poppins-SemiBold.ttf</string>
 		<string>Poppins-Bold.ttf</string>
 		<string>Poppins-Regular.ttf</string>
-		<string>Memphis-Bold.ttf</string>
-		<string>Montserrat.ttf</string>
+		<string>memphi31.ttf</string>
+		<string>Montserrat-VariableFont_wght.ttf</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

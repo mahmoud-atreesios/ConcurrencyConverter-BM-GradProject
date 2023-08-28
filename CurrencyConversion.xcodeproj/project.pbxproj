@@ -43,6 +43,7 @@
 		1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */; };
 		1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCE20892A98FCFB00A7CE6C /* iOSDropDown */; };
 		1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE208B2A99047800A7CE6C /* RadioButton.swift */; };
+		1CE478772A9D21A500E87B3F /* UiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE478762A9D21A500E87B3F /* UiViewController.swift */; };
 		32EF19062A97F788004A0CEC /* Convert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19052A97F788004A0CEC /* Convert.xib */; };
 		32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF19072A97F7A9004A0CEC /* Convert.swift */; };
 		32EF190A2A98B571004A0CEC /* Compare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19092A98B571004A0CEC /* Compare.xib */; };
@@ -81,6 +82,7 @@
 		1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ConvertWithNibFileVC.swift; sourceTree = "<group>"; tabWidth = 4; };
 		1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareWithNibFileVC.swift; sourceTree = "<group>"; };
 		1CCE208B2A99047800A7CE6C /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		1CE478762A9D21A500E87B3F /* UiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiViewController.swift; sourceTree = "<group>"; };
 		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Convert.xib; path = ../../Convert.xib; sourceTree = "<group>"; };
 		32EF19072A97F7A9004A0CEC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		32EF19092A98B571004A0CEC /* Compare.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Compare.xib; sourceTree = "<group>"; };
@@ -140,9 +142,9 @@
 				1C09D3442A950FCC002657EE /* Assets.xcassets */,
 				1C09D3462A950FCC002657EE /* LaunchScreen.storyboard */,
 				1C09D3492A950FCC002657EE /* Info.plist */,
+				1CE478752A9D216900E87B3F /* Extensions */,
 				1C9E0A352A995ADB00AC543E /* Constants */,
 				1C9E0A3E2A99FE9F00AC543E /* test.swift */,
-				1C9E0A402A9A54BC00AC543E /* Extension+UITextField.swift */,
 				1C66C8552A9B5D3D00C82113 /* DataBaseManager */,
 			);
 			path = CurrencyConversion;
@@ -255,6 +257,15 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		1CE478752A9D216900E87B3F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1C9E0A402A9A54BC00AC543E /* Extension+UITextField.swift */,
+				1CE478762A9D21A500E87B3F /* UiViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -353,6 +364,7 @@
 				1C09D3552A95112C002657EE /* ConvertViewModel.swift in Sources */,
 				1C9E0A342A99431100AC543E /* Constants.swift in Sources */,
 				32EF190E2A98C35A004A0CEC /* AddToFavoritesVC.swift in Sources */,
+				1CE478772A9D21A500E87B3F /* UiViewController.swift in Sources */,
 				9688A04A2A9C553E000BA8E4 /* AppConfigs.swift in Sources */,
 				1C66C8542A9B59F900C82113 /* FavouriteModel.swift in Sources */,
 				32EF190C2A98B585004A0CEC /* Compare.swift in Sources */,

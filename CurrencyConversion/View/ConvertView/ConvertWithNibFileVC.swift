@@ -13,14 +13,13 @@ import SDWebImage
 import SDWebImageSVGCoder
 import Reachability
 
-class ConvertWithNibFileVC: UIViewController {
-        
+class ConvertWithNibFileVC: UIViewController{
+    
     @IBOutlet weak var fromAmountCurrencyTextField: UITextField!
     @IBOutlet weak var fromCurrencyTypeDropList: DropDown!
     
     @IBOutlet weak var toAmountCurrencyTextField: UITextField!
     @IBOutlet weak var toCurrencyTypeDropList: DropDown!
-    
     
     @IBOutlet weak var selectedFavouriteCurrenciesTableView: UITableView!
     
@@ -30,13 +29,13 @@ class ConvertWithNibFileVC: UIViewController {
     
     var loader: UIActivityIndicatorView!
     let reachability = try! Reachability()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
             .distinctUntilChanged()
-
+        
         favoriteFromCurrency
             .subscribe(onNext: { [weak self] newBaseCurrency in
                 self?.viewModel.fetchCurrency()
@@ -51,24 +50,15 @@ class ConvertWithNibFileVC: UIViewController {
         bindViewsToViewModel()
         bindTableViewToViewModel()
         
-        let cornerRadius: CGFloat = 20
-        let textFieldHeight: CGFloat = 48
-        let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
-        let borderWidth: CGFloat = 0.5
-        let padding: CGFloat = 15
-        
-        configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        
-        configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-        configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        setUp()
         
         fillDropList()
         viewModel.fetchAllCurrencies()
         
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
+        handleErrors()
     }
-
+    
     @IBAction func convertButtonPressed(_ sender: UIButton) {
         let fromValue = String(fromCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         let toValue = String(toCurrencyTypeDropList.text?.dropFirst(2) ?? "")
@@ -90,7 +80,7 @@ class ConvertWithNibFileVC: UIViewController {
             DispatchQueue.main.async {
                 self.loader.startAnimating()
             }
-
+            
         } else {
             loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
@@ -104,35 +94,14 @@ class ConvertWithNibFileVC: UIViewController {
         
     }
     
-    func configureTextField(_ textField: UITextField, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
-        textField.layer.masksToBounds = true
-        textField.layer.cornerRadius = cornerRadius
-        textField.heightAnchor.constraint(equalToConstant: height).isActive = true
-        textField.layer.borderWidth = borderWidth
-        textField.layer.borderColor = borderColor
-        
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-    }
-    
-    func configureDropDown(_ dropDown: DropDown, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
-        dropDown.layer.masksToBounds = true
-        dropDown.layer.cornerRadius = cornerRadius
-        dropDown.heightAnchor.constraint(equalToConstant: height).isActive = true
-        dropDown.layer.borderWidth = borderWidth
-        dropDown.layer.borderColor = borderColor
-        
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: height))
-        dropDown.leftView = paddingView
-        dropDown.leftViewMode = .always
+    func bindViewToViewModellll(){
+        viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
     }
     
 }
 
 extension ConvertWithNibFileVC{
     func bindTableViewToViewModel() {
-        print("ana gwa l function")
         
         testViewModel.shared().favouriteItems
             .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
@@ -225,8 +194,21 @@ extension ConvertWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func bindViewToViewModellll(){
-        viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
+    func setUp(){
+        
+        toAmountCurrencyTextField.isUserInteractionEnabled = false
+        
+        let cornerRadius: CGFloat = 20
+        let textFieldHeight: CGFloat = 48
+        let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
+        let borderWidth: CGFloat = 0.5
+        let padding: CGFloat = 15
+        
+        configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
     }
 }
 
@@ -243,6 +225,14 @@ extension ConvertWithNibFileVC{
             .subscribe(onNext: { [weak self] _ in
                 self?.toAmountCurrencyTextField.text = ""
             })
+            .disposed(by: disposeBag)
+    }
+    
+    func handleErrors(){
+        viewModel.errorSubject
+            .subscribe { error in
+                self.show(messageAlert: "Error", message: error.localizedDescription)
+            }
             .disposed(by: disposeBag)
     }
 }

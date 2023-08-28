@@ -23,7 +23,7 @@ class ConvertViewModel{
     var allOfCurrencies = PublishRelay<[Currency]>.init()
     var favouriteItems = BehaviorRelay<[FavouriteModel]>(value: FavouriteCurrenciesManager.shared().getAllFavouritesItems())
     
-    var errorSubject = PublishSubject<String>.init()
+    var errorSubject = PublishSubject<Error>.init()
     
     var fromCurrencyRelay = BehaviorRelay<String>(value: "")
     var fromAmountRelay = BehaviorRelay<Double>(value: 1.0)
@@ -49,7 +49,6 @@ class ConvertViewModel{
                 }
                 self.isLoading.accept(false)
             } onError: { error in
-                print(error)
                 self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)
@@ -64,8 +63,7 @@ class ConvertViewModel{
                 //self.currencyRates.accept(currency.conversionRates)
                 self.isLoading.accept(false)
             } onError: { error in
-                print(error)
-                self.errorSubject.onNext(error.localizedDescription)
+                self.errorSubject.onNext(error)
                 self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)
@@ -78,8 +76,7 @@ class ConvertViewModel{
                 self.conversion.accept(String(format: "%.4f", conversion.result ?? 1))
                 self.isLoading.accept(false)
             }, onError: { error in
-                print(error)
-                self.errorSubject.onNext(error.localizedDescription)
+                self.errorSubject.onNext(error)
                 self.isLoading.accept(false)
             })
             .disposed(by: disposeBag)
@@ -94,8 +91,7 @@ class ConvertViewModel{
                 self.secoundComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[1].amount))
                 self.isLoading.accept(false)
             }, onError: { error in
-                print(error)
-                self.errorSubject.onNext(error.localizedDescription)
+                self.errorSubject.onNext(error)
                 self.isLoading.accept(false)
             })
             .disposed(by: disposeBag)
@@ -109,8 +105,7 @@ class ConvertViewModel{
                 completion(String(format: "%.2f", amount/(converstionRate.result ?? 1.5)))
                 self.isLoading.accept(false)
             } onError: { error in
-                print(error)
-                self.errorSubject.onNext(error.localizedDescription)
+                self.errorSubject.onNext(error)
                 self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)

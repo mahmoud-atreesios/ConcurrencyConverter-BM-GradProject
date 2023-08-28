@@ -116,6 +116,9 @@ extension CompareWithNibFileVC{
         let borderWidth: CGFloat = 0.5
         let padding: CGFloat = 15
         
+        firstToAmountTextField.isUserInteractionEnabled = false
+        secondToAmountTextField.isUserInteractionEnabled = false
+
         configureTextField(fromAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(firstToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         
@@ -131,32 +134,6 @@ extension CompareWithNibFileVC{
         viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
         
     }
-    
-    
-    func configureTextField(_ textField: UITextField, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
-        textField.layer.masksToBounds = true
-        textField.layer.cornerRadius = cornerRadius
-        textField.heightAnchor.constraint(equalToConstant: height).isActive = true
-        textField.layer.borderWidth = borderWidth
-        textField.layer.borderColor = borderColor
-        
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: height))
-        textField.leftView = paddingView
-        textField.leftViewMode = .always
-    }
-    
-    func configureDropDown(_ dropDown: DropDown, cornerRadius: CGFloat, height: CGFloat, borderWidth: CGFloat, borderColor: CGColor, padding: CGFloat) {
-        dropDown.layer.masksToBounds = true
-        dropDown.layer.cornerRadius = cornerRadius
-        dropDown.heightAnchor.constraint(equalToConstant: height).isActive = true
-        dropDown.layer.borderWidth = borderWidth
-        dropDown.layer.borderColor = borderColor
-        
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: padding, height: height))
-        dropDown.leftView = paddingView
-        dropDown.leftViewMode = .always
-    }
-    
     
 }
 

@@ -5,29 +5,24 @@
 //  Created by Mahmoud Mohamed Atrees on 22/08/2023.
 //
 
-import UIKit
 import SDWebImage
 import SDWebImageSVGCoder
+import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
         let SVGCoder = SDImageSVGCoder.shared
         SDImageCodersManager.shared.addCoder(SVGCoder)
-        for family: String in UIFont.familyNames
-                {
-                    print(family)
-                    for names: String in UIFont.fontNames(forFamilyName: family)
-                    {
-                        print("== \(names)")
-                    }
-                }
-            
+        for family: String in UIFont.familyNames {
+            print(family)
+            for names: String in UIFont.fontNames(forFamilyName: family) {
+                print("== \(names)")
+            }
+        }
+
         return true
     }
 
@@ -44,7 +39,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
 }
-

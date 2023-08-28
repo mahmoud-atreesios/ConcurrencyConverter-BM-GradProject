@@ -50,6 +50,7 @@
 		1CE478812A9D2E1700E87B3F /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4787D2A9D2E1700E87B3F /* Poppins-SemiBold.ttf */; };
 		1CE478842A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE478822A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf */; };
 		1CE478852A9D2E6A00E87B3F /* memphi31.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE478832A9D2E6A00E87B3F /* memphi31.ttf */; };
+		328EA2FC2A9D51C000E6533C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 328EA2FE2A9D51C000E6533C /* Localizable.strings */; };
 		32EF19062A97F788004A0CEC /* Convert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19052A97F788004A0CEC /* Convert.xib */; };
 		32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF19072A97F7A9004A0CEC /* Convert.swift */; };
 		32EF190A2A98B571004A0CEC /* Compare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19092A98B571004A0CEC /* Compare.xib */; };
@@ -94,6 +95,10 @@
 		1CE4787D2A9D2E1700E87B3F /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		1CE478822A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
 		1CE478832A9D2E6A00E87B3F /* memphi31.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = memphi31.ttf; sourceTree = "<group>"; };
+		328EA2F82A9D517300E6533C /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
+		328EA2F92A9D517300E6533C /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		328EA2FD2A9D51C000E6533C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		328EA2FF2A9D51EA00E6533C /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Convert.xib; path = ../../Convert.xib; sourceTree = "<group>"; };
 		32EF19072A97F7A9004A0CEC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		32EF19092A98B571004A0CEC /* Compare.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Compare.xib; sourceTree = "<group>"; };
@@ -126,6 +131,7 @@
 		1C09D32F2A950FCA002657EE = {
 			isa = PBXGroup;
 			children = (
+				328EA2FE2A9D51C000E6533C /* Localizable.strings */,
 				1C09D33A2A950FCA002657EE /* CurrencyConversion */,
 				1C09D3392A950FCA002657EE /* Products */,
 			);
@@ -344,6 +350,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 1C09D32F2A950FCA002657EE;
 			packageReferences = (
@@ -371,6 +378,7 @@
 				1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */,
 				1C9E0A322A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib in Resources */,
 				1CE478812A9D2E1700E87B3F /* Poppins-SemiBold.ttf in Resources */,
+				328EA2FC2A9D51C000E6533C /* Localizable.strings in Resources */,
 				1C09D3482A950FCC002657EE /* LaunchScreen.storyboard in Resources */,
 				1CE478842A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf in Resources */,
 				1CE4787F2A9D2E1700E87B3F /* Poppins-Regular.ttf in Resources */,
@@ -427,6 +435,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1C09D3422A950FCA002657EE /* Base */,
+				328EA2F82A9D517300E6533C /* ar */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -435,8 +444,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				1C09D3472A950FCC002657EE /* Base */,
+				328EA2F92A9D517300E6533C /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		328EA2FE2A9D51C000E6533C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				328EA2FD2A9D51C000E6533C /* en */,
+				328EA2FF2A9D51EA00E6533C /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -446,6 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -506,6 +526,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

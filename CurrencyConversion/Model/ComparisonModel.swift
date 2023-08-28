@@ -18,9 +18,8 @@ struct ComparisonModel: Codable {
 }
 
 // MARK: - ConversionRate
+
 struct ConversionRate: Codable {
     let currencyCode: String
     let rate, amount: Double
 }
-
-

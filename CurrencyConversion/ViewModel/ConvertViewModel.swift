@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import RxSwift
-import RxRelay
 import RealmSwift
+import RxRelay
+import RxSwift
 
-class ConvertViewModel{
-    
+class ConvertViewModel {
     private let disposeBag = DisposeBag()
     
     var exchangeCurrency: CurrencyModel?
@@ -19,7 +18,7 @@ class ConvertViewModel{
     var conversionModel: ConversionModel?
     var compareModel: ComparisonModel?
     
-    var currencyRates = BehaviorRelay<[String:Double]>(value: ["USD":0.0])
+    var currencyRates = BehaviorRelay<[String: Double]>(value: ["USD": 0.0])
     var allOfCurrencies = PublishRelay<[Currency]>.init()
     var favouriteItems = BehaviorRelay<[FavouriteModel]>(value: FavouriteCurrenciesManager.shared().getAllFavouritesItems())
     
@@ -35,8 +34,7 @@ class ConvertViewModel{
     
     let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
     
-    
-    func fetchCurrency(){
+    func fetchCurrency() {
         isLoading.accept(true)
         let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") ?? "USD"
         ApiClient.shared().getData(modelDTO: CurrencyModel.self, .getExchangeRate(base: favoriteFromCurrency))
@@ -58,13 +56,13 @@ class ConvertViewModel{
             .disposed(by: disposeBag)
     }
     
-    func fetchAllCurrencies(){
+    func fetchAllCurrencies() {
         isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: AllCurrenciesModel.self, .getAllCurrenciesData)
             .subscribe { listOfAllCurrencies in
                 self.allCurrencies = listOfAllCurrencies
                 self.allOfCurrencies.accept(listOfAllCurrencies.currencies)
-                //self.currencyRates.accept(currency.conversionRates)
+                // self.currencyRates.accept(currency.conversionRates)
                 self.isLoading.accept(false)
             } onError: { error in
                 self.errorSubject.onNext(error)
@@ -73,7 +71,7 @@ class ConvertViewModel{
             .disposed(by: disposeBag)
     }
     
-    func convertCurrency(amount: String, from: String, to: String){
+    func convertCurrency(amount: String, from: String, to: String) {
         isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
             .subscribe(onNext: { conversion in
@@ -86,11 +84,11 @@ class ConvertViewModel{
             .disposed(by: disposeBag)
     }
     
-    func compareCurrency(amount: String, from: String, toFirstCurrency: String, toSecondCurrency: String){
+    func compareCurrency(amount: String, from: String, toFirstCurrency: String, toSecondCurrency: String) {
         isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ComparisonModel.self, .compareCurrencies(from: from, amount: amount, toFirst: toFirstCurrency, toSecond: toSecondCurrency))
             .subscribe(onNext: { comparison in
-                //self.comparison.accept(comparison.conversionRates)
+                // self.comparison.accept(comparison.conversionRates)
                 self.firstComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[0].amount))
                 self.secoundComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[1].amount))
                 self.isLoading.accept(false)
@@ -106,7 +104,7 @@ class ConvertViewModel{
         ApiClient.shared().getData(modelDTO: ConversionModel.self, .comparison(from: from, amount: String(amount), arrayOfString: to))
             .observe(on: MainScheduler.instance)
             .subscribe { converstionRate in
-                completion(String(format: "%.2f", amount/(converstionRate.result ?? 1.5)))
+                completion(String(format: "%.2f", amount / (converstionRate.result ?? 1.5)))
                 self.isLoading.accept(false)
             } onError: { error in
                 self.errorSubject.onNext(error)
@@ -116,18 +114,20 @@ class ConvertViewModel{
     }
 }
 
-//MARK: Helping Function
-extension ConvertViewModel{
-    func fillDropDown(currencyArray: [Currency]) -> [String]{
+// MARK: Helping Function
+
+extension ConvertViewModel {
+    func fillDropDown(currencyArray: [Currency]) -> [String] {
         var arr = [String]()
-        if let allCurrencies = allCurrencies{
-            for flag in allCurrencies.currencies{
+        if let allCurrencies = allCurrencies {
+            for flag in allCurrencies.currencies {
                 arr.append(" " + getFlagEmoji(flag: flag.code) + flag.code)
             }
         }
         return arr
     }
-    func getFlagEmoji(flag: String) -> String{
+
+    func getFlagEmoji(flag: String) -> String {
         let code = flag.dropLast()
         let base: UInt32 = 127397
         var emoji = ""
@@ -137,5 +137,3 @@ extension ConvertViewModel{
         return emoji
     }
 }
-
-

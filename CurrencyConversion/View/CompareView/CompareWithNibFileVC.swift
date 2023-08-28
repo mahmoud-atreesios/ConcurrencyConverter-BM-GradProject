@@ -5,11 +5,11 @@
 //  Created by Mahmoud Mohamed Atrees on 25/08/2023.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
 import iOSDropDown
 import Reachability
+import RxCocoa
+import RxSwift
+import UIKit
 
 class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var targetedCurrencyTwo: UILabel!
@@ -61,14 +61,14 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         viewModel.fetchCurrency()
         resetToAmountTextField()
         
-        //viewModel.allOfCurrencies
+        // viewModel.allOfCurrencies
         bindViewToViewModellll()
-        
     }
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
         guard let fromCurrencyText = fromCurrencyDropList.text, !fromCurrencyText.isEmpty,
-              let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty else {
+              let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty
+        else {
             return
         }
         
@@ -90,19 +90,16 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
             // If the network is available, stop the loader and call convertCurrency
             loader.stopAnimating()
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
-            
         }
     }
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-                return NumericInputFilter.filterInput(string)
-            }
 
-    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return NumericInputFilter.filterInput(string)
+    }
 }
 
-extension CompareWithNibFileVC{
-    func fillDropList(){
-        
+extension CompareWithNibFileVC {
+    func fillDropList() {
         viewModel.allOfCurrencies
             .subscribe { sthKhara in
                 self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
@@ -110,12 +107,11 @@ extension CompareWithNibFileVC{
                 self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
             }
             .disposed(by: disposeBag)
-        
     }
 }
 
-extension CompareWithNibFileVC{
-    func setUpLoader(){
+extension CompareWithNibFileVC {
+    func setUpLoader() {
         loader = UIActivityIndicatorView(style: .large)
         loader.center = CGPoint(x: 180, y: 200)
         view.addSubview(loader)
@@ -134,7 +130,7 @@ extension CompareWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func setUp(){
+    func setUp() {
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
         let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
@@ -154,21 +150,20 @@ extension CompareWithNibFileVC{
         configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
     }
     
-    func bindViewToViewModellll(){
+    func bindViewToViewModellll() {
         viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
         viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
-        
     }
-    
 }
 
-extension CompareWithNibFileVC{
-    func setUpIntialValueForDropList(){
+extension CompareWithNibFileVC {
+    func setUpIntialValueForDropList() {
         fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
         toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
         toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
     }
-    func resetToAmountTextField(){
+
+    func resetToAmountTextField() {
         fromAmountTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in
                 self?.firstToAmountTextField.text = ""
@@ -177,7 +172,7 @@ extension CompareWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func handleErrors(){
+    func handleErrors() {
         viewModel.errorSubject
             .subscribe { error in
                 self.show(messageAlert: "Error", message: error.localizedDescription)

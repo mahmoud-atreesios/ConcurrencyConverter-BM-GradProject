@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Constants{
-    struct Links{
+struct Constants {
+    enum Links {
         static let baseURL = "http://www.amrcurrencyconversion.site/api/"
     }
 }

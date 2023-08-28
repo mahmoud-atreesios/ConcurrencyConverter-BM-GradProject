@@ -18,6 +18,8 @@ class FavoriteCurrenciesTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        currencyCode.font = UIFont(name: "Poppins-Regular", size: 13.49)
+        currencyLabel.font = UIFont(name: "Poppins-Regular", size: 11.56)
         // Initialization code
         currencyFlagImageView.makeRounded()
     }

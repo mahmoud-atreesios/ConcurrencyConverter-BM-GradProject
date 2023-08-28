@@ -44,6 +44,12 @@
 		1CCE208A2A98FCFB00A7CE6C /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 1CCE20892A98FCFB00A7CE6C /* iOSDropDown */; };
 		1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE208B2A99047800A7CE6C /* RadioButton.swift */; };
 		1CE478772A9D21A500E87B3F /* UiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE478762A9D21A500E87B3F /* UiViewController.swift */; };
+		1CE4787E2A9D2E1700E87B3F /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4787A2A9D2E1700E87B3F /* Poppins-Medium.ttf */; };
+		1CE4787F2A9D2E1700E87B3F /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4787B2A9D2E1700E87B3F /* Poppins-Regular.ttf */; };
+		1CE478802A9D2E1700E87B3F /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4787C2A9D2E1700E87B3F /* Poppins-Bold.ttf */; };
+		1CE478812A9D2E1700E87B3F /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE4787D2A9D2E1700E87B3F /* Poppins-SemiBold.ttf */; };
+		1CE478842A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE478822A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf */; };
+		1CE478852A9D2E6A00E87B3F /* memphi31.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CE478832A9D2E6A00E87B3F /* memphi31.ttf */; };
 		32EF19062A97F788004A0CEC /* Convert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19052A97F788004A0CEC /* Convert.xib */; };
 		32EF19082A97F7A9004A0CEC /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32EF19072A97F7A9004A0CEC /* Convert.swift */; };
 		32EF190A2A98B571004A0CEC /* Compare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32EF19092A98B571004A0CEC /* Compare.xib */; };
@@ -70,7 +76,6 @@
 		1C66C8532A9B59F900C82113 /* FavouriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModel.swift; sourceTree = "<group>"; };
 		1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FavouriteCurrenciesManager.swift; sourceTree = "<group>"; tabWidth = 4; };
 		1C66C8582A9B925800C82113 /* testViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewModel.swift; sourceTree = "<group>"; };
-		1C66C85A2A9BDA2900C82113 /* TulpenOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "TulpenOne-Regular.ttf"; sourceTree = "<group>"; };
 		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCurrenciesModel.swift; sourceTree = "<group>"; };
 		1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCurrenciesTableViewCell.swift; sourceTree = "<group>"; };
@@ -83,6 +88,12 @@
 		1CCE20862A98F77B00A7CE6C /* CompareWithNibFileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareWithNibFileVC.swift; sourceTree = "<group>"; };
 		1CCE208B2A99047800A7CE6C /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		1CE478762A9D21A500E87B3F /* UiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiViewController.swift; sourceTree = "<group>"; };
+		1CE4787A2A9D2E1700E87B3F /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		1CE4787B2A9D2E1700E87B3F /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		1CE4787C2A9D2E1700E87B3F /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		1CE4787D2A9D2E1700E87B3F /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		1CE478822A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		1CE478832A9D2E6A00E87B3F /* memphi31.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = memphi31.ttf; sourceTree = "<group>"; };
 		32EF19052A97F788004A0CEC /* Convert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Convert.xib; path = ../../Convert.xib; sourceTree = "<group>"; };
 		32EF19072A97F7A9004A0CEC /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
 		32EF19092A98B571004A0CEC /* Compare.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Compare.xib; sourceTree = "<group>"; };
@@ -131,7 +142,7 @@
 		1C09D33A2A950FCA002657EE /* CurrencyConversion */ = {
 			isa = PBXGroup;
 			children = (
-				1C66C85A2A9BDA2900C82113 /* TulpenOne-Regular.ttf */,
+				1CE478792A9D2DC800E87B3F /* Fonts */,
 				1C09D33B2A950FCA002657EE /* AppDelegate.swift */,
 				1C09D33D2A950FCA002657EE /* SceneDelegate.swift */,
 				9688A0492A9C553E000BA8E4 /* AppConfigs.swift */,
@@ -266,6 +277,19 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		1CE478792A9D2DC800E87B3F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1CE4787C2A9D2E1700E87B3F /* Poppins-Bold.ttf */,
+				1CE4787A2A9D2E1700E87B3F /* Poppins-Medium.ttf */,
+				1CE4787B2A9D2E1700E87B3F /* Poppins-Regular.ttf */,
+				1CE4787D2A9D2E1700E87B3F /* Poppins-SemiBold.ttf */,
+				1CE478832A9D2E6A00E87B3F /* memphi31.ttf */,
+				1CE478822A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -346,11 +370,17 @@
 			files = (
 				1C3C824B2A975FB100D136DC /* CurrencyCell.xib in Resources */,
 				1C9E0A322A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib in Resources */,
+				1CE478812A9D2E1700E87B3F /* Poppins-SemiBold.ttf in Resources */,
 				1C09D3482A950FCC002657EE /* LaunchScreen.storyboard in Resources */,
+				1CE478842A9D2E6A00E87B3F /* Montserrat-VariableFont_wght.ttf in Resources */,
+				1CE4787F2A9D2E1700E87B3F /* Poppins-Regular.ttf in Resources */,
 				1C09D3452A950FCC002657EE /* Assets.xcassets in Resources */,
 				32EF190A2A98B571004A0CEC /* Compare.xib in Resources */,
+				1CE4787E2A9D2E1700E87B3F /* Poppins-Medium.ttf in Resources */,
+				1CE478802A9D2E1700E87B3F /* Poppins-Bold.ttf in Resources */,
 				1C09D3432A950FCA002657EE /* Main.storyboard in Resources */,
 				32EF19062A97F788004A0CEC /* Convert.xib in Resources */,
+				1CE478852A9D2E6A00E87B3F /* memphi31.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

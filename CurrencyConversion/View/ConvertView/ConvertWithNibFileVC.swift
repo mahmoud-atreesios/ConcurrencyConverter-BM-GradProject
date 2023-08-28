@@ -77,7 +77,7 @@ class ConvertWithNibFileVC: UIViewController{
         viewModel.fetchAllCurrencies()
         
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
-        handleErrors()
+        //handleErrors()
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
@@ -99,7 +99,9 @@ class ConvertWithNibFileVC: UIViewController{
         
         if reachability.connection == .unavailable {
             DispatchQueue.main.async {
+                //self.show(messageAlert: "Error!", message: "error error error")
                 self.loader.startAnimating()
+                //self.handleErrors()
             }
             
         } else {

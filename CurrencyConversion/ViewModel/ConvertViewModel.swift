@@ -49,6 +49,8 @@ class ConvertViewModel{
                 }
                 self.isLoading.accept(false)
             } onError: { error in
+//                self.show(messageAlert: "Error", message: error.localizedDescription)
+                self.errorSubject.onNext(error)
                 self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)

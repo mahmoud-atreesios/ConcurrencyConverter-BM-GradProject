@@ -37,6 +37,8 @@ class CompareWithNibFileVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
+        handleErrors()
+        
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -168,6 +170,14 @@ extension CompareWithNibFileVC{
                 self?.firstToAmountTextField.text = ""
                 self?.secondToAmountTextField.text = ""
             })
+            .disposed(by: disposeBag)
+    }
+    
+    func handleErrors(){
+        viewModel.errorSubject
+            .subscribe { error in
+                self.show(messageAlert: "Error", message: error.localizedDescription)
+            }
             .disposed(by: disposeBag)
     }
 }

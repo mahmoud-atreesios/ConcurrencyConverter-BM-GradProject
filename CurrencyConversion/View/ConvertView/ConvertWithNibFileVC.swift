@@ -50,10 +50,8 @@ class ConvertWithNibFileVC: UIViewController{
             })
             .disposed(by: disposeBag)
         
-        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (error) in
-            guard let self = self else { return }
-            self.show(messageAlert: "Service Error", message: error.localizedDescription)
-        }).disposed(by: disposeBag)
+        handleErrors()
+
         
         bindViewToViewModellll()
         setUpIntialValueForDropList()
@@ -82,10 +80,12 @@ class ConvertWithNibFileVC: UIViewController{
         viewModel.fetchAllCurrencies()
         
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
-        //handleErrors()
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
+        
+
+        
         let fromValue = String(fromCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         let toValue = String(toCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         

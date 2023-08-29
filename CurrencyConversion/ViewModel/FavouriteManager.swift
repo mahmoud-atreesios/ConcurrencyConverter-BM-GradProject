@@ -6,25 +6,22 @@
 //
 
 import Foundation
-import RxSwift
-import RxRelay
 import RealmSwift
+import RxRelay
+import RxSwift
 
-class testViewModel{
-    
-    private static let sharedInstance = testViewModel()
+class FavouriteManager {
+    private static let sharedInstance = FavouriteManager()
 
-        static func shared() -> testViewModel {
-            return testViewModel.sharedInstance
-        }
-        private init() {
-            
-        }
-    
+    static func shared() -> FavouriteManager {
+        return FavouriteManager.sharedInstance
+    }
+
+    private init() {}
+
     var favouriteItems = BehaviorRelay<[FavouriteModel]>(value: [])
-    
-    func fetchAllCurrencies(){
+
+    func fetchAllCurrencies() {
         favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
     }
-    
 }

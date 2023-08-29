@@ -5,13 +5,13 @@
 //  Created by Mahmoud Mohamed Atrees on 25/08/2023.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
 import iOSDropDown
 import Reachability
+import RxCocoa
+import RxSwift
+import UIKit
 
-class CompareWithNibFileVC: UIViewController {
+class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var targetedCurrencyTwo: UILabel!
     @IBOutlet weak var targetedCurrencyOne: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
@@ -35,83 +35,60 @@ class CompareWithNibFileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
-
-        handleErrors()
+        fromAmountTextField.delegate = self
         
-        amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        targetedCurrencyTwo.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        
-        firstToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        secondToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        fromAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        
-        fromCurrencyDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        toFirstCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        toSecondCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
-
+        localizedString()
         setUp()
         setUpLoader()
-        setUpIntialValueForDropList()
-        fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
+        setUpIntialValueForDropList()
+        fillDropList()
         resetToAmountTextField()
         
-        //viewModel.allOfCurrencies
-        bindViewToViewModellll()
+        bindViewToViewModel()
         
+        handleErrors()
+        hideKeyboardWhenTappedAround()
     }
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
         guard let fromCurrencyText = fromCurrencyDropList.text, !fromCurrencyText.isEmpty,
-              let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty else {
+              let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty
+        else {
             return
         }
-        
         guard let toSecondCurrencyText = toSecondCurrencyTypeDropList.text, !toSecondCurrencyText.isEmpty else {
             return
         }
-        
-        var fromAmount = fromAmountTextField.text ?? "0.0"
-        if fromAmount.isEmpty {
-            fromAmount = "0.0"
+        guard let fromAmount = fromAmountTextField.text, !fromAmount.isEmpty else {
+            let emptyFieldTitle = NSLocalizedString("PLEASE_ENTER_NUMBER_LABEL", comment: "")
+            show(messageAlert: "", message: emptyFieldTitle)
+            return
         }
+        
         if reachability.connection == .unavailable {
-            // If the network is unavailable, start the loader
-            DispatchQueue.main.async {
-                self.loader.startAnimating()
-            }
+            print("there is no network connection")
+//            DispatchQueue.main.async {
+//                self.loader.startAnimating()
+//            }
             
         } else {
-            // If the network is available, stop the loader and call convertCurrency
-            loader.stopAnimating()
+            // loader.stopAnimating()
+            print("there is good network connection")
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
-            
         }
     }
-    
-}
 
-extension CompareWithNibFileVC{
-    func fillDropList(){
-        
-        viewModel.allOfCurrencies
-            .subscribe { sthKhara in
-                self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-                self.toFirstCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-                self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-            }
-            .disposed(by: disposeBag)
-        
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return NumericInputFilter.filterInput(string)
     }
 }
 
-extension CompareWithNibFileVC{
-    func setUpLoader(){
+extension CompareWithNibFileVC {
+    func setUpLoader() {
         loader = UIActivityIndicatorView(style: .large)
         loader.center = CGPoint(x: 180, y: 200)
         view.addSubview(loader)
@@ -130,7 +107,7 @@ extension CompareWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func setUp(){
+    func setUp() {
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
         let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
@@ -148,36 +125,100 @@ extension CompareWithNibFileVC{
         
         configureDropDown(toSecondCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-    }
-    
-    func bindViewToViewModellll(){
-        viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
-        viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
+
+        amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        targetedCurrencyTwo.font = UIFont(name: "Poppins-SemiBold", size: 14)
         
+        firstToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        secondToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        fromAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        
+        fromCurrencyDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        toFirstCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        toSecondCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
     }
-    
 }
 
-extension CompareWithNibFileVC{
-    func setUpIntialValueForDropList(){
+extension CompareWithNibFileVC {
+    func bindViewToViewModel() {
+        viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
+        viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
+    }
+    
+    func setUpIntialValueForDropList() {
         fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
         toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
         toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
     }
-    func resetToAmountTextField(){
+    
+    func fillDropList() {
+        viewModel.allOfCurrencies
+            .subscribe { allCurr in
+                self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
+                self.toFirstCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
+                self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
+            }
+            .disposed(by: disposeBag)
+    }
+
+    func resetToAmountTextField() {
         fromAmountTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in
                 self?.firstToAmountTextField.text = ""
                 self?.secondToAmountTextField.text = ""
             })
             .disposed(by: disposeBag)
+        
+        fromCurrencyDropList.didSelect { _, _, _ in
+            self.firstToAmountTextField.text = ""
+            self.secondToAmountTextField.text = ""
+        }
+        
+        toFirstCurrencyTypeDropList.didSelect { _, _, _ in
+            self.firstToAmountTextField.text = ""
+        }
+        
+        toSecondCurrencyTypeDropList.didSelect { _, _, _ in
+            self.secondToAmountTextField.text = ""
+        }
     }
     
-    func handleErrors(){
+    func handleErrors() {
+        let errorTitle = NSLocalizedString("ERROR_TITLE", comment: "")
         viewModel.errorSubject
             .subscribe { error in
-                self.show(messageAlert: "Error", message: error.localizedDescription)
+                self.show(messageAlert: errorTitle, message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CompareWithNibFileVC.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
+private extension CompareWithNibFileVC {
+    func localizedString() {
+        let compareTitle = NSLocalizedString("COMPARE_TITLE", comment: "")
+        compareButton.setTitle(compareTitle, for: .normal)
+        
+        let fromTitle = NSLocalizedString("FROM_TITLE", comment: "")
+        fromLabel.text = fromTitle
+        
+        let targetedCurrencyTitle = NSLocalizedString("TARGETED_CURRENCY_TITLE", comment: "")
+        targetedCurrencyOne.text = targetedCurrencyTitle
+        targetedCurrencyTwo.text = targetedCurrencyTitle
+        
+        let amountTitle = NSLocalizedString("AMOUNT_TITLE", comment: "")
+        amountLabel.text = amountTitle
     }
 }

@@ -8,9 +8,8 @@
 import Foundation
 import RxRelay
 
-struct CurrencyModel: Codable{
-        
-    var localDic = BehaviorRelay<[String:Double]>(value: ["USD":0.0])
+struct CurrencyModel: Codable {
+    var localDic = BehaviorRelay<[String: Double]>(value: ["USD": 0.0])
 
     let result: String
     let documentation, termsOfUse: String
@@ -33,27 +32,25 @@ struct CurrencyModel: Codable{
 }
 
 extension CurrencyModel {
-        
     func convert(amount: Double, from: String, to: String) -> Double {
-        
         guard let fromRatioRelativeToBase = conversionRates[from] else {
             return 0
         }
-        
+
         guard let toRatioRelativeToBase = conversionRates[to] else {
             return 0
         }
-        
+
         let valueRelativeToBase = amount / fromRatioRelativeToBase // IN USD
-        
+
         let result = valueRelativeToBase * toRatioRelativeToBase
-        
+
         return Double(String(format: "%.2f", result)) ?? 0.0
     }
-    
-    func convertAllCurrencies(amount: Double, from: String) -> [String:Double]{
-        var localDic: [String:Double] = [:]
-        for currencyy in conversionRates{
+
+    func convertAllCurrencies(amount: Double, from: String) -> [String: Double] {
+        var localDic: [String: Double] = [:]
+        for currencyy in conversionRates {
             localDic[currencyy.key] = convert(amount: amount, from: from, to: currencyy.key)
         }
         return localDic

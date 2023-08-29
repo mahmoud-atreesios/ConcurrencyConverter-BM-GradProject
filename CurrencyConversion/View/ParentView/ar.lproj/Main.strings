@@ -1,0 +1,42 @@
+
+/* Class = "UISegmentedControl"; 0PJ-Fn-QUO.segmentTitles[0] = "Convert"; ObjectID = "0PJ-Fn-QUO"; */
+"0PJ-Fn-QUO.segmentTitles[0]" = "Convert";
+
+/* Class = "UISegmentedControl"; 0PJ-Fn-QUO.segmentTitles[1] = "Compare"; ObjectID = "0PJ-Fn-QUO"; */
+"0PJ-Fn-QUO.segmentTitles[1]" = "Compare";
+
+/* Class = "UILabel"; text = "ConCurrency"; ObjectID = "38v-6D-eRw"; */
+"38v-6D-eRw.text" = "ConCurrency";
+
+/* Class = "UILabel"; text = "Currency converter‏"; ObjectID = "4Qz-FX-tM9"; */
+"4Qz-FX-tM9.text" = "Currency converter‏";
+
+/* Class = "UILabel"; text = "Check live foreign currency exchange rates"; ObjectID = "54y-BS-CKs"; */
+"54y-BS-CKs.text" = "Check live foreign currency exchange rates";
+
+/* Class = "UIButton"; configuration.title = "Compare"; ObjectID = "B0J-7z-gU0"; */
+"B0J-7z-gU0.configuration.title" = "Compare";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "B0J-7z-gU0"; */
+"B0J-7z-gU0.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Targeted currency"; ObjectID = "HHv-yZ-Wbh"; */
+"HHv-yZ-Wbh.text" = "Targeted currency";
+
+/* Class = "UILabel"; text = "Amount"; ObjectID = "OIh-r1-4ro"; */
+"OIh-r1-4ro.text" = "Amount";
+
+/* Class = "UILabel"; text = "Targeted currency"; ObjectID = "Ody-TQ-y6h"; */
+"Ody-TQ-y6h.text" = "Targeted currency";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "VRL-Ty-eSI"; */
+"VRL-Ty-eSI.text" = "From";
+
+/* Class = "UIButton"; configuration.title = " "; ObjectID = "ibU-c3-MvP"; */
+"ibU-c3-MvP.configuration.title" = " ";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "ibU-c3-MvP"; */
+"ibU-c3-MvP.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "My Favorites"; ObjectID = "l7h-b4-uYn"; */
+"l7h-b4-uYn.text" = "My Favorites";

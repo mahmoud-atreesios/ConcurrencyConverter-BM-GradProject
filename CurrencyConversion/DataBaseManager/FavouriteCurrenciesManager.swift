@@ -8,17 +8,17 @@
 import Foundation
 import RealmSwift
 
-class FavouriteCurrenciesManager{
-    
+class FavouriteCurrenciesManager {
     private static let sharedInstance = FavouriteCurrenciesManager()
 
-        static func shared() -> FavouriteCurrenciesManager {
-            return FavouriteCurrenciesManager.sharedInstance
-        }
-        private init() {}
-    
+    static func shared() -> FavouriteCurrenciesManager {
+        return FavouriteCurrenciesManager.sharedInstance
+    }
+
+    private init() {}
+
     let realm = try! Realm()
-    
+
     func addRealmCurrency(_ realmCurrency: FavouriteModel) {
         try! realm.write {
             if let existingItem = realm.object(ofType: FavouriteModel.self, forPrimaryKey: realmCurrency.currencyCode) {
@@ -32,7 +32,7 @@ class FavouriteCurrenciesManager{
             realm.add(newItem, update: .modified)
         }
         // Update favouriteItems
-        //viewModel.favouriteItems.accept(getAllFavouritesItems())
+        // viewModel.favouriteItems.accept(getAllFavouritesItems())
     }
 
     func deleteRealmCurrency(_ realmCurrency: FavouriteModel) {
@@ -42,27 +42,24 @@ class FavouriteCurrenciesManager{
             }
         }
         // Update favouriteItems
-        //viewModel.favouriteItems.accept(getAllFavouritesItems())  , viewModel: ConvertViewModel
+        // viewModel.favouriteItems.accept(getAllFavouritesItems())  , viewModel: ConvertViewModel
     }
 
-    
     func isItemFavorited(_ realmCurrency: FavouriteModel) -> Bool {
         let realm = try! Realm()
-        
+
         return realm.object(ofType: FavouriteModel.self, forPrimaryKey: realmCurrency.currencyCode) != nil
     }
-    
+
     func returnDataBaseURL() -> String {
         if let realmURL = Realm.Configuration.defaultConfiguration.fileURL {
-            return ("Realm database URL: \(realmURL)")
+            return "Realm database URL: \(realmURL)"
         }
         return "Coudn't Found the DataBase"
     }
-    
-    func getAllFavouritesItems() -> [FavouriteModel]{
+
+    func getAllFavouritesItems() -> [FavouriteModel] {
         let favouriteItems = realm.objects(FavouriteModel.self)
         return Array(favouriteItems)
     }
-    
 }
-

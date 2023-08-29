@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  CurrencyConversion
+
+  Created by Hend on 29/08/2023.
+  
+*/
+"CONVERT_TITLE" = "Convert";
+"COMPARE_TITLE" = "Compare";
+"CONCURRENCY_TITLE" = "ConCurrency";
+"CONCURRENCY_CONVERTER_TITLE" = "Currency Converter";
+"CHECK_LIVE_RATES_TITLE" = "Check live foreign currency exchange rates";
+"AMOUNT_TITLE" = "Amount";
+"FROM_TITLE" = "From";
+"TO_TITLE" = "To";
+"LIVE_EXCHANGE_RATES_TITLE" = "live exchange rates";
+"ADD_TO_FAVORITES_TITLE" = "Add to Favorites";
+"MY_PORTOFOLIO_TITLE" = "My Portofolio";
+"MY_FAVORITES_TITLE" = "My Favorites";
+"TARGETED_CURRENCY_TITLE" = "Targeted currency";
+"CLOSE_TITLE" = "Close";
+"ERROR_TITLE" = "Error";
+"NO_FAVORITES_LABEL" = "No currencies added";
+"PLEASE_ENTER_NUMBER_LABEL" = "Please enter an amount";
+

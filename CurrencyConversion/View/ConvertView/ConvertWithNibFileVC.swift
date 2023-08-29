@@ -5,16 +5,15 @@
 //  Created by Mahmoud Mohamed Atrees on 25/08/2023.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
 import iOSDropDown
+import Reachability
+import RxCocoa
+import RxSwift
 import SDWebImage
 import SDWebImageSVGCoder
-import Reachability
+import UIKit
 
-class ConvertWithNibFileVC: UIViewController{
-    
+class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var myPortofolioLabel: UILabel!
     @IBOutlet weak var convertButton: UIButton!
     @IBOutlet weak var addToFavoritesButton: UIButton!
@@ -41,48 +40,21 @@ class ConvertWithNibFileVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
-            .distinctUntilChanged()
-        
-        favoriteFromCurrency
-            .subscribe(onNext: { [weak self] newBaseCurrency in
-                self?.viewModel.fetchCurrency()
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (error) in
-            guard let self = self else { return }
-            self.show(messageAlert: "Service Error", message: error.localizedDescription)
-        }).disposed(by: disposeBag)
-        
-        bindViewToViewModellll()
-        setUpIntialValueForDropList()
-        setUpLoader()
-        resetToAmountTextField()
-        fromAmountCurrencyTextField.text = ""
-        bindViewsToViewModel()
-        bindTableViewToViewModel()
+        fromAmountCurrencyTextField.delegate = self
+        localizedStrings()
         
         setUp()
-        amountToLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        amountFromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        toLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-
-        fromAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        toAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        toCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        fromCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        liveExchangeRateLabel.font = UIFont(name: "Poppins-SemiBold", size: 16.84)
-        myPortofolioLabel.font = UIFont(name: "Poppins-Regular", size: 18)
-        convertButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
-        addToFavoritesButton.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 10.87)
-        
+        setUpLoader()
+        setUpIntialValueForDropList()
         fillDropList()
         viewModel.fetchAllCurrencies()
-        
+        observeFavoriteCurrencyChange()
+        bindViewToViewModel()
+        bindTableViewToViewModel()
+        resetToAmountTextField()
+        hideKeyboardWhenTappedAround()
+        handleErrors()
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
-        //handleErrors()
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
@@ -93,50 +65,55 @@ class ConvertWithNibFileVC: UIViewController{
         UserDefaults.standard.setValue(toValue, forKey: "favoriteToCurrency")
         
         guard let fromCurrencyText = fromCurrencyTypeDropList.text, !fromCurrencyText.isEmpty,
-              let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty else {
+              let toCurrencyText = toCurrencyTypeDropList.text, !toCurrencyText.isEmpty
+        else {
             return
         }
-        
-        var fromAmount = fromAmountCurrencyTextField.text ?? "0.0"
-        if fromAmount.isEmpty {
-            fromAmount = "0.0"
+        guard let fromAmount = fromAmountCurrencyTextField.text, !fromAmount.isEmpty else {
+            let emptyFieldTitle = NSLocalizedString("PLEASE_ENTER_NUMBER_LABEL", comment: "")
+            show(messageAlert: "", message: emptyFieldTitle)
+            return
         }
         
         if reachability.connection == .unavailable {
             DispatchQueue.main.async {
-                //self.show(messageAlert: "Error!", message: "error error error")
-                //self.loader.startAnimating()
-                //self.handleErrors()
+                print("there is no network connection")
+                // self.show(messageAlert: "Error!", message: "error error error")
+                // self.loader.startAnimating()
             }
             
         } else {
-            //loader.stopAnimating()
+            print("there is network connection")
+            // loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         }
     }
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let profileScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
-        self.present(profileScreen, animated: true)
-        
+        let favoriteScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
+        present(favoriteScreen, animated: true)
     }
     
-    func bindViewToViewModellll(){
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return NumericInputFilter.filterInput(string)
+    }
+}
+
+// MARK: Binding
+
+extension ConvertWithNibFileVC {
+    func bindViewToViewModel() {
         viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
     }
     
-}
-
-extension ConvertWithNibFileVC{
     func bindTableViewToViewModel() {
-        
-        testViewModel.shared().favouriteItems
-            .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)){
-                (row,curr,cell) in
+        FavouriteManager.shared().favouriteItems
+            .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)) {
+                _, curr, cell in
                 if let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") {
                     guard let arr = AppConfigs.dict[favoriteFromCurrency] else { return }
-                    cell.rateLabel.text =  String(format: "%.4f", arr[curr.currencyCode] ?? 0)
+                    cell.rateLabel.text = String(self.viewModel.formattedAndTrimmedValue(arr[curr.currencyCode] ?? 0))
                 }
                 cell.baseLabel.text = "Currency"
                 cell.currencyLabel.text = curr.currencyCode
@@ -146,14 +123,17 @@ extension ConvertWithNibFileVC{
             }
             .disposed(by: disposeBag)
         
-        testViewModel.shared().favouriteItems
+        FavouriteManager.shared().favouriteItems
             .map { $0.isEmpty }
             .subscribe(onNext: { [weak self] isEmpty in
                 if isEmpty {
-                    let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: self?.selectedFavouriteCurrenciesTableView.bounds.size.width ?? 0, height: self?.selectedFavouriteCurrenciesTableView.bounds.size.height ?? 0))
+                    let noDataLabel: UILabel = .init(frame: CGRect(x: 0, y: 0, width: self?.selectedFavouriteCurrenciesTableView.bounds.size.width ?? 0, height: self?.selectedFavouriteCurrenciesTableView.bounds.size.height ?? 0))
                     noDataLabel.text = "No currencies added"
                     noDataLabel.textColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1)
                     noDataLabel.textAlignment = .center
+                    
+                    let noCurrencyTitle = NSLocalizedString("NO_FAVORITES_LABEL", comment: "")
+                    noDataLabel.text = noCurrencyTitle
                     self?.selectedFavouriteCurrenciesTableView.backgroundView = noDataLabel
                     self?.selectedFavouriteCurrenciesTableView.separatorStyle = .none
                 } else {
@@ -164,46 +144,22 @@ extension ConvertWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func bindViewsToViewModel(){
-        
-        fromAmountCurrencyTextField.rx.controlEvent(.editingChanged)
-            .withLatestFrom(fromAmountCurrencyTextField.rx.text.orEmpty)
-            .map { currency in
-                let cleanedCurrency = String(currency.dropFirst(2))
-                return cleanedCurrency.isEmpty ? "0.0" : cleanedCurrency
-            }
+    func observeFavoriteCurrencyChange() {
+        let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
             .distinctUntilChanged()
-            .compactMap(Double.init)
-            .bind(to: viewModel.fromAmountRelay)
-            .disposed(by: disposeBag)
         
-        fromCurrencyTypeDropList.rx.text.orEmpty
-            .map { currency in
-                let cleanedCurrency = String(currency.dropFirst(2))
-                return cleanedCurrency.isEmpty ? "0.0" : cleanedCurrency
-            }
-            .distinctUntilChanged()
-            .bind(to: viewModel.fromCurrencyRelay)
-            .disposed(by: disposeBag)
-        
-    }
-}
-
-extension ConvertWithNibFileVC{
-    func fillDropList(){
-        viewModel.allOfCurrencies
-            .subscribe { currencyArray in
-                //print(self.viewModel.fillDropDown(currencyArray: currencyArray))
-                self.fromCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-                self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-                
-            }
+        favoriteFromCurrency
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.fetchCurrency()
+            })
             .disposed(by: disposeBag)
     }
 }
 
-extension ConvertWithNibFileVC{
-    func setUpLoader(){
+// MARK: setUp UI
+
+extension ConvertWithNibFileVC {
+    func setUpLoader() {
         loader = UIActivityIndicatorView(style: .large)
         loader.center = CGPoint(x: 180, y: 200)
         view.addSubview(loader)
@@ -222,46 +178,115 @@ extension ConvertWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func setUp(){
-        
-        toAmountCurrencyTextField.isUserInteractionEnabled = false
-        
+    func setUp() {
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
         let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
         let borderWidth: CGFloat = 0.5
         let padding: CGFloat = 15
         
+        toAmountCurrencyTextField.isUserInteractionEnabled = false
+        
         configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         
         configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        amountToLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        amountFromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        toLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        
+        fromAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        toAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        toCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        fromCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        liveExchangeRateLabel.font = UIFont(name: "Poppins-SemiBold", size: 16.84)
+        myPortofolioLabel.font = UIFont(name: "Poppins-Regular", size: 18)
+        convertButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
+        addToFavoritesButton.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 10.87)
     }
 }
 
-extension ConvertWithNibFileVC{
-    func setUpIntialValueForDropList(){
+extension ConvertWithNibFileVC {
+    func setUpIntialValueForDropList() {
         let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") ?? "USD"
         let favoriteToCurrency = UserDefaults.standard.string(forKey: "favoriteToCurrency") ?? "EGP"
         fromCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: favoriteFromCurrency) + favoriteFromCurrency
         toCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: favoriteToCurrency) + favoriteToCurrency
     }
     
-    func resetToAmountTextField(){
+    func fillDropList() {
+        viewModel.allOfCurrencies
+            .subscribe { currencyArray in
+                // print(self.viewModel.fillDropDown(currencyArray: currencyArray))
+                self.fromCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
+                self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func resetToAmountTextField() {
         fromAmountCurrencyTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in
                 self?.toAmountCurrencyTextField.text = ""
             })
             .disposed(by: disposeBag)
+        
+        fromCurrencyTypeDropList.didSelect { _, _, _ in
+            self.toAmountCurrencyTextField.text = ""
+        }
+        
+        toCurrencyTypeDropList.didSelect { _, _, _ in
+            self.toAmountCurrencyTextField.text = ""
+        }
     }
     
-    func handleErrors(){
+    func handleErrors() {
+        let errorTitle = NSLocalizedString("ERROR_TITLE", comment: "")
         viewModel.errorSubject
             .subscribe { error in
-                self.show(messageAlert: "Error", message: error.localizedDescription)
+                self.show(messageAlert: errorTitle, message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
     }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ConvertWithNibFileVC.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
 
+// MARK: localization
+
+private extension ConvertWithNibFileVC {
+    func localizedStrings() {
+        let convertTitle = NSLocalizedString("CONVERT_TITLE", comment: "")
+        convertButton.setTitle(convertTitle, for: .normal)
+        
+        let fromTitle = NSLocalizedString("FROM_TITLE", comment: "")
+        fromLabel.text = fromTitle
+        
+        let toTitle = NSLocalizedString("TO_TITLE", comment: "")
+        toLabel.text = toTitle
+        
+        let amountTitle = NSLocalizedString("AMOUNT_TITLE", comment: "")
+        amountToLabel.text = amountTitle
+        amountFromLabel.text = amountTitle
+        
+        let liveExchangeRatesTitle = NSLocalizedString("LIVE_EXCHANGE_RATES_TITLE", comment: "")
+        liveExchangeRateLabel.text = liveExchangeRatesTitle
+        
+        let addToFavoritesLabel = NSLocalizedString("ADD_TO_FAVORITES_TITLE", comment: "")
+        addToFavoritesButton.setTitle(addToFavoritesLabel, for: .normal)
+        
+        let myPortofolioTitle = NSLocalizedString("MY_PORTOFOLIO_TITLE", comment: "")
+        myPortofolioLabel.text = myPortofolioTitle
+    }
+}

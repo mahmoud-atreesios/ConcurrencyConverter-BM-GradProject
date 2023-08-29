@@ -78,13 +78,14 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
         if reachability.connection == .unavailable {
             DispatchQueue.main.async {
                 print("there is no network connection")
-                // self.show(messageAlert: "Error!", message: "error error error")
-                // self.loader.startAnimating()
+                DispatchQueue.main.async {
+                    self.loader.startAnimating()
+                }
             }
             
         } else {
             print("there is network connection")
-            // loader.stopAnimating()
+            loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         }
     }

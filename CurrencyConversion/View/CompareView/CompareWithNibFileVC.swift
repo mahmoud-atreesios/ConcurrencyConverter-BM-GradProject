@@ -71,12 +71,12 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         
         if reachability.connection == .unavailable {
             print("there is no network connection")
-//            DispatchQueue.main.async {
-//                self.loader.startAnimating()
-//            }
+            DispatchQueue.main.async {
+                self.loader.startAnimating()
+            }
             
         } else {
-            // loader.stopAnimating()
+            loader.stopAnimating()
             print("there is good network connection")
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
         }

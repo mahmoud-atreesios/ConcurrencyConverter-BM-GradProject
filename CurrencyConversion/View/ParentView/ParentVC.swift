@@ -27,11 +27,14 @@ class ParentVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        localizedString()
         func handleErrors() {
+            let errorTitle = NSLocalizedString("ERROR_TITLE", comment: "")
+
             viewModel.errorSubject
+            
                 .subscribe { error in
-                    self.show(messageAlert: "Error", message: error.localizedDescription)
+                    self.show(messageAlert: errorTitle, message: error.localizedDescription)
                 }
                 .disposed(by: disposeBag)
         }
@@ -85,5 +88,21 @@ class ParentVC: UIViewController {
             vc.view.isHidden = true
         }
         viewControllerToShow.view.isHidden = false
+    }
+}
+
+private extension ParentVC {
+    func localizedString() {
+        let concurrencyTitle = NSLocalizedString("CONCURRENCY_TITLE", comment: "")
+        concurrencyTitleLabel.text = concurrencyTitle
+        
+        let currencyConverterTitle = NSLocalizedString("CONCURRENCY_CONVERTER_TITLE", comment: "")
+        currencyConverterLabel.text = currencyConverterTitle
+        
+        let liveForeignCurrencyExchangeRatesTitle = NSLocalizedString("CHECK_LIVE_RATES_TITLE", comment: "")
+        checkLiveForeignCurrencyLabel.text = liveForeignCurrencyExchangeRatesTitle
+        
+        segmentedControl.setTitle(NSLocalizedString("CONVERT_TITLE", comment: ""), forSegmentAt: 0)
+        segmentedControl.setTitle(NSLocalizedString("COMPARE_TITLE", comment: ""), forSegmentAt: 1)
     }
 }

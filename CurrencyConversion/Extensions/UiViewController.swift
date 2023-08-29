@@ -24,8 +24,8 @@ extension UIViewController {
         if let _actionTitle = actionTitle {
             alert.addAction(UIAlertAction(title: _actionTitle, style: .default, handler: action))
         }
-        
-        alert.addAction(UIAlertAction(title: "close", style: .cancel, handler: action))
+        let closeAction = NSLocalizedString("CLOSE_TITLE", comment: "")
+        alert.addAction(UIAlertAction(title: closeAction, style: .cancel, handler: action))
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)

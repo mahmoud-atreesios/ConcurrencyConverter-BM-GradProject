@@ -36,7 +36,7 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-
+        localizedString()
         handleErrors()
         fromAmountTextField.delegate = self
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -173,10 +173,28 @@ extension CompareWithNibFileVC {
     }
     
     func handleErrors() {
+        let errorTitle = NSLocalizedString("ERROR_TITLE", comment: "")
         viewModel.errorSubject
             .subscribe { error in
-                self.show(messageAlert: "Error", message: error.localizedDescription)
+                self.show(messageAlert: errorTitle, message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+private extension CompareWithNibFileVC {
+    func localizedString() {
+        let compareTitle = NSLocalizedString("COMPARE_TITLE", comment: "")
+        compareButton.setTitle(compareTitle, for: .normal)
+        
+        let fromTitle = NSLocalizedString("FROM_TITLE", comment: "")
+        fromLabel.text = fromTitle
+        
+        let targetedCurrencyTitle = NSLocalizedString("TARGETED_CURRENCY_TITLE", comment: "")
+        targetedCurrencyOne.text = targetedCurrencyTitle
+        targetedCurrencyTwo.text = targetedCurrencyTitle
+        
+        let amountTitle = NSLocalizedString("AMOUNT_TITLE", comment: "")
+        amountLabel.text = amountTitle
     }
 }

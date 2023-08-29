@@ -39,6 +39,7 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        localizedStrings()
         let convertTitle = NSLocalizedString("CONVERT_TITLE", comment: "")
         convertButton.setTitle(convertTitle, for: .normal)
         fromAmountCurrencyTextField.delegate = self
@@ -157,6 +158,9 @@ extension ConvertWithNibFileVC {
                     noDataLabel.text = "No currencies added"
                     noDataLabel.textColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1)
                     noDataLabel.textAlignment = .center
+                    
+                    let noCurrencyTitle = NSLocalizedString("NO_FAVORITES_LABEL", comment: "")
+                    noDataLabel.text = noCurrencyTitle
                     self?.selectedFavouriteCurrenciesTableView.backgroundView = noDataLabel
                     self?.selectedFavouriteCurrenciesTableView.separatorStyle = .none
                 } else {
@@ -256,10 +260,37 @@ extension ConvertWithNibFileVC {
     }
     
     func handleErrors() {
+        let errorTitle = NSLocalizedString("ERROR_TITLE", comment: "")
         viewModel.errorSubject
             .subscribe { error in
-                self.show(messageAlert: "Error", message: error.localizedDescription)
+                self.show(messageAlert: errorTitle, message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
+    }
+}
+
+private extension ConvertWithNibFileVC {
+    func localizedStrings() {
+        let convertTitle = NSLocalizedString("CONVERT_TITLE", comment: "")
+        convertButton.setTitle(convertTitle, for: .normal)
+        
+        let fromTitle = NSLocalizedString("FROM_TITLE", comment: "")
+        fromLabel.text = fromTitle
+        
+        let toTitle = NSLocalizedString("TO_TITLE", comment: "")
+        toLabel.text = toTitle
+        
+        let amountTitle = NSLocalizedString("AMOUNT_TITLE", comment: "")
+        amountToLabel.text = amountTitle
+        amountFromLabel.text = amountTitle
+        
+        let liveExchangeRatesTitle = NSLocalizedString("LIVE_EXCHANGE_RATES_TITLE", comment: "")
+        liveExchangeRateLabel.text = liveExchangeRatesTitle
+        
+        let addToFavoritesLabel = NSLocalizedString("ADD_TO_FAVORITES_TITLE", comment: "")
+        addToFavoritesButton.setTitle(addToFavoritesLabel, for: .normal)
+        
+        let myPortofolioTitle = NSLocalizedString("MY_PORTOFOLIO_TITLE", comment: "")
+        myPortofolioLabel.text = myPortofolioTitle
     }
 }

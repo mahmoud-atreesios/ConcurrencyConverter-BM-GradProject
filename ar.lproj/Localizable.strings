@@ -6,3 +6,18 @@
   
 */
 "CONVERT_TITLE" = "تحويل";
+"COMPARE_TITLE" = "مقارنة";
+"CONCURRENCY_TITLE" = "تحويل العملات";
+"CONCURRENCY_CONVERTER_TITLE" = "محول العملات";
+"CHECK_LIVE_RATES_TITLE" = "تحقق من أسعار صرف العملات الأجنبية مباشرة";
+"AMOUNT_TITLE" = "المبلغ";
+"FROM_TITLE" = "من";
+"TO_TITLE" = "إلى";
+"LIVE_EXCHANGE_RATES_TITLE" = "أسعار صرف العملات الحية";
+"ADD_TO_FAVORITES_TITLE" = "أضف إلى المفضلة";
+"MY_PORTOFOLIO_TITLE" = "العملات المفضلة";
+"MY_FAVORITES_TITLE" = "قائمتي المفضلة";
+"TARGETED_CURRENCY_TITLE" = "العملة المستهدفة";
+"CLOSE_TITLE" = "إغلاق";
+"ERROR_TITLE" = "خطأ";
+"NO_FAVORITES_LABEL" = "لم يتم إضافة عملات";

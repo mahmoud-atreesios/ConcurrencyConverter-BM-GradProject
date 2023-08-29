@@ -24,7 +24,7 @@ class AddToFavoritesVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        localizedString()
         myFavoritesLabel.font = UIFont(name: "Poppins-Medium", size: 17.34)
         closeButton.titleLabel?.frame = CGRect(x: 0, y: 0, width: 20.37, height: 20.37)
 
@@ -73,4 +73,11 @@ extension AddToFavoritesVC {
         let SVGCoder = SDImageSVGCoder.shared
         SDImageCodersManager.shared.addCoder(SVGCoder)
     }
+}
+private extension AddToFavoritesVC {
+    func localizedString() {
+        let myFavoritesTitle = NSLocalizedString("MY_FAVORITES_TITLE", comment: "")
+        myFavoritesLabel.text = myFavoritesTitle
+    }
+    
 }

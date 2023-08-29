@@ -119,8 +119,14 @@ extension ConvertViewModel {
         }
         return emoji
     }
+    
      func formattedAndTrimmedValue(_ value: Double) -> String {
         let formattedResult = String(format: "%.4f", value)
+        
+        if formattedResult.hasPrefix("0.") {
+            return "0" + formattedResult.dropFirst(1)
+        }
+        
         var trimmedResult = formattedResult.trimmingCharacters(in: .init(charactersIn: "0"))
         if trimmedResult.last == "." {
             trimmedResult.removeLast()

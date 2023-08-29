@@ -94,7 +94,6 @@ class ConvertViewModel {
             })
             .disposed(by: disposeBag)
     }
-
 }
 
 // MARK: Helping Function
@@ -120,7 +119,7 @@ extension ConvertViewModel {
         return emoji
     }
     
-     func formattedAndTrimmedValue(_ value: Double) -> String {
+    func formattedAndTrimmedValue(_ value: Double) -> String {
         let formattedResult = String(format: "%.4f", value)
         
         if formattedResult.hasPrefix("0.") {
@@ -134,4 +133,3 @@ extension ConvertViewModel {
         return trimmedResult
     }
 }
-

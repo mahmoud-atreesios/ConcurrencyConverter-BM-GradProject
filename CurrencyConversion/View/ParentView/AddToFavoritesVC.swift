@@ -74,10 +74,10 @@ extension AddToFavoritesVC {
         SDImageCodersManager.shared.addCoder(SVGCoder)
     }
 }
+
 private extension AddToFavoritesVC {
     func localizedString() {
         let myFavoritesTitle = NSLocalizedString("MY_FAVORITES_TITLE", comment: "")
         myFavoritesLabel.text = myFavoritesTitle
     }
-    
 }

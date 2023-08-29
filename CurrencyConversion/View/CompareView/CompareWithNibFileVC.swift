@@ -52,7 +52,6 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         
         handleErrors()
         hideKeyboardWhenTappedAround()
-
     }
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
@@ -64,7 +63,7 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         guard let toSecondCurrencyText = toSecondCurrencyTypeDropList.text, !toSecondCurrencyText.isEmpty else {
             return
         }
-        guard let fromAmount = fromAmountTextField.text , !fromAmount.isEmpty else{
+        guard let fromAmount = fromAmountTextField.text, !fromAmount.isEmpty else {
             let emptyFieldTitle = NSLocalizedString("PLEASE_ENTER_NUMBER_LABEL", comment: "")
             show(messageAlert: "", message: emptyFieldTitle)
             return
@@ -77,7 +76,7 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
 //            }
             
         } else {
-            //loader.stopAnimating()
+            // loader.stopAnimating()
             print("there is good network connection")
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
         }
@@ -90,7 +89,6 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
 
 extension CompareWithNibFileVC {
     func setUpLoader() {
-
         loader = UIActivityIndicatorView(style: .large)
         loader.center = CGPoint(x: 180, y: 200)
         view.addSubview(loader)
@@ -128,7 +126,6 @@ extension CompareWithNibFileVC {
         configureDropDown(toSecondCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
 
-        
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -143,26 +140,21 @@ extension CompareWithNibFileVC {
         toSecondCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
         compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
     }
-    
 }
 
-extension CompareWithNibFileVC{
-    
-    func bindViewToViewModel(){
+extension CompareWithNibFileVC {
+    func bindViewToViewModel() {
         viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
         viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
-        
     }
     
     func setUpIntialValueForDropList() {
-
         fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
         toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
         toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
     }
     
-    func fillDropList(){
-        
+    func fillDropList() {
         viewModel.allOfCurrencies
             .subscribe { allCurr in
                 self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
@@ -173,7 +165,6 @@ extension CompareWithNibFileVC{
     }
 
     func resetToAmountTextField() {
-
         fromAmountTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in
                 self?.firstToAmountTextField.text = ""
@@ -181,16 +172,16 @@ extension CompareWithNibFileVC{
             })
             .disposed(by: disposeBag)
         
-        fromCurrencyDropList.didSelect{(selectedText , index ,id) in
+        fromCurrencyDropList.didSelect { _, _, _ in
             self.firstToAmountTextField.text = ""
             self.secondToAmountTextField.text = ""
         }
         
-        toFirstCurrencyTypeDropList.didSelect{(selectedText , index ,id) in
+        toFirstCurrencyTypeDropList.didSelect { _, _, _ in
             self.firstToAmountTextField.text = ""
         }
         
-        toSecondCurrencyTypeDropList.didSelect{(selectedText , index ,id) in
+        toSecondCurrencyTypeDropList.didSelect { _, _, _ in
             self.secondToAmountTextField.text = ""
         }
     }

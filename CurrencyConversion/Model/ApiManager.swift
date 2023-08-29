@@ -18,7 +18,7 @@ enum Endpoints {
     case getAllCurrenciesData
     case convertCurrency(from: String, to: String, amount: String)
     case compareCurrencies(from: String, amount: String, toFirst: String, toSecond: String)
-    
+
     var stringUrl: URL {
         switch self {
         case .getAllCurrencies:
@@ -31,7 +31,6 @@ enum Endpoints {
             return URL(string: Constants.Links.baseURL + "/conversion?from=\(from)&to=\(to)&amount=\(amount)")!
         case .compareCurrencies(let from, let amount, let toFirst, let toSecond):
             return URL(string: Constants.Links.baseURL + "/comparison?from=\(from)&amount=\(amount)&list=\(toFirst),\(toSecond)")!
-            
         }
     }
 }

@@ -18,9 +18,9 @@ class FavouriteManager {
     }
 
     private init() {}
-    
+
     var favouriteItems = BehaviorRelay<[FavouriteModel]>(value: [])
-    
+
     func fetchAllCurrencies() {
         favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
     }

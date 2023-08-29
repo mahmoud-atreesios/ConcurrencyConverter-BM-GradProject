@@ -14,10 +14,10 @@ class NumericInputFilter {
         }
 
         let englishDigits = "0123456789"
-        
+
         let enteredCharacterSet = CharacterSet(charactersIn: string)
         let containsEnglishDigits = enteredCharacterSet.isSubset(of: CharacterSet(charactersIn: englishDigits))
-        
+
         return containsEnglishDigits
     }
 }

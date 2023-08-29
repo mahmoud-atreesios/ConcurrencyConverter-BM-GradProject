@@ -36,18 +36,18 @@ extension CurrencyModel {
         guard let fromRatioRelativeToBase = conversionRates[from] else {
             return 0
         }
-        
+
         guard let toRatioRelativeToBase = conversionRates[to] else {
             return 0
         }
-        
+
         let valueRelativeToBase = amount / fromRatioRelativeToBase // IN USD
-        
+
         let result = valueRelativeToBase * toRatioRelativeToBase
-        
+
         return Double(String(format: "%.2f", result)) ?? 0.0
     }
-    
+
     func convertAllCurrencies(amount: Double, from: String) -> [String: Double] {
         var localDic: [String: Double] = [:]
         for currencyy in conversionRates {

@@ -98,6 +98,12 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return NumericInputFilter.filterInput(string)
     }
+
+    func updateFavorites(for selectedItem: String) {
+        let fromValue = String(selectedItem.dropFirst(2))
+        UserDefaults.standard.setValue(fromValue, forKey: "favoriteFromCurrency")
+        // Perform any additional UI updates or actions here based on the selected currency
+    }
 }
 
 // MARK: Binding
@@ -234,10 +240,13 @@ extension ConvertWithNibFileVC {
             })
             .disposed(by: disposeBag)
         
-        fromCurrencyTypeDropList.didSelect { _, _, _ in
-            self.toAmountCurrencyTextField.text = ""
+        fromCurrencyTypeDropList.didSelect { [weak self] _, _, _ in
+            guard let self = self else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.updateFavorites(for: self.fromCurrencyTypeDropList.text ?? "")
+            }
         }
-        
+
         toCurrencyTypeDropList.didSelect { _, _, _ in
             self.toAmountCurrencyTextField.text = ""
         }

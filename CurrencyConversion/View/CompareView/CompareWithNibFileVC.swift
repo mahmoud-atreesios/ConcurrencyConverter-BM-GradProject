@@ -37,6 +37,7 @@ class CompareWithNibFileVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
+        hideKeyboardWhenTappedAround() 
         
         
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -179,5 +180,15 @@ extension CompareWithNibFileVC{
                 self.show(messageAlert: "Error", message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CompareWithNibFileVC.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

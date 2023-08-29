@@ -38,12 +38,6 @@ The Concurrency Application utilizes several open-source packages to enhance fun
 
 We believe in maintaining clean and consistent code throughout our project. To achieve this, we use [SwiftFormat](https://github.com/nicklockwood/SwiftFormat), a tool that automatically formats Swift code according to a set of predefined rules.
 
-### How We Use SwiftFormat
-
-1. **Pre-commit Hook**: We've set up SwiftFormat as a pre-commit hook, ensuring that all code changes are automatically formatted before being committed to the repository. This helps us avoid formatting discrepancies and keeps the codebase tidy.
-
-2. **CI/CD Integration**: Our continuous integration and continuous deployment (CI/CD) pipeline includes a SwiftFormat step to ensure that the code remains formatted correctly in every build.
-
 ### Installing SwiftFormat
 
 To use SwiftFormat in your own development environment, follow these steps:

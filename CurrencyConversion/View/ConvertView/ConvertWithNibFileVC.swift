@@ -102,7 +102,6 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     func updateFavorites(for selectedItem: String) {
         let fromValue = String(selectedItem.dropFirst(2))
         UserDefaults.standard.setValue(fromValue, forKey: "favoriteFromCurrency")
-        // Perform any additional UI updates or actions here based on the selected currency
     }
 }
 
@@ -241,8 +240,9 @@ extension ConvertWithNibFileVC {
             .disposed(by: disposeBag)
         
         fromCurrencyTypeDropList.didSelect { [weak self] _, _, _ in
+            self?.toAmountCurrencyTextField.text = ""
             guard let self = self else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.updateFavorites(for: self.fromCurrencyTypeDropList.text ?? "")
             }
         }

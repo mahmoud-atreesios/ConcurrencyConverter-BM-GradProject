@@ -33,7 +33,7 @@ class ConvertViewModel{
     var firstComparedCurrency = PublishRelay<String>()
     var secoundComparedCurrency = PublishRelay<String>()
     
-    let isLoading: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+    let isLoading = BehaviorRelay<Bool>(value: false)
     
     
     func fetchCurrency(){
@@ -54,27 +54,6 @@ class ConvertViewModel{
             }
             .disposed(by: disposeBag)
     }
-    
-//    func testFetchCurrency(){
-//        isLoading.accept(true)
-//        let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") ?? "USD"
-//        ApiClient.shared().getData(modelDTO: ComparisonModel.self, .comparison(from: favoriteFromCurrency, amount: "1"))
-//            .subscribe { currency in
-//                TestAppConfigs.dict[favoriteFromCurrency] = currency.conversionRates
-//                //AppConfigs.dict[favoriteFromCurrency] = currency.conversionRates
-//                //self.exchangeCurrency = currency
-//                //self.currencyRates.accept(currency.conversionRates)
-//
-//                DispatchQueue.main.async {
-//                    testViewModel.shared().fetchAllCurrencies()
-//                }
-//                self.isLoading.accept(false)
-//            } onError: { error in
-//                self.errorSubject.onNext(error)
-//                self.isLoading.accept(false)
-//            }
-//            .disposed(by: disposeBag)
-//    }
     
     func fetchAllCurrencies(){
         isLoading.accept(true)

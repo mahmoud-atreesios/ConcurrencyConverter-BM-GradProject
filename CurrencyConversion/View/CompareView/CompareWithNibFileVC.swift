@@ -35,25 +35,7 @@ class CompareWithNibFileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-
-        hideKeyboardWhenTappedAround() 
         
-        
-        amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        targetedCurrencyTwo.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        
-        firstToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        secondToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        fromAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        
-        fromCurrencyDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        toFirstCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        toSecondCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
-
         setUp()
         setUpLoader()
         setUpIntialValueForDropList()
@@ -62,11 +44,10 @@ class CompareWithNibFileVC: UIViewController {
         viewModel.fetchCurrency()
         resetToAmountTextField()
         
-        //viewModel.allOfCurrencies
-        bindViewToViewModellll()
+        bindViewToViewModel()
         
         handleErrors()
-        
+        hideKeyboardWhenTappedAround()
     }
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
@@ -84,12 +65,14 @@ class CompareWithNibFileVC: UIViewController {
             fromAmount = "0.0"
         }
         if reachability.connection == .unavailable {
+            print("there is no network connection")
 //            DispatchQueue.main.async {
 //                self.loader.startAnimating()
 //            }
             
         } else {
             //loader.stopAnimating()
+            print("there is good network connection")
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
             
         }
@@ -98,20 +81,7 @@ class CompareWithNibFileVC: UIViewController {
 }
 
 extension CompareWithNibFileVC{
-    func fillDropList(){
-        
-        viewModel.allOfCurrencies
-            .subscribe { sthKhara in
-                self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-                self.toFirstCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-                self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-            }
-            .disposed(by: disposeBag)
-        
-    }
-}
-
-extension CompareWithNibFileVC{
+    
     func setUpLoader(){
         loader = UIActivityIndicatorView(style: .large)
         loader.center = CGPoint(x: 180, y: 200)
@@ -149,22 +119,48 @@ extension CompareWithNibFileVC{
         
         configureDropDown(toSecondCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
-    }
-    
-    func bindViewToViewModellll(){
-        viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
-        viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
         
+        amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        targetedCurrencyOne.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        targetedCurrencyTwo.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        
+        firstToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        secondToAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        fromAmountTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        
+        fromCurrencyDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        toFirstCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        toSecondCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
     }
     
-}
-
-extension CompareWithNibFileVC{
     func setUpIntialValueForDropList(){
         fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
         toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
         toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
     }
+}
+
+extension CompareWithNibFileVC{
+    
+    func bindViewToViewModel(){
+        viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
+        viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
+        
+    }
+    
+    func fillDropList(){
+        
+        viewModel.allOfCurrencies
+            .subscribe { allCurr in
+                self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
+                self.toFirstCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
+                self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: allCurr)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     func resetToAmountTextField(){
         fromAmountTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in

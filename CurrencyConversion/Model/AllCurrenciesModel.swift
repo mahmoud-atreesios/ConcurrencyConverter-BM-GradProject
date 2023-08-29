@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct AllCurrenciesModel: Decodable{
+struct AllCurrenciesModel: Decodable {
     let currencies: [Currency]
 }
 
 // MARK: - Currency
+
 struct Currency: Codable {
     let code: String
     let flagURL: String

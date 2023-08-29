@@ -5,13 +5,13 @@
 //  Created by Mahmoud Mohamed Atrees on 25/08/2023.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
 import iOSDropDown
 import Reachability
+import RxCocoa
+import RxSwift
+import UIKit
 
-class CompareWithNibFileVC: UIViewController {
+class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var targetedCurrencyTwo: UILabel!
     @IBOutlet weak var targetedCurrencyOne: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
@@ -35,7 +35,12 @@ class CompareWithNibFileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // Do any additional setup after loading the view.
+        localizedString()
+        handleErrors()
+        fromAmountTextField.delegate = self
+
         setUp()
         setUpLoader()
         setUpIntialValueForDropList()
@@ -48,11 +53,16 @@ class CompareWithNibFileVC: UIViewController {
         
         handleErrors()
         hideKeyboardWhenTappedAround()
+
+        // viewModel.allOfCurrencies
+       // bindViewToViewModel()
+
     }
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
         guard let fromCurrencyText = fromCurrencyDropList.text, !fromCurrencyText.isEmpty,
-              let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty else {
+              let toFirstCurrencyText = toFirstCurrencyTypeDropList.text, !toFirstCurrencyText.isEmpty
+        else {
             return
         }
         
@@ -74,15 +84,29 @@ class CompareWithNibFileVC: UIViewController {
             //loader.stopAnimating()
             print("there is good network connection")
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
-            
         }
     }
-    
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return NumericInputFilter.filterInput(string)
+    }
 }
 
-extension CompareWithNibFileVC{
-    
-    func setUpLoader(){
+//extension CompareWithNibFileVC {
+//    func fillDropList() {
+//        viewModel.allOfCurrencies
+//            .subscribe { sthKhara in
+//                self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
+//                self.toFirstCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
+//                self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
+//            }
+//            .disposed(by: disposeBag)
+//    }
+//}
+
+extension CompareWithNibFileVC {
+    func setUpLoader() {
+
         loader = UIActivityIndicatorView(style: .large)
         loader.center = CGPoint(x: 180, y: 200)
         view.addSubview(loader)
@@ -101,7 +125,7 @@ extension CompareWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func setUp(){
+    func setUp() {
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
         let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
@@ -119,6 +143,7 @@ extension CompareWithNibFileVC{
         
         configureDropDown(toSecondCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(secondToAmountTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+
         
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -135,11 +160,16 @@ extension CompareWithNibFileVC{
         compareButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
     }
     
-    func setUpIntialValueForDropList(){
+}
+
+extension CompareWithNibFileVC {
+    func setUpIntialValueForDropList() {
+
         fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
         toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
         toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
     }
+
 }
 
 extension CompareWithNibFileVC{
@@ -160,8 +190,9 @@ extension CompareWithNibFileVC{
             }
             .disposed(by: disposeBag)
     }
-    
-    func resetToAmountTextField(){
+
+    func resetToAmountTextField() {
+
         fromAmountTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in
                 self?.firstToAmountTextField.text = ""
@@ -170,10 +201,11 @@ extension CompareWithNibFileVC{
             .disposed(by: disposeBag)
     }
     
-    func handleErrors(){
+    func handleErrors() {
+        let errorTitle = NSLocalizedString("ERROR_TITLE", comment: "")
         viewModel.errorSubject
             .subscribe { error in
-                self.show(messageAlert: "Error", message: error.localizedDescription)
+                self.show(messageAlert: errorTitle, message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
     }
@@ -186,5 +218,22 @@ extension CompareWithNibFileVC{
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+private extension CompareWithNibFileVC {
+    func localizedString() {
+        let compareTitle = NSLocalizedString("COMPARE_TITLE", comment: "")
+        compareButton.setTitle(compareTitle, for: .normal)
+        
+        let fromTitle = NSLocalizedString("FROM_TITLE", comment: "")
+        fromLabel.text = fromTitle
+        
+        let targetedCurrencyTitle = NSLocalizedString("TARGETED_CURRENCY_TITLE", comment: "")
+        targetedCurrencyOne.text = targetedCurrencyTitle
+        targetedCurrencyTwo.text = targetedCurrencyTitle
+        
+        let amountTitle = NSLocalizedString("AMOUNT_TITLE", comment: "")
+        amountLabel.text = amountTitle
     }
 }

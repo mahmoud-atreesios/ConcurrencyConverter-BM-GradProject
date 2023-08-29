@@ -8,6 +8,6 @@
 import Foundation
 
 class AppConfigs {
-  static var dict: [String: [String: Double]] = [:]
+    static var dict: [String: [String: Double]] = [:]
 }
 

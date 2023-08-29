@@ -5,17 +5,16 @@
 //  Created by Hend on 24/08/2023.
 //
 
-import UIKit
-import RxSwift
-import RxCocoa
-import SDWebImage
 import iOSDropDown
+import RxCocoa
+import RxSwift
+import SDWebImage
+import UIKit
 
 class Convert: UIView {
     var addToFavoriteButtonPressedHandler: (() -> Void)?
-    
+
     override class func awakeFromNib() {
         super.awakeFromNib()
     }
-    
 }

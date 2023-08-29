@@ -5,7 +5,7 @@
 ////  Created by Mahmoud Mohamed Atrees on 26/08/2023.
 ////
 //
-//import Foundation
+// import Foundation
 ////
 ////  ViewController.swift
 ////  CurrencyConversion
@@ -13,13 +13,13 @@
 ////  Created by Mahmoud Mohamed Atrees on 22/08/2023.
 ////
 //
-//import UIKit
-//import RxSwift
-//import RxCocoa
-//import SDWebImage
+// import UIKit
+// import RxSwift
+// import RxCocoa
+// import SDWebImage
 //
-//class ParentVC: UIViewController {
-//    
+// class ParentVC: UIViewController {
+//
 //    let firstVC = ConvertWithNibFileVC(nibName: "Convert", bundle: nil)
 //    let secondVC = CompareWithNibFileVC(nibName: "Compare", bundle: nil)
 //
@@ -92,12 +92,12 @@
 //
 //        self.present(addToFavoritesVC, animated: true, completion: nil)
 //    }
-//}
+// }
 //
 //
 //
 ////MARK: Binding Section
-//extension ParentVC{
+// extension ParentVC{
 //
 //    //    func bindViewModelToViews(){
 //    //        viewModel.fromCurrencyOutPutRelay.bind(to: fromAmountTextField.rx.text).disposed(by: disposeBag)
@@ -165,9 +165,9 @@
 //    //            }
 //    //            .disposed(by: disposeBag)
 //    // }
-//}
+// }
 //
-//extension ParentVC{
+// extension ParentVC{
 //    static func currencyCodeToEmoji(_ code: String) -> String {
 //        let base: UInt32 = 127397
 //        var emoji = ""
@@ -177,7 +177,7 @@
 //        return emoji
 //    }
 //
-//}
+// }
 
 //    func fromUSDtoEGP(){
 //        convertButtonPressedRelay.subscribe(onNext: { [weak self] _ in

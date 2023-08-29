@@ -8,16 +8,15 @@
 import UIKit
 
 class CurrencyCell: UITableViewCell {
-
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var baseLabel: UILabel!
     @IBOutlet weak var rateLabel: UILabel!
-    
+
     @IBOutlet weak var currencyFlagImageView: UIImageView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         currencyLabel.font = UIFont(name: "Poppins-Regular", size: 14)
         baseLabel.font = UIFont(name: "Poppins-Regular", size: 12)
         rateLabel.font = UIFont(name: "Poppins-Medium", size: 18)
@@ -30,18 +29,14 @@ class CurrencyCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }
 
 extension UIImageView {
-    
     func makeRounded() {
-        
         layer.borderWidth = 1
         layer.masksToBounds = false
         layer.borderColor = UIColor.white.cgColor
-        layer.cornerRadius = self.frame.height / 2
+        layer.cornerRadius = frame.height / 2
         clipsToBounds = true
     }
 }
-

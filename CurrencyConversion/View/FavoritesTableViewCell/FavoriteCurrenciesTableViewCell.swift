@@ -8,14 +8,13 @@
 import UIKit
 
 class FavoriteCurrenciesTableViewCell: UITableViewCell {
-
     @IBOutlet weak var currencyFlagImageView: UIImageView!
     @IBOutlet weak var currencyCode: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var checkButton: RadioButton!
-    
+
     var checkbuttonPressed: (() -> Void)?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         currencyCode.font = UIFont(name: "Poppins-Regular", size: 13.49)
@@ -29,7 +28,7 @@ class FavoriteCurrenciesTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     @IBAction func checkFavoriteCurrencyButtonPressed(_ sender: UIButton) {
         checkbuttonPressed?()
     }

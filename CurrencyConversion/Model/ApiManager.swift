@@ -21,16 +21,16 @@ enum Endpoints {
     
     var stringUrl: URL {
         switch self {
-        case .getExchangeRate(let base):
-            return URL(string: "https://v6.exchangerate-api.com/v6/ecf10bab01b34bf0de9636e1/latest/\(base)")!
         case .getAllCurrencies:
-            return URL(string: "http://16.171.161.38/api/v1")!
+            return URL(string: Constants.Links.baseURL)!
+        case .getExchangeRate(let base):
+            return URL(string: Constants.Links.baseURl + "\(base)")!
         case .getAllCurrenciesData:
-            return URL(string: "http://www.amrcurrencyconversion.site/api/v1")!
+            return URL(string: Constants.Links.baseURL)!
         case .convertCurrency(let from, let to, let amount):
-            return URL(string: "http://www.amrcurrencyconversion.site/api/" + "v1/conversion?from=\(from)&to=\(to)&amount=\(amount)")!
+            return URL(string: Constants.Links.baseURL + "/conversion?from=\(from)&to=\(to)&amount=\(amount)")!
         case .compareCurrencies(let from, let amount, let toFirst, let toSecond):
-            return URL(string: "http://www.amrcurrencyconversion.site/api/v1/comparison?from=\(from)&amount=\(amount)&list=\(toFirst),\(toSecond)")!
+            return URL(string: Constants.Links.baseURL + "/comparison?from=\(from)&amount=\(amount)&list=\(toFirst),\(toSecond)")!
             
         }
     }

@@ -10,11 +10,11 @@ import RealmSwift
 import RxRelay
 import RxSwift
 
-class testViewModel {
-    private static let sharedInstance = testViewModel()
+class FavouriteManager {
+    private static let sharedInstance = FavouriteManager()
 
-    static func shared() -> testViewModel {
-        return testViewModel.sharedInstance
+    static func shared() -> FavouriteManager {
+        return FavouriteManager.sharedInstance
     }
 
     private init() {}

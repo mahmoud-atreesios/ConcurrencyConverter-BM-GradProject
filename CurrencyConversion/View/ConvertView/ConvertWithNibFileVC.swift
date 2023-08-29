@@ -40,48 +40,21 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fromAmountCurrencyTextField.delegate = self
         localizedStrings()
         
-        let convertTitle = NSLocalizedString("CONVERT_TITLE", comment: "")
-        convertButton.setTitle(convertTitle, for: .normal)
-        
-        fromAmountCurrencyTextField.delegate = self
-        
-        let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
-            .distinctUntilChanged()
-        
-        favoriteFromCurrency
-            .subscribe(onNext: { [weak self] _ in
-                self?.viewModel.fetchCurrency()
-            })
-            .disposed(by: disposeBag)
-        
-
-        handleErrors()
-        
-//        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] error in
-//            guard let self = self else { return }
-//            self.show(messageAlert: "Service Error", message: error.localizedDescription)
-//        }).disposed(by: disposeBag)
-        
-        bindViewToViewModellll()
-        setUpIntialValueForDropList()
-        setUpLoader()
-        resetToAmountTextField()
-        fromAmountCurrencyTextField.text = ""
-        bindViewsToViewModel()
-        bindTableViewToViewModel()
-        
         setUp()
-        
+        setUpLoader()
+        setUpIntialValueForDropList()
         fillDropList()
         viewModel.fetchAllCurrencies()
+        observeFavoriteCurrencyChange()
+        bindViewToViewModel()
+        bindTableViewToViewModel()
+        resetToAmountTextField()
         hideKeyboardWhenTappedAround()
-        
+        handleErrors()
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
-
-        // handleErrors()
-
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
@@ -97,10 +70,10 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
         else {
             return
         }
-        
-        var fromAmount = fromAmountCurrencyTextField.text ?? "0.0"
-        if fromAmount.isEmpty {
-            fromAmount = "0.0"
+        guard let fromAmount = fromAmountCurrencyTextField.text , !fromAmount.isEmpty else{
+            let emptyFieldTitle = NSLocalizedString("PLEASE_ENTER_NUMBER_LABEL", comment: "")
+            show(messageAlert: "", message: emptyFieldTitle)
+            return
         }
         
         if reachability.connection == .unavailable {
@@ -123,23 +96,26 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
         present(favoriteScreen, animated: true)
     }
     
-    func bindViewToViewModellll() {
-        viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
-    }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return NumericInputFilter.filterInput(string)
     }
 }
 
+//MARK: Binding
 extension ConvertWithNibFileVC {
+    
+    func bindViewToViewModel() {
+        viewModel.conversion.bind(to: toAmountCurrencyTextField.rx.text).disposed(by: disposeBag)
+    }
+    
     func bindTableViewToViewModel() {
-        testViewModel.shared().favouriteItems
+        FavouriteManager.shared().favouriteItems
             .bind(to: selectedFavouriteCurrenciesTableView.rx.items(cellIdentifier: "currencyCell", cellType: CurrencyCell.self)) {
-                _, curr, cell in
+                (row ,curr, cell) in
                 if let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") {
                     guard let arr = AppConfigs.dict[favoriteFromCurrency] else { return }
-                    cell.rateLabel.text = String(format: "%.4f", arr[curr.currencyCode] ?? 0)
+                    cell.rateLabel.text = String(self.viewModel.formattedAndTrimmedValue(arr[curr.currencyCode] ?? 0))
                 }
                 cell.baseLabel.text = "Currency"
                 cell.currencyLabel.text = curr.currencyCode
@@ -149,7 +125,7 @@ extension ConvertWithNibFileVC {
             }
             .disposed(by: disposeBag)
         
-        testViewModel.shared().favouriteItems
+        FavouriteManager.shared().favouriteItems
             .map { $0.isEmpty }
             .subscribe(onNext: { [weak self] isEmpty in
                 if isEmpty {
@@ -170,41 +146,19 @@ extension ConvertWithNibFileVC {
             .disposed(by: disposeBag)
     }
     
-    func bindViewsToViewModel() {
-        fromAmountCurrencyTextField.rx.controlEvent(.editingChanged)
-            .withLatestFrom(fromAmountCurrencyTextField.rx.text.orEmpty)
-            .map { currency in
-                let cleanedCurrency = String(currency.dropFirst(2))
-                return cleanedCurrency.isEmpty ? "0.0" : cleanedCurrency
-            }
+    func observeFavoriteCurrencyChange(){
+        let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
             .distinctUntilChanged()
-            .compactMap(Double.init)
-            .bind(to: viewModel.fromAmountRelay)
-            .disposed(by: disposeBag)
         
-        fromCurrencyTypeDropList.rx.text.orEmpty
-            .map { currency in
-                let cleanedCurrency = String(currency.dropFirst(2))
-                return cleanedCurrency.isEmpty ? "0.0" : cleanedCurrency
-            }
-            .distinctUntilChanged()
-            .bind(to: viewModel.fromCurrencyRelay)
+        favoriteFromCurrency
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel.fetchCurrency()
+            })
             .disposed(by: disposeBag)
     }
 }
 
-extension ConvertWithNibFileVC {
-    func fillDropList() {
-        viewModel.allOfCurrencies
-            .subscribe { currencyArray in
-                // print(self.viewModel.fillDropDown(currencyArray: currencyArray))
-                self.fromCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-                self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
-            }
-            .disposed(by: disposeBag)
-    }
-}
-
+//MARK: setUp UI
 extension ConvertWithNibFileVC {
     func setUpLoader() {
         loader = UIActivityIndicatorView(style: .large)
@@ -264,12 +218,31 @@ extension ConvertWithNibFileVC {
         toCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: favoriteToCurrency) + favoriteToCurrency
     }
     
+    func fillDropList() {
+        viewModel.allOfCurrencies
+            .subscribe { currencyArray in
+                // print(self.viewModel.fillDropDown(currencyArray: currencyArray))
+                self.fromCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
+                self.toCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: currencyArray)
+            }
+            .disposed(by: disposeBag)
+    }
+    
     func resetToAmountTextField() {
         fromAmountCurrencyTextField.rx.text.orEmpty
             .subscribe(onNext: { [weak self] _ in
                 self?.toAmountCurrencyTextField.text = ""
             })
             .disposed(by: disposeBag)
+        
+        fromCurrencyTypeDropList.didSelect{(selectedText , index ,id) in
+            self.toAmountCurrencyTextField.text = ""
+        }
+        
+        toCurrencyTypeDropList.didSelect{(selectedText , index ,id) in
+            self.toAmountCurrencyTextField.text = ""
+        }
+        
     }
     
     func handleErrors() {
@@ -292,6 +265,7 @@ extension ConvertWithNibFileVC {
     }
 }
 
+//MARK: localization
 private extension ConvertWithNibFileVC {
     func localizedStrings() {
         let convertTitle = NSLocalizedString("CONVERT_TITLE", comment: "")

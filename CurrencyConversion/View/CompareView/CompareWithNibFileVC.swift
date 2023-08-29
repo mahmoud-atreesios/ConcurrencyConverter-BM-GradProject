@@ -61,15 +61,15 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         else {
             return
         }
-        
         guard let toSecondCurrencyText = toSecondCurrencyTypeDropList.text, !toSecondCurrencyText.isEmpty else {
             return
         }
-        
-        var fromAmount = fromAmountTextField.text ?? "0.0"
-        if fromAmount.isEmpty {
-            fromAmount = "0.0"
+        guard let fromAmount = fromAmountTextField.text , !fromAmount.isEmpty else{
+            let emptyFieldTitle = NSLocalizedString("PLEASE_ENTER_NUMBER_LABEL", comment: "")
+            show(messageAlert: "", message: emptyFieldTitle)
+            return
         }
+        
         if reachability.connection == .unavailable {
             print("there is no network connection")
 //            DispatchQueue.main.async {
@@ -180,6 +180,19 @@ extension CompareWithNibFileVC{
                 self?.secondToAmountTextField.text = ""
             })
             .disposed(by: disposeBag)
+        
+        fromCurrencyDropList.didSelect{(selectedText , index ,id) in
+            self.firstToAmountTextField.text = ""
+            self.secondToAmountTextField.text = ""
+        }
+        
+        toFirstCurrencyTypeDropList.didSelect{(selectedText , index ,id) in
+            self.firstToAmountTextField.text = ""
+        }
+        
+        toSecondCurrencyTypeDropList.didSelect{(selectedText , index ,id) in
+            self.secondToAmountTextField.text = ""
+        }
     }
     
     func handleErrors() {

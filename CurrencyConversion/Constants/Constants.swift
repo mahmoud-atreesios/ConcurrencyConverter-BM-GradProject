@@ -9,6 +9,7 @@ import Foundation
 
 struct Constants {
     enum Links {
-        static let baseURL = "http://www.amrcurrencyconversion.site/api/"
+        static let baseURL = "http://www.amrcurrencyconversion.site/api/v1"
+        static let baseURl = "https://v6.exchangerate-api.com/v6/ecf10bab01b34bf0de9636e1/latest/"
     }
 }

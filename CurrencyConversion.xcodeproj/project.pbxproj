@@ -26,7 +26,7 @@
 		1C66C8522A9B599100C82113 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C66C8512A9B599100C82113 /* RealmSwift */; };
 		1C66C8542A9B59F900C82113 /* FavouriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8532A9B59F900C82113 /* FavouriteModel.swift */; };
 		1C66C8572A9B5D7800C82113 /* FavouriteCurrenciesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */; };
-		1C66C8592A9B925800C82113 /* testViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8582A9B925800C82113 /* testViewModel.swift */; };
+		1C66C8592A9B925800C82113 /* FavouriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C66C8582A9B925800C82113 /* FavouriteManager.swift */; };
 		1C66C8672A9C293600C82113 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 1C66C8662A9C293600C82113 /* Reachability */; };
 		1C898FA52A97AADF008152D1 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */; };
 		1C898FA72A97B346008152D1 /* AllCurrenciesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */; };
@@ -36,7 +36,6 @@
 		1C9E0A382A996C0700AC543E /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A372A996C0700AC543E /* SDWebImageSVGCoder */; };
 		1C9E0A3B2A996D7000AC543E /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A3A2A996D7000AC543E /* SDWebImage */; };
 		1C9E0A3D2A996D7000AC543E /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1C9E0A3C2A996D7000AC543E /* SDWebImageMapKit */; };
-		1C9E0A3F2A99FE9F00AC543E /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A3E2A99FE9F00AC543E /* test.swift */; };
 		1C9E0A412A9A54BC00AC543E /* NumericInputFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A402A9A54BC00AC543E /* NumericInputFilter.swift */; };
 		1C9E0A432A9A5F8100AC543E /* ConversionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C9E0A422A9A5F8100AC543E /* ConversionModel.swift */; };
 		1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */; };
@@ -76,13 +75,12 @@
 		1C46D6C62A9A8BD000476804 /* ComparisonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonModel.swift; sourceTree = "<group>"; };
 		1C66C8532A9B59F900C82113 /* FavouriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteModel.swift; sourceTree = "<group>"; };
 		1C66C8562A9B5D7800C82113 /* FavouriteCurrenciesManager.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FavouriteCurrenciesManager.swift; sourceTree = "<group>"; tabWidth = 4; };
-		1C66C8582A9B925800C82113 /* testViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewModel.swift; sourceTree = "<group>"; };
+		1C66C8582A9B925800C82113 /* FavouriteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteManager.swift; sourceTree = "<group>"; };
 		1C898FA42A97AADF008152D1 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		1C898FA62A97B346008152D1 /* AllCurrenciesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllCurrenciesModel.swift; sourceTree = "<group>"; };
 		1C9E0A2F2A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCurrenciesTableViewCell.swift; sourceTree = "<group>"; };
 		1C9E0A302A99328500AC543E /* FavoriteCurrenciesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteCurrenciesTableViewCell.xib; sourceTree = "<group>"; };
 		1C9E0A332A99431100AC543E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		1C9E0A3E2A99FE9F00AC543E /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
 		1C9E0A402A9A54BC00AC543E /* NumericInputFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericInputFilter.swift; sourceTree = "<group>"; };
 		1C9E0A422A9A5F8100AC543E /* ConversionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionModel.swift; sourceTree = "<group>"; };
 		1CCE20842A98F42C00A7CE6C /* ConvertWithNibFileVC.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = ConvertWithNibFileVC.swift; sourceTree = "<group>"; tabWidth = 4; };
@@ -161,7 +159,6 @@
 				1C09D3492A950FCC002657EE /* Info.plist */,
 				1CE478752A9D216900E87B3F /* Extensions */,
 				1C9E0A352A995ADB00AC543E /* Constants */,
-				1C9E0A3E2A99FE9F00AC543E /* test.swift */,
 				1C66C8552A9B5D3D00C82113 /* DataBaseManager */,
 			);
 			path = CurrencyConversion;
@@ -171,7 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				1C09D3542A95112C002657EE /* ConvertViewModel.swift */,
-				1C66C8582A9B925800C82113 /* testViewModel.swift */,
+				1C66C8582A9B925800C82113 /* FavouriteManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -411,7 +408,7 @@
 				1C09D3402A950FCA002657EE /* ParentVC.swift in Sources */,
 				1C09D33C2A950FCA002657EE /* AppDelegate.swift in Sources */,
 				1C46D6C72A9A8BD000476804 /* ComparisonModel.swift in Sources */,
-				1C66C8592A9B925800C82113 /* testViewModel.swift in Sources */,
+				1C66C8592A9B925800C82113 /* FavouriteManager.swift in Sources */,
 				1C9E0A312A99328500AC543E /* FavoriteCurrenciesTableViewCell.swift in Sources */,
 				1C66C8572A9B5D7800C82113 /* FavouriteCurrenciesManager.swift in Sources */,
 				1C09D33E2A950FCA002657EE /* SceneDelegate.swift in Sources */,
@@ -419,7 +416,6 @@
 				1CCE20872A98F77B00A7CE6C /* CompareWithNibFileVC.swift in Sources */,
 				1CCE20852A98F42C00A7CE6C /* ConvertWithNibFileVC.swift in Sources */,
 				1C3C824A2A975FB100D136DC /* CurrencyCell.swift in Sources */,
-				1C9E0A3F2A99FE9F00AC543E /* test.swift in Sources */,
 				1C9E0A432A9A5F8100AC543E /* ConversionModel.swift in Sources */,
 				1C3C82442A9740C100D136DC /* ApiManager.swift in Sources */,
 				1CCE208C2A99047800A7CE6C /* RadioButton.swift in Sources */,

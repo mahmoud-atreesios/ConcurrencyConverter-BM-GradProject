@@ -63,7 +63,7 @@ extension AddToFavoritesVC {
                         print("deleted \(currency.code) from favorites")
                     }
                     // self.viewModel.favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
-                    testViewModel.shared().favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
+                    FavouriteManager.shared().favouriteItems.accept(FavouriteCurrenciesManager.shared().getAllFavouritesItems())
                 }
             }
             .disposed(by: disposeBag)

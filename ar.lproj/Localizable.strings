@@ -21,3 +21,4 @@
 "CLOSE_TITLE" = "إغلاق";
 "ERROR_TITLE" = "خطأ";
 "NO_FAVORITES_LABEL" = "لم يتم إضافة عملات";
+"PLEASE_ENTER_NUMBER_LABEL" = "من فضلك، أدخل عددا";

@@ -43,7 +43,7 @@ class ConvertViewModel {
                 self.exchangeCurrency = currency
                 self.currencyRates.accept(currency.conversionRates)
                 DispatchQueue.main.async {
-                    testViewModel.shared().fetchAllCurrencies()
+                    FavouriteManager.shared().fetchAllCurrencies()
                 }
                 self.isLoading.accept(false)
             } onError: { error in
@@ -72,7 +72,7 @@ class ConvertViewModel {
         isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ConversionModel.self, .convertCurrency(from: from, to: to, amount: amount))
             .subscribe(onNext: { conversion in
-                self.conversion.accept(String(format: "%.4f", conversion.result ?? 1))
+                self.conversion.accept(self.formattedAndTrimmedValue(conversion.result ?? 0))
                 self.isLoading.accept(false)
             }, onError: { error in
                 self.errorSubject.onNext(error)
@@ -85,9 +85,8 @@ class ConvertViewModel {
         isLoading.accept(true)
         ApiClient.shared().getData(modelDTO: ComparisonModel.self, .compareCurrencies(from: from, amount: amount, toFirst: toFirstCurrency, toSecond: toSecondCurrency))
             .subscribe(onNext: { comparison in
-                // self.comparison.accept(comparison.conversionRates)
-                self.firstComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[0].amount))
-                self.secoundComparedCurrency.accept(String(format: "%.4f", comparison.conversionRates[1].amount))
+                self.firstComparedCurrency.accept(self.formattedAndTrimmedValue(comparison.conversionRates[0].amount))
+                self.secoundComparedCurrency.accept(self.formattedAndTrimmedValue(comparison.conversionRates[1].amount))
                 self.isLoading.accept(false)
             }, onError: { error in
                 self.errorSubject.onNext(error)
@@ -95,21 +94,6 @@ class ConvertViewModel {
             })
             .disposed(by: disposeBag)
     }
-    
-
-//    func getConvertionRate(amount: Double, from: String, to: [String], completion: @escaping (String?) -> Void) {
-//        isLoading.accept(true)
-//        ApiClient.shared().getData(modelDTO: ConversionModel.self, .comparison(from: from, amount: String(amount), arrayOfString: to))
-//            .observe(on: MainScheduler.instance)
-//            .subscribe { converstionRate in
-//                completion(String(format: "%.2f", amount / (converstionRate.result ?? 1.5)))
-//                self.isLoading.accept(false)
-//            } onError: { error in
-//                self.errorSubject.onNext(error)
-//                self.isLoading.accept(false)
-//            }
-//            .disposed(by: disposeBag)
-//    }
 
 }
 
@@ -135,4 +119,13 @@ extension ConvertViewModel {
         }
         return emoji
     }
+     func formattedAndTrimmedValue(_ value: Double) -> String {
+        let formattedResult = String(format: "%.4f", value)
+        var trimmedResult = formattedResult.trimmingCharacters(in: .init(charactersIn: "0"))
+        if trimmedResult.last == "." {
+            trimmedResult.removeLast()
+        }
+        return trimmedResult
+    }
 }
+

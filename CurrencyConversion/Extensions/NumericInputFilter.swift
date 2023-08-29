@@ -13,12 +13,11 @@ class NumericInputFilter {
             return true
         }
 
-        let arabicDigits = "٠١٢٣٤٥٦٧٨٩"
         let englishDigits = "0123456789"
         
         let enteredCharacterSet = CharacterSet(charactersIn: string)
-        let containsArabicDigits = enteredCharacterSet.isSubset(of: CharacterSet(charactersIn: arabicDigits))
+        let containsEnglishDigits = enteredCharacterSet.isSubset(of: CharacterSet(charactersIn: englishDigits))
         
-        return !containsArabicDigits
+        return containsEnglishDigits
     }
 }

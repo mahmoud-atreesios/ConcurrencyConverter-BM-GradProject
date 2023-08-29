@@ -39,9 +39,12 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         localizedStrings()
+        
         let convertTitle = NSLocalizedString("CONVERT_TITLE", comment: "")
         convertButton.setTitle(convertTitle, for: .normal)
+        
         fromAmountCurrencyTextField.delegate = self
         
         let favoriteFromCurrency = UserDefaults.standard.rx.observe(String.self, "favoriteFromCurrency")
@@ -56,10 +59,10 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
 
         handleErrors()
         
-        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] error in
-            guard let self = self else { return }
-            self.show(messageAlert: "Service Error", message: error.localizedDescription)
-        }).disposed(by: disposeBag)
+//        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] error in
+//            guard let self = self else { return }
+//            self.show(messageAlert: "Service Error", message: error.localizedDescription)
+//        }).disposed(by: disposeBag)
         
         bindViewToViewModellll()
         setUpIntialValueForDropList()
@@ -70,19 +73,6 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
         bindTableViewToViewModel()
         
         setUp()
-        amountToLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        amountFromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        toLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-        
-        fromAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        toAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
-        toCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        fromCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
-        liveExchangeRateLabel.font = UIFont(name: "Poppins-SemiBold", size: 16.84)
-        myPortofolioLabel.font = UIFont(name: "Poppins-Regular", size: 18)
-        convertButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
-        addToFavoritesButton.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 10.87)
         
         fillDropList()
         viewModel.fetchAllCurrencies()
@@ -95,8 +85,6 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
-        
-        
         
         let fromValue = String(fromCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         let toValue = String(toCurrencyTypeDropList.text?.dropFirst(2) ?? "")
@@ -117,12 +105,13 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
         
         if reachability.connection == .unavailable {
             DispatchQueue.main.async {
+                print("there is no network connection")
                 // self.show(messageAlert: "Error!", message: "error error error")
                 // self.loader.startAnimating()
-                // self.handleErrors()
             }
             
         } else {
+            print("there is network connection")
             // loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         }
@@ -130,8 +119,8 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func addToFavouritesButtonPressed(_ sender: UIButton) {
         let sb = UIStoryboard(name: "Main", bundle: nil)
-        let profileScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
-        present(profileScreen, animated: true)
+        let favoriteScreen = sb.instantiateViewController(withIdentifier: "AddToFavoritesVC") as! AddToFavoritesVC
+        present(favoriteScreen, animated: true)
     }
     
     func bindViewToViewModellll() {
@@ -237,19 +226,33 @@ extension ConvertWithNibFileVC {
     }
     
     func setUp() {
-        toAmountCurrencyTextField.isUserInteractionEnabled = false
-        
         let cornerRadius: CGFloat = 20
         let textFieldHeight: CGFloat = 48
         let borderColor = UIColor(red: 0.773, green: 0.773, blue: 0.773, alpha: 1).cgColor
         let borderWidth: CGFloat = 0.5
         let padding: CGFloat = 15
         
+        toAmountCurrencyTextField.isUserInteractionEnabled = false
+        
         configureTextField(fromAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureTextField(toAmountCurrencyTextField, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         
         configureDropDown(fromCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
         configureDropDown(toCurrencyTypeDropList, cornerRadius: cornerRadius, height: textFieldHeight, borderWidth: borderWidth, borderColor: borderColor, padding: padding)
+        
+        amountToLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        amountFromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        toLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
+        
+        fromAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        toAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
+        toCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        fromCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
+        liveExchangeRateLabel.font = UIFont(name: "Poppins-SemiBold", size: 16.84)
+        myPortofolioLabel.font = UIFont(name: "Poppins-Regular", size: 18)
+        convertButton.titleLabel?.font = UIFont(name: "Poppins-Bold", size: 16)
+        addToFavoritesButton.titleLabel?.font = UIFont(name: "Poppins-Medium", size: 10.87)
     }
 }
 

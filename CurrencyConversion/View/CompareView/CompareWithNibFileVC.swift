@@ -37,25 +37,21 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        localizedString()
-        handleErrors()
         fromAmountTextField.delegate = self
-
+        
+        localizedString()
         setUp()
         setUpLoader()
-        setUpIntialValueForDropList()
-        fillDropList()
         viewModel.fetchAllCurrencies()
         viewModel.fetchCurrency()
+        setUpIntialValueForDropList()
+        fillDropList()
         resetToAmountTextField()
         
         bindViewToViewModel()
         
         handleErrors()
         hideKeyboardWhenTappedAround()
-
-        // viewModel.allOfCurrencies
-       // bindViewToViewModel()
 
     }
     
@@ -91,18 +87,6 @@ class CompareWithNibFileVC: UIViewController, UITextFieldDelegate {
         return NumericInputFilter.filterInput(string)
     }
 }
-
-//extension CompareWithNibFileVC {
-//    func fillDropList() {
-//        viewModel.allOfCurrencies
-//            .subscribe { sthKhara in
-//                self.fromCurrencyDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-//                self.toFirstCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-//                self.toSecondCurrencyTypeDropList.optionArray = self.viewModel.fillDropDown(currencyArray: sthKhara)
-//            }
-//            .disposed(by: disposeBag)
-//    }
-//}
 
 extension CompareWithNibFileVC {
     func setUpLoader() {
@@ -162,22 +146,19 @@ extension CompareWithNibFileVC {
     
 }
 
-extension CompareWithNibFileVC {
-    func setUpIntialValueForDropList() {
-
-        fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
-        toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
-        toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
-    }
-
-}
-
 extension CompareWithNibFileVC{
     
     func bindViewToViewModel(){
         viewModel.firstComparedCurrency.bind(to: firstToAmountTextField.rx.text).disposed(by: disposeBag)
         viewModel.secoundComparedCurrency.bind(to: secondToAmountTextField.rx.text).disposed(by: disposeBag)
         
+    }
+    
+    func setUpIntialValueForDropList() {
+
+        fromCurrencyDropList.text = " " + viewModel.getFlagEmoji(flag: "EGP") + "EGP"
+        toFirstCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
+        toSecondCurrencyTypeDropList.text = " " + viewModel.getFlagEmoji(flag: "USD") + "USD"
     }
     
     func fillDropList(){

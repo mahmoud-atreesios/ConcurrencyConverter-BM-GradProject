@@ -18,7 +18,6 @@ enum Endpoints {
     case getAllCurrenciesData
     case convertCurrency(from: String, to: String, amount: String)
     case compareCurrencies(from: String, amount: String, toFirst: String, toSecond: String)
-    case comparison(from: String, amount: String)
     
     var stringUrl: URL {
         switch self {
@@ -32,12 +31,7 @@ enum Endpoints {
             return URL(string: "http://www.amrcurrencyconversion.site/api/" + "v1/conversion?from=\(from)&to=\(to)&amount=\(amount)")!
         case .compareCurrencies(let from, let amount, let toFirst, let toSecond):
             return URL(string: "http://www.amrcurrencyconversion.site/api/v1/comparison?from=\(from)&amount=\(amount)&list=\(toFirst),\(toSecond)")!
-
-        case .comparison(let from, let amount):
-            return URL(string: "http://www.amrcurrencyconversion.site/api/v1/comparison?from=\(from)&amount=\(amount)&list=\(["USD","EGP","EUR","AED","GBP","SAR","KWD","CHF","CAD","QAR"])")!
             
-        case .comparison(let from, let amount, let arrayOfString):
-            return URL(string: "http://www.amrcurrencyconversion.site/api/v1/comparison?from=\(from)&amount=\(amount)&list=\(arrayOfString)")!
         }
     }
 }

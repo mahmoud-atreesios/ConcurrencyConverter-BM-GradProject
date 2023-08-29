@@ -37,7 +37,8 @@ class CompareWithNibFileVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
 
-        handleErrors()
+        hideKeyboardWhenTappedAround() 
+        
         
         amountLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
@@ -64,6 +65,8 @@ class CompareWithNibFileVC: UIViewController {
         //viewModel.allOfCurrencies
         bindViewToViewModellll()
         
+        handleErrors()
+        
     }
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
@@ -81,14 +84,12 @@ class CompareWithNibFileVC: UIViewController {
             fromAmount = "0.0"
         }
         if reachability.connection == .unavailable {
-            // If the network is unavailable, start the loader
-            DispatchQueue.main.async {
-                self.loader.startAnimating()
-            }
+//            DispatchQueue.main.async {
+//                self.loader.startAnimating()
+//            }
             
         } else {
-            // If the network is available, stop the loader and call convertCurrency
-            loader.stopAnimating()
+            //loader.stopAnimating()
             viewModel.compareCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), toFirstCurrency: String(toFirstCurrencyText.dropFirst(2)), toSecondCurrency: String(toSecondCurrencyText.dropFirst(2)))
             
         }
@@ -179,5 +180,15 @@ extension CompareWithNibFileVC{
                 self.show(messageAlert: "Error", message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(CompareWithNibFileVC.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

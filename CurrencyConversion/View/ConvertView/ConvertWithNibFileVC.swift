@@ -50,10 +50,8 @@ class ConvertWithNibFileVC: UIViewController{
             })
             .disposed(by: disposeBag)
         
-        viewModel.errorSubject.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] (error) in
-            guard let self = self else { return }
-            self.show(messageAlert: "Service Error", message: error.localizedDescription)
-        }).disposed(by: disposeBag)
+        handleErrors()
+        
         
         bindViewToViewModellll()
         setUpIntialValueForDropList()
@@ -68,7 +66,7 @@ class ConvertWithNibFileVC: UIViewController{
         amountFromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         toLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
         fromLabel.font = UIFont(name: "Poppins-SemiBold", size: 14)
-
+        
         fromAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
         toAmountCurrencyTextField.font = UIFont(name: "Poppins-SemiBold", size: 16)
         toCurrencyTypeDropList.font = UIFont(name: "Poppins-Regular", size: 16)
@@ -80,12 +78,15 @@ class ConvertWithNibFileVC: UIViewController{
         
         fillDropList()
         viewModel.fetchAllCurrencies()
+        hideKeyboardWhenTappedAround()
         
         selectedFavouriteCurrenciesTableView.register(UINib(nibName: "CurrencyCell", bundle: nil), forCellReuseIdentifier: "currencyCell")
-        //handleErrors()
     }
     
     @IBAction func convertButtonPressed(_ sender: UIButton) {
+        
+        
+        
         let fromValue = String(fromCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         let toValue = String(toCurrencyTypeDropList.text?.dropFirst(2) ?? "")
         
@@ -262,6 +263,16 @@ extension ConvertWithNibFileVC{
                 self.show(messageAlert: "Error", message: error.localizedDescription)
             }
             .disposed(by: disposeBag)
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ConvertWithNibFileVC.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 

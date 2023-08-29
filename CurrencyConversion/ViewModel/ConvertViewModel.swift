@@ -49,14 +49,32 @@ class ConvertViewModel{
                 }
                 self.isLoading.accept(false)
             } onError: { error in
-//                DispatchQueue.main.async {
-//                    self.show(messageAlert: "Error", message: error.localizedDescription)
-//                }
                 self.errorSubject.onNext(error)
                 self.isLoading.accept(false)
             }
             .disposed(by: disposeBag)
     }
+    
+//    func testFetchCurrency(){
+//        isLoading.accept(true)
+//        let favoriteFromCurrency = UserDefaults.standard.string(forKey: "favoriteFromCurrency") ?? "USD"
+//        ApiClient.shared().getData(modelDTO: ComparisonModel.self, .comparison(from: favoriteFromCurrency, amount: "1"))
+//            .subscribe { currency in
+//                TestAppConfigs.dict[favoriteFromCurrency] = currency.conversionRates
+//                //AppConfigs.dict[favoriteFromCurrency] = currency.conversionRates
+//                //self.exchangeCurrency = currency
+//                //self.currencyRates.accept(currency.conversionRates)
+//
+//                DispatchQueue.main.async {
+//                    testViewModel.shared().fetchAllCurrencies()
+//                }
+//                self.isLoading.accept(false)
+//            } onError: { error in
+//                self.errorSubject.onNext(error)
+//                self.isLoading.accept(false)
+//            }
+//            .disposed(by: disposeBag)
+//    }
     
     func fetchAllCurrencies(){
         isLoading.accept(true)
@@ -101,19 +119,6 @@ class ConvertViewModel{
             .disposed(by: disposeBag)
     }
     
-    func getConvertionRate(amount: Double, from: String, to: [String], completion: @escaping (String?) -> Void) {
-        isLoading.accept(true)
-        ApiClient.shared().getData(modelDTO: ConversionModel.self, .comparison(from: from, amount: String(amount), arrayOfString: to))
-            .observe(on: MainScheduler.instance)
-            .subscribe { converstionRate in
-                completion(String(format: "%.2f", amount/(converstionRate.result ?? 1.5)))
-                self.isLoading.accept(false)
-            } onError: { error in
-                self.errorSubject.onNext(error)
-                self.isLoading.accept(false)
-            }
-            .disposed(by: disposeBag)
-    }
 }
 
 //MARK: Helping Function

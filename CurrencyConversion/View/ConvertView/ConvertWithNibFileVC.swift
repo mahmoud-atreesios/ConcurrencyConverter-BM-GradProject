@@ -78,13 +78,14 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
         if reachability.connection == .unavailable {
             DispatchQueue.main.async {
                 print("there is no network connection")
-                // self.show(messageAlert: "Error!", message: "error error error")
-                // self.loader.startAnimating()
+                DispatchQueue.main.async {
+                    self.loader.startAnimating()
+                }
             }
             
         } else {
             print("there is network connection")
-            // loader.stopAnimating()
+            loader.stopAnimating()
             viewModel.convertCurrency(amount: fromAmount, from: String(fromCurrencyText.dropFirst(2)), to: String(toCurrencyText.dropFirst(2)))
         }
     }
@@ -102,7 +103,6 @@ class ConvertWithNibFileVC: UIViewController, UITextFieldDelegate {
     func updateFavorites(for selectedItem: String) {
         let fromValue = String(selectedItem.dropFirst(2))
         UserDefaults.standard.setValue(fromValue, forKey: "favoriteFromCurrency")
-        // Perform any additional UI updates or actions here based on the selected currency
     }
 }
 
@@ -241,8 +241,9 @@ extension ConvertWithNibFileVC {
             .disposed(by: disposeBag)
         
         fromCurrencyTypeDropList.didSelect { [weak self] _, _, _ in
+            self?.toAmountCurrencyTextField.text = ""
             guard let self = self else { return }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.updateFavorites(for: self.fromCurrencyTypeDropList.text ?? "")
             }
         }

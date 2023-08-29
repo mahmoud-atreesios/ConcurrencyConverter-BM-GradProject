@@ -13,7 +13,7 @@ The Concurrency Application is developed by the DollaPal team in collaboration w
 
 ### Localization and Accessibility
 
-We've taken localization and accessibility seriously. The Concurrency Application is available in both English and Arabic versions, making it convenient for users in Egypt and beyond. You can seamlessly switch between languages to enhance your experience.
+We've taken localization and accessibility seriously. The Concurrency Application is available in both English and Arabic versions, making it convenient for users in Egypt and beyond. You can seamlessly switch between languages to enhance your experience. Moreover, we've supported localized languages in both left-to-right (LTR) and right-to-left (RTL) orientations, ensuring a cohesive user experience for all.
 
 ### Project Architecture
 
@@ -25,7 +25,6 @@ The Concurrency Application utilizes several open-source packages to enhance fun
 
 - [RxSwift](https://github.com/ReactiveX/RxSwift): Reactive programming library for asynchronous and event-driven programming.
 - [SDWebImage](https://github.com/SDWebImage/SDWebImage): Efficient image loading and caching library.
-- [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/main/RxCocoa): Reactive extensions for Cocoa frameworks.
 - [Alamofire](https://github.com/Alamofire/Alamofire): Elegant networking library for Swift.
 - [Realm](https://github.com/realm/realm-cocoa): Mobile database that simplifies data storage and management, ideal for saving favorite currencies and live exchange rates.
 

@@ -1,2 +1,2 @@
-# ConCurrency
+# ConCurrency Application
 

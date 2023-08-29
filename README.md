@@ -9,10 +9,25 @@ The Concurrency Application is developed by the DollaPal team in collaboration w
 - Real-time Currency Conversion: Perform currency conversions in real time, ensuring you have the most up-to-date rates at your fingertips.
 - Currency Comparison: Easily compare currency values in a single place, helping investors make informed decisions quickly.
 - User-Friendly Interface: Our application provides a user-friendly interface for seamless navigation and a smooth experience.
+- **Favorite Currency List**: Save your favorite currencies to quickly access live exchange rates and compare them to other currencies.
 
 ### Localization and Accessibility
 
 We've taken localization and accessibility seriously. The Concurrency Application is available in both English and Arabic versions, making it convenient for users in Egypt and beyond. You can seamlessly switch between languages to enhance your experience.
+
+### Project Architecture
+
+The Concurrency Application follows the Model-View-ViewModel (MVVM) architecture, which provides clear separation between business logic and the view controller. This architecture enhances code organization, maintainability, and testability. In MVVM, the Model represents the data and business logic, the View displays the UI, and the ViewModel acts as a bridge between the Model and the View, handling data binding and user interactions.
+
+### Packages Used
+
+The Concurrency Application utilizes several open-source packages to enhance functionality and streamline development:
+
+- [RxSwift](https://github.com/ReactiveX/RxSwift): Reactive programming library for asynchronous and event-driven programming.
+- [SDWebImage](https://github.com/SDWebImage/SDWebImage): Efficient image loading and caching library.
+- [RxCocoa](https://github.com/ReactiveX/RxSwift/tree/main/RxCocoa): Reactive extensions for Cocoa frameworks.
+- [Alamofire](https://github.com/Alamofire/Alamofire): Elegant networking library for Swift.
+- [Realm](https://github.com/realm/realm-cocoa): Mobile database that simplifies data storage and management, ideal for saving favorite currencies and live exchange rates.
 
 ### How to Use
 

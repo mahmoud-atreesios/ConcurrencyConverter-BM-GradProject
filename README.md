@@ -1,7 +1,4 @@
 # ConCurrency Application
-
-## About Concurrency Application
-
 The Concurrency Application is developed by the **DollaPal** team in collaboration with BankMisr, an Egyptian bank. In today's fast-moving currency world, people require real-time currency conversion services, and investors need a centralized platform to compare between various currencies and access real-time values.
 
 ### Features
